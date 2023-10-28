@@ -36,105 +36,137 @@ public class AdminService {
     private RoleRepository roleRepository;
 
     // Methods related to Stores
+
+    // Create a new Store
     public Store createStore(Store store) {
         return storeRepository.save(store);
     }
 
-    public Store updateStore(Long id, Store store) {
+    // Update an existing Store
+    public Store updateStore(Long id, Store store) throws Exception {
         if (storeRepository.existsById(id)) {
             store.setId(id);
             return storeRepository.save(store);
+        } else {
+            throw new Exception("Store not found");
         }
-        return null;
     }
 
-    public void deleteStore(Long id) {
+    // Delete a Store by its ID
+    public void deleteStore(Long id) throws Exception {
         if (storeRepository.existsById(id)) {
             storeRepository.deleteById(id);
+        } else {
+            throw new Exception("Store not found");
         }
     }
 
     // Methods related to Users
+
+    // Create a new User
     public User createUser(User user) {
         return userRepository.save(user);
     }
 
-    public User updateUser(Long id, User user) {
+    // Update an existing User
+    public User updateUser(Long id, User user) throws Exception {
         if (userRepository.existsById(id)) {
             user.setId(id);
             return userRepository.save(user);
+        } else {
+            throw new Exception("User not found");
         }
-        return null;
     }
 
-    public void deleteUser(Long id) {
+    // Delete a User by its ID
+    public void deleteUser(Long id) throws Exception {
         if (userRepository.existsById(id)) {
             userRepository.deleteById(id);
+        } else {
+            throw new Exception("User not found");
         }
     }
 
-    // Methods related to Items and Categories
+    // Methods related to Items
+
+    // Create a new Item
     public Item createItem(Item item) {
         return itemRepository.save(item);
     }
 
-    public Item updateItem(Long id, Item item) {
+    // Update an existing Item
+    public Item updateItem(Long id, Item item) throws Exception {
         if (itemRepository.existsById(id)) {
             item.setId(id);
             return itemRepository.save(item);
+        } else {
+            throw new Exception("Item not found");
         }
-        return null;
     }
 
-    public void deleteItem(Long id) {
+    // Delete an Item by its ID
+    public void deleteItem(Long id) throws Exception {
         if (itemRepository.existsById(id)) {
             itemRepository.deleteById(id);
+        } else {
+            throw new Exception("Item not found");
         }
     }
 
     // Methods related to Purchase Orders
+
+    // Create a new Purchase Order
     public PurchaseOrder createPurchaseOrder(PurchaseOrder purchaseOrder) {
         return purchaseOrderRepository.save(purchaseOrder);
     }
 
-    public Optional<PurchaseOrder> getPurchaseOrderById(Long id) {
-        return purchaseOrderRepository.findById(id);
-    }
-
-    public PurchaseOrder updatePurchaseOrder(Long id, PurchaseOrder purchaseOrder) {
+    // Update an existing Purchase Order
+    public PurchaseOrder updatePurchaseOrder(Long id, PurchaseOrder purchaseOrder) throws Exception {
         if (purchaseOrderRepository.existsById(id)) {
             purchaseOrder.setId(id);
             return purchaseOrderRepository.save(purchaseOrder);
+        } else {
+            throw new Exception("Purchase Order not found");
         }
-        return null;
     }
 
-    public void deletePurchaseOrder(Long id) {
+    // Delete a Purchase Order by its ID
+    public void deletePurchaseOrder(Long id) throws Exception {
         if (purchaseOrderRepository.existsById(id)) {
             purchaseOrderRepository.deleteById(id);
+        } else {
+            throw new Exception("Purchase Order not found");
         }
     }
 
+    // Get all Purchase Orders
     public List<PurchaseOrder> getAllPurchaseOrders() {
         return purchaseOrderRepository.findAll();
     }
 
-    // Methods related to Roles (Added)
+    // Methods related to Roles
+
+    // Create a new Role
     public Role createRole(Role role) {
         return roleRepository.save(role);
     }
 
-    public Role updateRole(Long id, Role role) {
+    // Update an existing Role
+    public Role updateRole(Long id, Role role) throws Exception {
         if (roleRepository.existsById(id)) {
             role.setId(id);
             return roleRepository.save(role);
+        } else {
+            throw new Exception("Role not found");
         }
-        return null;
     }
 
-    public void deleteRole(Long id) {
+    // Delete a Role by its ID
+    public void deleteRole(Long id) throws Exception {
         if (roleRepository.existsById(id)) {
             roleRepository.deleteById(id);
+        } else {
+            throw new Exception("Role not found");
         }
     }
 }

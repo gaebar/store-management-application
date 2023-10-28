@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ItemService {
@@ -13,7 +14,7 @@ public class ItemService {
     @Autowired
     private ItemRepository itemRepository;
 
-    // Existing method to get all items
+    // Method to get all items
     public List<Item> getAllItems() {
         return itemRepository.findAll();
     }
@@ -24,36 +25,39 @@ public class ItemService {
     }
 
     // Method to update an existing item
-    public Item updateItem(Long id, Item item) {
+    public Item updateItem(Long id, Item item) throws Exception {
         if (itemRepository.existsById(id)) {
             item.setId(id);
             return itemRepository.save(item);
+        } else {
+            throw new Exception("Item not found");
         }
-        return null;
     }
 
     // Method to delete an item
-    public void deleteItem(Long id) {
+    public void deleteItem(Long id) throws Exception {
         if (itemRepository.existsById(id)) {
             itemRepository.deleteById(id);
+        } else {
+            throw new Exception("Item not found");
         }
     }
 
     // Method to search items by name
     public List<Item> searchByName(String name) {
         // Implement search logic here
-        return null;
+        return null; // Placeholder until search logic is implemented
     }
 
     // Method to search items by category
     public List<Item> searchByCategory(String category) {
         // Implement search logic here
-        return null;
+        return null; // Placeholder until search logic is implemented
     }
 
     // Method to search items by price range
     public List<Item> searchByPriceRange(double minPrice, double maxPrice) {
         // Implement search logic here
-        return null;
+        return null; // Placeholder until search logic is implemented
     }
 }

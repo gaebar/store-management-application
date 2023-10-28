@@ -20,18 +20,21 @@ public class PurchaseOrderService {
     }
 
     // Method to update an existing purchase order
-    public PurchaseOrder updatePurchaseOrder(Long id, PurchaseOrder purchaseOrder) {
+    public PurchaseOrder updatePurchaseOrder(Long id, PurchaseOrder purchaseOrder) throws Exception {
         if (purchaseOrderRepository.existsById(id)) {
             purchaseOrder.setId(id);
             return purchaseOrderRepository.save(purchaseOrder);
+        } else {
+            throw new Exception("Purchase order not found");
         }
-        return null;
     }
 
     // Method to delete a purchase order
-    public void deletePurchaseOrder(Long id) {
+    public void deletePurchaseOrder(Long id) throws Exception {
         if (purchaseOrderRepository.existsById(id)) {
             purchaseOrderRepository.deleteById(id);
+        } else {
+            throw new Exception("Purchase order not found");
         }
     }
 

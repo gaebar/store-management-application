@@ -12,6 +12,18 @@ import java.util.Objects;
  * Represents an item in the store management application.
  * Each item has an id, name, description, category, price, and an initial quantity.
  */
+
+/*
+ * Design Note:
+ *
+ * A separate "Inventory" class was not included in this design for simplicity.
+ * In this model, the inventory is implicitly represented by the items available in a store.
+ * Each Item entity has a "quantity" field, indicating the number of units available in the store.
+ *
+ * In a more complex model, an "Inventory" class could serve as a join between Store and Item,
+ * containing additional metadata about each item's presence in a particular store (e.g., quantity, location within the store, etc.).
+ */
+
 @Getter
 @Entity
 public class Item {
