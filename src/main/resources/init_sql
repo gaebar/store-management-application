@@ -1,0 +1,12 @@
+-- Drop tables if they exist
+DROP TABLE IF EXISTS store_management.store;
+
+-- Create store table
+CREATE TABLE Store (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50),
+    location VARCHAR(50),
+    contact_information VARCHAR(50),
+    store_type VARCHAR(20),
+    opening_date DATE
+);
