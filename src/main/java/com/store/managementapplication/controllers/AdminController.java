@@ -24,14 +24,14 @@ public class AdminController {
     // Only Admin can update an existing store
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/updateStore/{id}")
-    public Store updateStore(@PathVariable Long id, @RequestBody Store store) {
+    public Store updateStore(@PathVariable Long id, @RequestBody Store store) throws Exception {
         return adminService.updateStore(id, store);
     }
 
     // Only Admin can delete a store
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/deleteStore/{id}")
-    public void deleteStore(@PathVariable Long id) {
+    public void deleteStore(@PathVariable Long id) throws Exception {
         adminService.deleteStore(id);
     }
 
@@ -45,14 +45,14 @@ public class AdminController {
     // Only Admin can update an existing role
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/updateRole/{id}")
-    public Role updateRole(@PathVariable Long id, @RequestBody Role role) {
+    public Role updateRole(@PathVariable Long id, @RequestBody Role role) throws Exception {
         return adminService.updateRole(id, role);
     }
 
     // Only Admin can delete a role
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/deleteRole/{id}")
-    public void deleteRole(@PathVariable Long id) {
+    public void deleteRole(@PathVariable Long id) throws Exception {
         adminService.deleteRole(id);
     }
 }

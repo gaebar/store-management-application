@@ -1,6 +1,7 @@
 package com.store.managementapplication.services;
 
 import com.store.managementapplication.entities.Store;
+import com.store.managementapplication.exceptions.ResourceNotFoundException;
 import com.store.managementapplication.repositories.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,36 +25,36 @@ public class StoreService {
     }
 
     // Method to update a store
-    public Store updateStore(Long id, Store store) {
+    public Store updateStore(Long id, Store store) throws ResourceNotFoundException {
         if (storeRepository.existsById(id)) {
             store.setId(id);
             return storeRepository.save(store);
+        } else {
+            throw new ResourceNotFoundException("Store not found");
         }
-        return null;
     }
 
     // Method to delete a store
-    public void deleteStore(Long id) {
+    public void deleteStore(Long id) throws ResourceNotFoundException {
         if (storeRepository.existsById(id)) {
             storeRepository.deleteById(id);
+        } else {
+            throw new ResourceNotFoundException("Store not found");
         }
     }
 
     // Method to search stores by location
     public List<Store> searchByLocation(String location) {
-        // Implement search logic here
-        return null;
+        return storeRepository.findByLocationContaining(location);
     }
 
     // Method to search stores by type
     public List<Store> searchByType(String type) {
-        // Implement search logic here
-        return null;
+        return storeRepository.findByTypeContaining(type);
     }
 
     // Method to search stores by opening date
     public List<Store> searchByOpeningDate(String date) {
-        // Implement search logic here
-        return null;
+        return storeRepository.findByOpeningDateContaining(date);
     }
 }

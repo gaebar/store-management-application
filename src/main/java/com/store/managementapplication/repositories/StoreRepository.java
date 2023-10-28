@@ -6,5 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface StoreRepository extends JpaRepository<Store, Long> {
-    List<Store> findByType(String type);
+    List<Store> findByTypeContaining(String type);
+    List<Store> findByLocationContaining(String location);
+    List<Store> findByOpeningDateContaining(String date);
 }

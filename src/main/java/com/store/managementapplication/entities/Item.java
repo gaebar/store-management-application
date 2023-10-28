@@ -30,12 +30,21 @@ public class Item {
 
     /**
      * -- GETTER --
-     *  Returns the id of the item.
-     *
+     * Returns the id of the item.
+     * This is the primary key for the Item entity.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    /**
+     * -- GETTER --
+     * Returns the store ID associated with the item.
+     * This helps identify which store the item belongs to.
+     */
+    @Getter
+    private Long storeId;
+
 
     /**
      * -- GETTER --
@@ -104,6 +113,11 @@ public class Item {
         this.category = category;
     }
 
+    // Add a setter for this new field
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
+    }
+
     /**
      * Sets the price for the item.
      *
@@ -144,6 +158,7 @@ public class Item {
                 ", category='" + category + '\'' +
                 ", price=" + price +
                 ", initialQuantity=" + initialQuantity +
+                ", storeId=" + storeId +
                 '}';
     }
 }

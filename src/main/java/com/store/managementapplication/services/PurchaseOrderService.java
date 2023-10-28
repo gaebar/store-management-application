@@ -2,6 +2,7 @@ package com.store.managementapplication.services;
 
 import com.store.managementapplication.entities.PurchaseOrder;
 import com.store.managementapplication.repositories.PurchaseOrderRepository;
+import com.store.managementapplication.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,36 +15,59 @@ public class PurchaseOrderService {
     @Autowired
     private PurchaseOrderRepository purchaseOrderRepository;
 
-    // Method to create a new purchase order
+    /**
+     * Create a new purchase order.
+     * @param purchaseOrder The purchase order to create.
+     * @return The created purchase order.
+     */
     public PurchaseOrder createPurchaseOrder(PurchaseOrder purchaseOrder) {
         return purchaseOrderRepository.save(purchaseOrder);
     }
 
-    // Method to update an existing purchase order
-    public PurchaseOrder updatePurchaseOrder(Long id, PurchaseOrder purchaseOrder) throws Exception {
+
+
+    /**
+     * Update an existing purchase order.
+     * @param id The ID of the purchase order to update.
+     * @param purchaseOrder The new purchase order data.
+     * @return The updated purchase order.
+     * @throws ResourceNotFoundException if the purchase order is not found.
+     */
+    public PurchaseOrder updatePurchaseOrder(Long id, PurchaseOrder purchaseOrder) throws ResourceNotFoundException {
         if (purchaseOrderRepository.existsById(id)) {
             purchaseOrder.setId(id);
             return purchaseOrderRepository.save(purchaseOrder);
         } else {
-            throw new Exception("Purchase order not found");
+            throw new ResourceNotFoundException("Purchase order not found");
         }
     }
 
-    // Method to delete a purchase order
-    public void deletePurchaseOrder(Long id) throws Exception {
+    /**
+     * Delete an existing purchase order.
+     * @param id The ID of the purchase order to delete.
+     * @throws ResourceNotFoundException if the purchase order is not found.
+     */
+    public void deletePurchaseOrder(Long id) throws ResourceNotFoundException {
         if (purchaseOrderRepository.existsById(id)) {
             purchaseOrderRepository.deleteById(id);
         } else {
-            throw new Exception("Purchase order not found");
+            throw new ResourceNotFoundException("Purchase order not found");
         }
     }
 
-    // Method to get all purchase orders
+    /**
+     * Get all purchase orders.
+     * @return A list of all purchase orders.
+     */
     public List<PurchaseOrder> getAllPurchaseOrders() {
         return purchaseOrderRepository.findAll();
     }
 
-    // Method to get a specific purchase order by ID
+    /**
+     * Get a specific purchase order by ID.
+     * @param id The ID of the purchase order to retrieve.
+     * @return The purchase order, if found.
+     */
     public Optional<PurchaseOrder> getPurchaseOrderById(Long id) {
         return purchaseOrderRepository.findById(id);
     }

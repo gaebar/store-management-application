@@ -54,7 +54,7 @@ public class UserController {
     // Update item quantities for a specific store (Store Staff role)
     @PreAuthorize("hasRole('STORE_STAFF')")
     @PutMapping("/updateQuantity/{storeId}/{itemId}/{quantity}")
-    public Item updateItemQuantity(@PathVariable Long storeId, @PathVariable Long itemId, @PathVariable int quantity) {
+    public Item updateItemQuantity(@PathVariable Long storeId, @PathVariable Long itemId, @PathVariable int quantity) throws Exception {
         return userService.updateItemQuantity(storeId, itemId, quantity);
     }
 }

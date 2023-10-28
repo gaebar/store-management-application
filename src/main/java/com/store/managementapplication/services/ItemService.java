@@ -1,6 +1,7 @@
 package com.store.managementapplication.services;
 
 import com.store.managementapplication.entities.Item;
+import com.store.managementapplication.exceptions.ResourceNotFoundException;
 import com.store.managementapplication.repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,50 +15,77 @@ public class ItemService {
     @Autowired
     private ItemRepository itemRepository;
 
-    // Method to get all items
+    /**
+     * Get all items.
+     * @return A list of all items.
+     */
     public List<Item> getAllItems() {
         return itemRepository.findAll();
     }
 
-    // Method to create a new item
+    /**
+     * Create a new item.
+     * @param item The item to create.
+     * @return The created item.
+     */
     public Item createItem(Item item) {
         return itemRepository.save(item);
     }
 
-    // Method to update an existing item
-    public Item updateItem(Long id, Item item) throws Exception {
+    /**
+     * Update an existing item.
+     * @param id The ID of the item to update.
+     * @param item The new item data.
+     * @return The updated item.
+     * @throws ResourceNotFoundException if the item is not found.
+     */
+    public Item updateItem(Long id, Item item) throws ResourceNotFoundException {
         if (itemRepository.existsById(id)) {
             item.setId(id);
             return itemRepository.save(item);
         } else {
-            throw new Exception("Item not found");
+            throw new ResourceNotFoundException("Item not found");
         }
     }
 
-    // Method to delete an item
-    public void deleteItem(Long id) throws Exception {
+    /**
+     * Delete an existing item.
+     * @param id The ID of the item to delete.
+     * @throws ResourceNotFoundException if the item is not found.
+     */
+    public void deleteItem(Long id) throws ResourceNotFoundException {
         if (itemRepository.existsById(id)) {
             itemRepository.deleteById(id);
         } else {
-            throw new Exception("Item not found");
+            throw new ResourceNotFoundException("Item not found");
         }
     }
 
-    // Method to search items by name
+    /**
+     * Search items by name.
+     * @param name The name to search for.
+     * @return A list of items that match the name.
+     */
     public List<Item> searchByName(String name) {
-        // Implement search logic here
-        return null; // Placeholder until search logic is implemented
+        return itemRepository.findByNameContaining(name);
     }
 
-    // Method to search items by category
+    /**
+     * Search items by category.
+     * @param category The category to search for.
+     * @return A list of items that match the category.
+     */
     public List<Item> searchByCategory(String category) {
-        // Implement search logic here
-        return null; // Placeholder until search logic is implemented
+        return itemRepository.findByCategoryContaining(category);
     }
 
-    // Method to search items by price range
+    /**
+     * Search items by price range.
+     * @param minPrice The minimum price.
+     * @param maxPrice The maximum price.
+     * @return A list of items that fall within the price range.
+     */
     public List<Item> searchByPriceRange(double minPrice, double maxPrice) {
-        // Implement search logic here
-        return null; // Placeholder until search logic is implemented
+        return itemRepository.findByPriceBetween(minPrice, maxPrice);
     }
 }
