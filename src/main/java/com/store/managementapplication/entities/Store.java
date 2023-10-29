@@ -2,6 +2,8 @@ package com.store.managementapplication.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import lombok.Getter;
 
 import java.util.Date;
@@ -19,7 +21,8 @@ public class Store {
      *
      */
     @Id
-    private Long Id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     /**
      * -- GETTER --
      *  Returns the name of the store.
@@ -57,7 +60,7 @@ public class Store {
      * @param id the new id for the store.
      */
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     /**

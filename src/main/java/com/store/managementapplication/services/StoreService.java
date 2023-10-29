@@ -49,8 +49,8 @@ public class StoreService {
     }
 
     // Method to search stores by type
-    public List<Store> searchByType(String type) {
-        return storeRepository.findByTypeContaining(type);
+    public List<Store> searchByType(String storeType) {
+        return storeRepository.findByStoreTypeContaining(storeType);
     }
 
     // Method to search stores by opening date
