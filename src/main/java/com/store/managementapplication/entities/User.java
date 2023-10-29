@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -31,8 +32,8 @@ public class User implements UserDetails {
 
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "role",
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
@@ -71,6 +72,29 @@ public class User implements UserDetails {
      */
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public void setRole(Role role) {
+        if (this.roles == null) {
+            this.roles = Set.of(role);
+            return;
+        }
+        this.roles.add(role);
+    }
+
+    public Set<Role> getRoles() {
+        if (this.roles == null) {
+            this.roles = new HashSet<Role>();
+            return this.roles;
+        }
+        return roles;
+    }
+
+    public void addRole(Role role) {
+        if (this.roles == null) {
+            this.roles = new HashSet<Role>();
+        }
+        this.roles.add(role);
     }
 
     @Override
