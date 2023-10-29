@@ -1,10 +1,7 @@
 package com.store.managementapplication.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import lombok.Getter;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.Date;
 
@@ -12,46 +9,25 @@ import java.util.Date;
  * Represents a store in the store management application.
  * Each store has an id, name, location, contact information, store type, and opening date.
  */
-@Getter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Store {
-    /**
-     * -- GETTER --
-     *  Returns the id of the store.
-     *  This is the primary key for the Store entity.
-     */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    /**
-     * -- GETTER --
-     *  Returns the name of the store.
-     *
-     */
+
     private String name;
-    /**
-     * -- GETTER --
-     *  Returns the location of the store.
-     *
-     */
+
     private String location;
-    /**
-     * -- GETTER --
-     *  Returns the contact information of the store.
-     *
-     */
+
     private String contactInformation;
-    /**
-     * -- GETTER --
-     *  Returns the type of the store (e.g., retail, warehouse).
-     *
-     */
+
     private String storeType;
-    /**
-     * -- GETTER --
-     *  Returns the opening date of the store.
-     *
-     */
+
     private Date openingDate;
 
     /**

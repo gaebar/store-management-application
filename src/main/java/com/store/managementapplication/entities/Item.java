@@ -1,19 +1,16 @@
 package com.store.managementapplication.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import lombok.Getter;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import lombok.*;
 
 import java.util.Objects;
 
 /**
  * Represents an item in the store management application.
  * Each item has an id, name, description, category, price, and an initial quantity.
- */
-
-/*
+ *
  * Design Note:
  *
  * A separate "Inventory" class was not included in this design for simplicity.
@@ -23,58 +20,31 @@ import java.util.Objects;
  * In a more complex model, an "Inventory" class could serve as a join between Store and Item,
  * containing additional metadata about each item's presence in a particular store (e.g., quantity, location within the store, etc.).
  */
-
-@Getter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Item {
 
-    /**
-     * -- GETTER --
-     * Returns the id of the item.
-     * This is the primary key for the Item entity.
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /**
-     * -- GETTER --
-     * Returns the store ID associated with the item.
-     * This helps identify which store the item belongs to.
-     */
-    @Getter
     private Long storeId;
 
-
-    /**
-     * -- GETTER --
-     *  Returns the name of the item.
-     *
-     */
+    @NotNull
     private String name;
-    /**
-     * -- GETTER --
-     *  Returns the description of the item.
-     *
-     */
+
     private String description;
-    /**
-     * -- GETTER --
-     *  Returns the category of the item.
-     *
-     */
+
+    @NotNull
     private String category;
-    /**
-     * -- GETTER --
-     *  Returns the price of the item.
-     *
-     */
+
+    @Positive
     private Double price;
-    /**
-     * -- GETTER --
-     *  Returns the initial quantity of the item.
-     *
-     */
+
+    @Positive
     private Integer initialQuantity;
 
     /**

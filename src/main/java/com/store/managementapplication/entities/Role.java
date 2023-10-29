@@ -1,33 +1,25 @@
 package com.store.managementapplication.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Getter;
+import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
 
 /**
  * Represents a user role in the store management application.
  * Each role has an id and a name which denotes the permissions and responsibilities.
  */
-@Getter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-public class Role {
+@Table(name = "_role")
+public class Role implements GrantedAuthority {
 
-    /**
-     * -- GETTER --
-     *  Returns the id of the role.
-     * This is the primary key for the Role entity.
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /**
-     * -- GETTER --
-     *  Returns the name of the role.
-     *
-     */
     private String name;
 
     /**
@@ -46,5 +38,10 @@ public class Role {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String getAuthority() {
+        return name;
     }
 }

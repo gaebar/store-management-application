@@ -1,53 +1,38 @@
 package com.store.managementapplication.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.JoinColumn;
-import lombok.Getter;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Set;
 
 /**
  * Represents a user in the store management application.
  * Each user has an id, username, password, and associated roles.
  */
-@Getter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-public class User {
-    /**
-     * -- GETTER --
-     *  Returns the id of the user.
-     * This is the primary key for the User entity.
-     */
+@Table(name = "_user")
+public class User implements UserDetails {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    /**
-     * -- GETTER --
-     *  Returns the username of the user.
-     *
-     */
+
     private String username;
-    /**
-     * -- GETTER --
-     *  Returns the password of the user.
-     *
-     */
+
     private String password;
 
-    /**
-     * Represents the roles associated with the user.
-     * Uses a many-to-many relationship as a user can have multiple roles,
-     * and each role can be associated with multiple users.
-     * -- GETTER --
-     *  Returns the set of roles associated with the user.
-     *
-
-     */
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",
+    @JoinTable(name = "role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
@@ -86,5 +71,30 @@ public class User {
      */
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

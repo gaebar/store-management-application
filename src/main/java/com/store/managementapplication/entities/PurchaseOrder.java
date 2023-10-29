@@ -1,58 +1,31 @@
 package com.store.managementapplication.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.ManyToOne;
-import lombok.Getter;
+import jakarta.persistence.*;
+import lombok.*;
 
 /**
  * Represents a purchase order in the store management application.
  * Each purchase order has an id, status, associated store, item, and a quantity.
  */
-@Getter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class PurchaseOrder {
 
-    /**
-     * -- GETTER --
-     *  Returns the id of the purchase order.
-     *  This is the primary key for the PurchaseOrder entity.
-     *
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /**
-     * -- GETTER --
-     *  Returns the status of the purchase order.
-     *
-     */
     private String status;
 
-    /**
-     * -- GETTER --
-     *  Returns the store associated with the purchase order.
-     *
-     */
     @ManyToOne
     private Store store;
 
-    /**
-     * -- GETTER --
-     *  Returns the item associated with the purchase order.
-     *
-     */
     @ManyToOne
     private Item item;
 
-    /**
-     * -- GETTER --
-     *  Returns the quantity of the item in the purchase order.
-     *
-     */
     private Integer quantity;
 
     /**
