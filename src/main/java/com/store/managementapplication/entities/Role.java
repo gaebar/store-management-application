@@ -17,7 +17,7 @@ public class Role {
     /**
      * -- GETTER --
      *  Returns the id of the role.
-     *
+     * This is the primary key for the Role entity.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

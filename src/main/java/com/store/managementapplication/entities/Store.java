@@ -18,7 +18,7 @@ public class Store {
     /**
      * -- GETTER --
      *  Returns the id of the store.
-     *
+     *  This is the primary key for the Store entity.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

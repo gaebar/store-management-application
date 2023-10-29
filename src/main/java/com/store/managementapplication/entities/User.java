@@ -20,7 +20,7 @@ public class User {
     /**
      * -- GETTER --
      *  Returns the id of the user.
-     *
+     * This is the primary key for the User entity.
      */
     @Id
     private Long id;

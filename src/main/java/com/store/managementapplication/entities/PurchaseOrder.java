@@ -18,6 +18,7 @@ public class PurchaseOrder {
     /**
      * -- GETTER --
      *  Returns the id of the purchase order.
+     *  This is the primary key for the PurchaseOrder entity.
      *
      */
     @Id
