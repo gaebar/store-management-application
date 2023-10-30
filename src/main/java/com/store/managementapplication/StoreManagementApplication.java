@@ -8,7 +8,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 public class StoreManagementApplication implements ApplicationRunner {
@@ -31,7 +30,7 @@ public class StoreManagementApplication implements ApplicationRunner {
     }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         Role role = new Role();
         role.setName("ADMIN");
         roleRepository.save(role);
@@ -45,5 +44,6 @@ public class StoreManagementApplication implements ApplicationRunner {
         user.addRole(role);
         userRepository.save(user);
     }
+
 }
 
