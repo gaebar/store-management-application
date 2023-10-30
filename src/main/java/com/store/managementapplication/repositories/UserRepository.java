@@ -10,5 +10,7 @@ import java.util.Optional;
  * "User" is the entity type and "Long" is the ID type.
  */
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByUsername(String username);
+    //Optional<User> findByUsername(String username);
+    Optional<User> findByEmail(String email);
+
 }

@@ -3,6 +3,12 @@ package com.store.managementapplication.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.security.Permission;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Represents a user role in the store management application.
@@ -21,6 +27,23 @@ public class Role implements GrantedAuthority {
     private Long id;
 
     private String name;
+
+
+    public enum RoleEnum {
+        ADMIN, MANAGER, STAFF;
+    }
+
+//    @Getter
+//    private final Set<Permission> permissions;
+//
+//    public List<SimpleGrantedAuthority> getAuthorities() {
+//        var authorities = getPermissions()
+//                .stream()
+//                .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
+//                .collect(Collectors.toList());
+//        authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
+//        return authorities;
+//    }
 
     /**
      * Sets the id for the role.

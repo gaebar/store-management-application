@@ -6,10 +6,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -28,9 +30,14 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username;
-
+    // private String username;
+    private String firstname;
+    private String lastname;
+    private String email;
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role.RoleEnum role;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
@@ -45,33 +52,6 @@ public class User implements UserDetails {
      */
     public void setId(Long id) {
         this.id = id;
-    }
-
-    /**
-     * Sets the username for the user.
-     *
-     * @param username the new username for the user.
-     */
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    /**
-     * Sets the password for the user.
-     *
-     * @param password the new password for the user.
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    /**
-     * Sets the roles for the user.
-     *
-     * @param roles the new set of roles for the user.
-     */
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
     }
 
     public void setRole(Role role) {
@@ -90,6 +70,15 @@ public class User implements UserDetails {
         return roles;
     }
 
+    /**
+     * Sets the roles for the user.
+     *
+     * @param roles the new set of roles for the user.
+     */
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     public void addRole(Role role) {
         if (this.roles == null) {
             this.roles = new HashSet<Role>();
@@ -99,7 +88,35 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    /**
+     * Sets the username for the user.
+     *
+     * @param email the new email for the user.
+     */
+    public void setUsername(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * Sets the password for the user.
+     *
+     * @param password the new password for the user.
+     */
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
