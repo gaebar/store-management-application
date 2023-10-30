@@ -20,17 +20,12 @@ public class UserService {
     @Autowired
     private ItemRepository itemRepository;
 
-    // Method to get all users
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-    // Method to create a new user
+    // Create a new User
     public User createUser(User user) {
         return userRepository.save(user);
     }
 
-    // Method to update an existing user
+    // Update an existing User
     public User updateUser(Long id, User user) throws ResourceNotFoundException {
         if (userRepository.existsById(id)) {
             user.setId(id);
@@ -40,7 +35,7 @@ public class UserService {
         }
     }
 
-    // Method to delete a user
+    // Delete a User by its ID
     public void deleteUser(Long id) throws ResourceNotFoundException {
         if (userRepository.existsById(id)) {
             userRepository.deleteById(id);
@@ -49,24 +44,27 @@ public class UserService {
         }
     }
 
-    // Method to view inventory for a specific store (Store Staff role)
+    // Get all Users
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    // Additional functionalities for Store Staff can go here
     public List<Item> viewInventory(Long storeId) {
         return itemRepository.findAllByStoreId(storeId);
     }
 
-    // Method to request item additions for a specific store (Store Staff role)
     public Item requestItemAddition(Long storeId, Item item) {
-        item.setStoreId(storeId);  // Set the storeId for the new item
-        return itemRepository.save(item);  // Save the new item
+        item.setStoreId(storeId);
+        return itemRepository.save(item);
     }
 
-    // Method to update item quantities for a specific store (Store Staff role)
     public Item updateItemQuantity(Long storeId, Long itemId, int quantity) throws Exception {
         Optional<Item> existingItem = itemRepository.findById(itemId);
 
         if (existingItem.isPresent()) {
             Item item = existingItem.get();
-            item.setInitialQuantity(quantity);  // Update the initialQuantity field
+            item.setInitialQuantity(quantity);
             return itemRepository.save(item);
         } else {
             throw new Exception("Item not found in the given store");

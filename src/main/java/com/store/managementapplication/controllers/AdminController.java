@@ -1,11 +1,10 @@
 package com.store.managementapplication.controllers;
 
-import com.store.managementapplication.entities.Store;
 import com.store.managementapplication.entities.Role;
-import com.store.managementapplication.services.AdminService;
+import com.store.managementapplication.entities.Store;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin")

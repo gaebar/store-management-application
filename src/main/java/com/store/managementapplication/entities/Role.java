@@ -1,11 +1,11 @@
 package com.store.managementapplication.entities;
 
+import com.store.managementapplication.auth.Permission;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.security.Permission;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 /**
  * Represents a user role in the store management application.
  * Each role has an id and a name which denotes the permissions and responsibilities.
+ * Updated to include a set of permissions associated with each role.
  */
 @Data
 @Builder
@@ -28,22 +29,26 @@ public class Role implements GrantedAuthority {
 
     private String name;
 
+    // New: Added a Set of permissions to the Role class
+    @ElementCollection(targetClass = Permission.class)
+    @CollectionTable(name = "role_permissions", joinColumns = @JoinColumn(name = "role_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Permission> permissions;
 
-    public enum RoleEnum {
-        ADMIN, MANAGER, STAFF;
+    /**
+     * Gets the authorities granted to the role.
+     * This includes the permissions and the role itself.
+     *
+     * @return a list of authorities granted to the role.
+     */
+    public List<SimpleGrantedAuthority> getAuthorities() {
+        var authorities = getPermissions()
+                .stream()
+                .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
+                .collect(Collectors.toList());
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name));
+        return authorities;
     }
-
-//    @Getter
-//    private final Set<Permission> permissions;
-//
-//    public List<SimpleGrantedAuthority> getAuthorities() {
-//        var authorities = getPermissions()
-//                .stream()
-//                .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
-//                .collect(Collectors.toList());
-//        authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
-//        return authorities;
-//    }
 
     /**
      * Sets the id for the role.
@@ -66,5 +71,19 @@ public class Role implements GrantedAuthority {
     @Override
     public String getAuthority() {
         return name;
+    }
+
+    @Getter
+    public enum RoleEnum {
+        ADMIN(Set.of(Permission.STORE_CREATE, Permission.STORE_UPDATE, Permission.STORE_DELETE, Permission.USER_MANAGE, Permission.ITEM_MANAGE, Permission.PURCHASE_ORDER_CREATE)),
+        MANAGER(Set.of(Permission.INVENTORY_ADD, Permission.INVENTORY_MONITOR, Permission.PURCHASE_ORDER_GENERATE)),
+        STAFF(Set.of(Permission.INVENTORY_VIEW, Permission.INVENTORY_REQUEST, Permission.INVENTORY_UPDATE));
+
+        private final Set<Permission> permissions;
+
+        RoleEnum(Set<Permission> permissions) {
+            this.permissions = permissions;
+        }
+
     }
 }

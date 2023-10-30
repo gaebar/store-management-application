@@ -1,7 +1,6 @@
 package com.store.managementapplication.auth;
 
 import com.store.managementapplication.config.JwtService;
-import com.store.managementapplication.entities.Role;
 import com.store.managementapplication.entities.User;
 import com.store.managementapplication.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +26,7 @@ public class AuthenticationService {
                 .lastname(request.getLastname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.RoleEnum.STAFF)
+                .role(request.getRole())  // Set the role from the request
                 .build();
         repository.save(user);
         var jwtToken = jwtService.generateToken(user);

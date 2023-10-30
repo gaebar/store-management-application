@@ -14,17 +14,12 @@ public class StoreService {
     @Autowired
     private StoreRepository storeRepository;
 
-    // Method to get all stores
-    public List<Store> getAllStores() {
-        return storeRepository.findAll();
-    }
-
-    // Method to create a store
+    // Create a new Store
     public Store createStore(Store store) {
         return storeRepository.save(store);
     }
 
-    // Method to update a store
+    // Update an existing Store
     public Store updateStore(Long id, Store store) throws ResourceNotFoundException {
         if (storeRepository.existsById(id)) {
             store.setId(id);
@@ -34,7 +29,7 @@ public class StoreService {
         }
     }
 
-    // Method to delete a store
+    // Delete a Store by its ID
     public void deleteStore(Long id) throws ResourceNotFoundException {
         if (storeRepository.existsById(id)) {
             storeRepository.deleteById(id);
@@ -43,17 +38,20 @@ public class StoreService {
         }
     }
 
-    // Method to search stores by location
+    // Get all Stores
+    public List<Store> getAllStores() {
+        return storeRepository.findAll();
+    }
+
+    // Additional functionalities like search can go here
     public List<Store> searchByLocation(String location) {
         return storeRepository.findByLocationContaining(location);
     }
 
-    // Method to search stores by type
     public List<Store> searchByType(String storeType) {
         return storeRepository.findByStoreTypeContaining(storeType);
     }
 
-    // Method to search stores by opening date
     public List<Store> searchByOpeningDate(String date) {
         return storeRepository.findByOpeningDateContaining(date);
     }

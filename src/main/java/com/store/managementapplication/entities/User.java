@@ -10,9 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Represents a user in the store management application.
@@ -39,56 +37,68 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role.RoleEnum role;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinTable(name = "users_roles",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id"))
+//    private Set<Role> roles;
 
-    /**
-     * Sets the id for the user.
-     *
-     * @param id the new id for the user.
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    /**
+//     * Sets the id for the user.
+//     *
+//     * @param id the new id for the user.
+//     */
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
+//
+//    public void setRole(Role role) {
+//        if (this.roles == null) {
+//            this.roles = Set.of(role);
+//            return;
+//        }
+//        this.roles.add(role);
+//    }
 
-    public void setRole(Role role) {
-        if (this.roles == null) {
-            this.roles = Set.of(role);
-            return;
-        }
-        this.roles.add(role);
-    }
 
-    public Set<Role> getRoles() {
-        if (this.roles == null) {
-            this.roles = new HashSet<Role>();
-            return this.roles;
-        }
-        return roles;
-    }
+// public void setRole(Role role) {
+//     if (this.roles == null) {
+//         this.roles = Set.of(role);
+//         return;
+//     }
+//     this.roles.add(role);
+// }
 
-    /**
-     * Sets the roles for the user.
-     *
-     * @param roles the new set of roles for the user.
-     */
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
+// public Set<Role> getRoles() {
+//     if (this.roles == null) {
+//         this.roles = new HashSet<Role>();
+//         return this.roles;
+//     }
+//     return roles;
+// }
 
-    public void addRole(Role role) {
-        if (this.roles == null) {
-            this.roles = new HashSet<Role>();
-        }
-        this.roles.add(role);
-    }
+// public void setRoles(Set<Role> roles) {
+//     this.roles = roles;
+// }
+
+// public void addRole(Role role) {
+//     if (this.roles == null) {
+//         this.roles = new HashSet<Role>();
+//     }
+//     this.roles.add(role);
+// }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        // Commenting this part out because it depends on 'roles'
+        // Set<SimpleGrantedAuthority> authorities = roles.stream()
+        //     .flatMap(role -> role.getAuthorities().stream())
+        //     .collect(Collectors.toSet());
+        // authorities.add(new SimpleGrantedAuthority("ROLE_" + this.role.name()));
+        // return authorities;
+
+        // Temporary code to return only the current role as authority
+        return List.of(new SimpleGrantedAuthority("ROLE_" + this.role.name()));
     }
 
     @Override
