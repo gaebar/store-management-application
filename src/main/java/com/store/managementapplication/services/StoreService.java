@@ -43,7 +43,7 @@ public class StoreService {
         return storeRepository.findAll();
     }
 
-    // Additional functionalities like search can go here
+    // Additional functionalities
     public List<Store> searchByLocation(String location) {
         return storeRepository.findByLocationContaining(location);
     }

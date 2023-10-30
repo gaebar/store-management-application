@@ -49,7 +49,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    // Additional functionalities for Store Staff can go here
+    // Additional functionalities
     public List<Item> viewInventory(Long storeId) {
         return itemRepository.findAllByStoreId(storeId);
     }
