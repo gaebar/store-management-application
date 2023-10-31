@@ -44,12 +44,12 @@ Authorization: Bearer {{auth-token}}
   "openingDate": "2019-01-01"
 }
 
-### Get Store by id
+### Get Store by ID
 GET http://localhost:8080/stores/getStore/{{store-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
-### Delete Store by id
+### Delete Store by ID
 DELETE http://localhost:8080/admin/deleteStore/{{store-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}

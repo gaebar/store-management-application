@@ -1,4 +1,3 @@
-
 package com.store.managementapplication.repositories;
 
 import com.store.managementapplication.entities.Category;

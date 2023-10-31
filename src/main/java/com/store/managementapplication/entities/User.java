@@ -1,10 +1,7 @@
 package com.store.managementapplication.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -46,9 +43,17 @@ public class User implements UserDetails {
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-
     @Builder.Default
     private Set<Role> roles = new HashSet<>();  // Initialize to avoid null
+
+    // Getter and Setter for managedStores
+    @Getter
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "users_managed_stores",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "store_id"))
+    @Builder.Default
+    private Set<Store> managedStores = new HashSet<>();  // Initialize to avoid null
 
     // Method to add a role to the user
     public void addRole(Role role) {
@@ -71,6 +76,11 @@ public class User implements UserDetails {
     public String getPassword() {
         return password;
     }
+
+    public void setManagedStores(Set<Store> managedStores) {
+        this.managedStores = managedStores;
+    }
+
 
     @Override
     public boolean isAccountNonExpired() {

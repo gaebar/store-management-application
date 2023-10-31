@@ -1,4 +1,3 @@
-
 package com.store.managementapplication.controllers;
 
 import com.store.managementapplication.entities.Category;
@@ -8,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/api/categories")
 public class CategoryController {
 
     @Autowired
@@ -22,6 +21,11 @@ public class CategoryController {
     @PutMapping("/update/{categoryId}")
     public Category updateCategory(@PathVariable Long categoryId, @RequestBody Category category) throws ResourceNotFoundException {
         return categoryService.updateCategory(categoryId, category);
+    }
+
+    @GetMapping("/{categoryId}")
+    public Category getCategory(@PathVariable Long categoryId) throws ResourceNotFoundException {
+        return categoryService.getCategoryById(categoryId);
     }
 
     @DeleteMapping("/delete/{categoryId}")

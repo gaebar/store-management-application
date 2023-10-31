@@ -1,7 +1,10 @@
 package com.store.managementapplication.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Represents a purchase order in the store management application.
@@ -27,6 +30,11 @@ public class PurchaseOrder {
     private Item item;
 
     private Integer quantity;
+    
+    private String createdBy;
+
+    private String updatedBy;
+
 
     /**
      * Sets the id for the purchase order.
@@ -71,5 +79,23 @@ public class PurchaseOrder {
      */
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    /**
+     * Sets the created by user/role for the purchase order.
+     *
+     * @param createdBy the user or role who created the purchase order.
+     */
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    /**
+     * Sets the updated by user/role for the purchase order.
+     *
+     * @param updatedBy the user or role who last updated the purchase order.
+     */
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 }

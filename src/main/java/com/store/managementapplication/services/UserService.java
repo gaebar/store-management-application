@@ -80,4 +80,16 @@ public class UserService {
             throw new Exception("Item not found in the given store");
         }
     }
+
+    // Check if a user is a Store Manager
+    public boolean isUserStoreManager(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        return user.isPresent() && "STORE_MANAGER".equals(user.get().getRole().name());
+    }
+
+    // Check if a user is the manager of a specific store
+    public boolean isManagerOfStore(String email, Long storeId) {
+        Optional<User> user = userRepository.findByEmail(email);
+        return user.isPresent() && user.get().getManagedStores().stream().anyMatch(store -> store.getId().equals(storeId));
+    }
 }

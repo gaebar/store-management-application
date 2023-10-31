@@ -1,4 +1,3 @@
-
 package com.store.managementapplication.services;
 
 import com.store.managementapplication.entities.Category;
@@ -35,5 +34,10 @@ public class CategoryService {
         } else {
             throw new ResourceNotFoundException("Category not found");
         }
+    }
+
+    public Category getCategoryById(Long categoryId) throws ResourceNotFoundException {
+        return categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found for this id :: " + categoryId));
     }
 }

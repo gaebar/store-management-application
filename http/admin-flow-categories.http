@@ -12,38 +12,35 @@ Content-Type: application/json
     client.global.set("auth-token", response.body.token);
 %}
 
-### Create
-POST http://localhost:8080/api/users/create
+### Create Category
+POST http://localhost:8080/api/categories/create
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
 {
-  "firstname": "John",
-  "lastname": "Doe",
-  "email": "john@doe.com",
-  "password": "password",
-  "role": "STAFF"
+  "name": "Electronics"
 }
 
 > {%
-    client.global.set("user-id", response.body.id);
+    client.global.set("category-id", response.body.id);
 %}
 
-### Update User
-PUT http://localhost:8080/api/users/update/{{user-id}}
+### Update Category
+PUT http://localhost:8080/api/categories/update/{{category-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
+
 
 {
-  "firstname": "John1",
-  "lastname": "Doe1",
-  "email": "john@doe.com",
-  "password": "password",
-  "role": "MANAGER"
+  "name": "Technology"
 }
 
-### Get User
-GET http://localhost:8080/api/users/get/{{user-id}}
+### Get Category by ID
+GET http://localhost:8080/api/categories/{{category-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
+### Delete Category by ID
+DELETE http://localhost:8080/api/categories/delete/{{category-id}}
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
