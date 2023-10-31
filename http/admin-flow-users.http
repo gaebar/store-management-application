@@ -1,0 +1,51 @@
+# Super Admin login flow
+
+### Super Admin login and token generation
+
+POST http://localhost:8080/api/v1/auth/authenticate
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "adminPassword"
+}
+
+> {%
+    client.global.set("auth-token", response.body.token);
+%}
+
+### Create User
+POST http://localhost:8080/api/users/create
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
+{
+  "firstname": "John",
+  "lastname": "Doe",
+  "email": "john@doe.com",
+  "password": "password",
+  "role": "STAFF"
+}
+
+> {%
+    client.global.set("user-id", response.body.id);
+%}
+
+### Update User
+PUT http://localhost:8080/api/users/update/{{user-id}}
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
+{
+  "firstname": "John1",
+  "lastname": "Doe1",
+  "email": "john@doe.com",
+  "password": "password",
+  "role": "MANAGER"
+}
+
+### Get User
+GET http://localhost:8080/api/users/get/{{user-id}}
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+

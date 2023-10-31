@@ -4,8 +4,8 @@ import com.store.managementapplication.entities.Item;
 import com.store.managementapplication.entities.User;
 import com.store.managementapplication.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +29,14 @@ public class UserController {
     public User updateUser(@PathVariable Long id, @RequestBody User user) {
         return userService.updateUser(id, user);
     }
+
+    // Get user by id (Admin role)
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/get/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
+    }
+
 
     // Delete a user (Admin role)
     @PreAuthorize("hasRole('ADMIN')")

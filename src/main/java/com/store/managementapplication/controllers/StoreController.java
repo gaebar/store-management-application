@@ -3,8 +3,8 @@ package com.store.managementapplication.controllers;
 import com.store.managementapplication.entities.Store;
 import com.store.managementapplication.services.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,12 +27,14 @@ public class StoreController {
     }
 
     // Update an existing store
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/updateStore/{id}") // Maps to HTTP PUT and updates an existing store
     public Store updateStore(@PathVariable Long id, @RequestBody Store store) {
         return storeService.updateStore(id, store);
     }
 
     // Delete a store
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/deleteStore/{id}") // Maps to HTTP DELETE and removes a store
     public void deleteStore(@PathVariable Long id) {
         storeService.deleteStore(id);
@@ -42,6 +44,12 @@ public class StoreController {
     @GetMapping("/search/location/{location}") // Maps to HTTP GET and fetches stores by location
     public List<Store> searchByLocation(@PathVariable String location) {
         return storeService.searchByLocation(location);
+    }
+
+    // Get a store by its ID
+    @GetMapping("/getStore/{id}")
+    public Store getStore(@PathVariable Long id) throws Exception {
+        return storeService.getStore(id);
     }
 
     // Search for stores based on type

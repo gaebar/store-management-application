@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin")
+@PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
 
     @Autowired
@@ -19,42 +20,36 @@ public class AdminController {
     private RoleService roleService;  // Assuming you have created RoleService
 
     // Only Admin can create a new store
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/createStore")
     public Store createStore(@RequestBody Store store) {
         return storeService.createStore(store);
     }
 
     // Only Admin can update an existing store
-    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/updateStore/{id}")
     public Store updateStore(@PathVariable Long id, @RequestBody Store store) throws Exception {
         return storeService.updateStore(id, store);
     }
 
     // Only Admin can delete a store
-    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/deleteStore/{id}")
     public void deleteStore(@PathVariable Long id) throws Exception {
         storeService.deleteStore(id);
     }
 
     // Only Admin can create a new role
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/createRole")
     public Role createRole(@RequestBody Role role) {
         return roleService.createRole(role);
     }
 
     // Only Admin can update an existing role
-    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/updateRole/{id}")
     public Role updateRole(@PathVariable Long id, @RequestBody Role role) throws Exception {
         return roleService.updateRole(id, role);
     }
 
     // Only Admin can delete a role
-    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/deleteRole/{id}")
     public void deleteRole(@PathVariable Long id) throws Exception {
         roleService.deleteRole(id);

@@ -38,6 +38,15 @@ public class StoreService {
         }
     }
 
+    // Get a Store by its ID
+    public Store getStore(Long id) throws ResourceNotFoundException {
+        if (storeRepository.existsById(id)) {
+            return storeRepository.findById(id).get();
+        } else {
+            throw new ResourceNotFoundException("Store not found");
+        }
+    }
+
     // Get all Stores
     public List<Store> getAllStores() {
         return storeRepository.findAll();

@@ -44,6 +44,16 @@ public class UserService {
         }
     }
 
+    // Get a User by its ID
+    public User getUserById(Long id) throws ResourceNotFoundException {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            throw new ResourceNotFoundException("User not found");
+        }
+    }
+
     // Get all Users
     public List<User> getAllUsers() {
         return userRepository.findAll();
