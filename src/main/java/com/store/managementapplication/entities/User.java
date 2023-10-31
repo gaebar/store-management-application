@@ -33,11 +33,13 @@ public class User implements UserDetails {
     // Personal information fields
     private String firstname;
     private String lastname;
+
+    @Column(unique = true)
     private String email;
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Role.RoleEnum role;
+    private Role.RoleType role;
 
     // Relationship mapping between User and Role
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

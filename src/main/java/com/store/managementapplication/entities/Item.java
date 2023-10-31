@@ -3,20 +3,23 @@ package com.store.managementapplication.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
 /**
  * Represents an item in the store management application.
  * Each item has an id, name, description, category, price, and an initial quantity.
- *
+ * <p>
  * Design Note:
- *
+ * <p>
  * A separate "Inventory" class was not included in this design for simplicity.
  * In this model, the inventory is implicitly represented by the items available in a store.
  * Each Item entity has a "quantity" field, indicating the number of units available in the store.
- *
+ * <p>
  * In a more complex model, an "Inventory" class could serve as a join between Store and Item,
  * containing additional metadata about each item's presence in a particular store (e.g., quantity, location within the store, etc.).
  */
@@ -34,6 +37,7 @@ public class Item {
     private Long storeId;
 
     @NotNull
+    @Column(unique = true)
     private String name;
 
     private String description;

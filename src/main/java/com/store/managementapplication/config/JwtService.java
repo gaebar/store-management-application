@@ -3,26 +3,34 @@ package com.store.managementapplication.config;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
+import java.security.SecureRandom;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+
 @Service
 public class JwtService {
 
-    private static final String SECRET_KEY = "C0BYICaq9umufcoIpj1fnJRc3kSVlrCu";
+
+    byte[] SECRET_KEY_BYTES = generateSecretKey();
+
+    private static byte[] generateSecretKey() {
+        SecureRandom secureRandom = new SecureRandom();
+        byte[] bytes = new byte[256];
+        secureRandom.nextBytes(bytes);
+        return bytes;
+    }
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
-
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
@@ -70,7 +78,6 @@ public class JwtService {
     }
 
     private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
-        return Keys.hmacShaKeyFor(keyBytes);
+        return Keys.hmacShaKeyFor(SECRET_KEY_BYTES);
     }
 }

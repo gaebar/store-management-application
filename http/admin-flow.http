@@ -1,0 +1,47 @@
+# Super Admin login flow
+
+### Super Admin login and token generation
+
+POST http://localhost:8080/api/v1/auth/authenticate
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "adminPassword"
+}
+
+> {%
+    client.global.set("auth-token", response.body.token);
+%}
+
+### Create Store and save store id in global variable
+POST http://localhost:8080/admin/createStore
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
+{
+  "name": "Redmond Megastore",
+  "location": "123 Red Street, Redmond, WA 98074",
+  "contactInformation": "Telephone Number: 1234567890",
+  "storeType": "retail",
+  "openingDate": "2019-01-01"
+}
+
+> {%
+    client.global.set("store-id", response.body.id);
+%}
+
+### Update Store
+PUT http://localhost:8080/admin/updateStore
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
+{
+  "id": "{{store-id}}",
+  "name": "Redmond Megastore",
+  "location": "234 Blue Street, Redmond, WA 98074",
+  "contactInformation": "Telephone Number: 1234567890",
+  "storeType": "retail",
+  "openingDate": "2019-01-01"
+}
+

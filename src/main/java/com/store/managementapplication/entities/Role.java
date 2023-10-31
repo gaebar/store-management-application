@@ -27,6 +27,7 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String name;
 
     // New: Added a Set of permissions to the Role class
@@ -74,14 +75,14 @@ public class Role implements GrantedAuthority {
     }
 
     @Getter
-    public enum RoleEnum {
+    public enum RoleType {
         ADMIN(Set.of(Permission.STORE_CREATE, Permission.STORE_UPDATE, Permission.STORE_DELETE, Permission.USER_MANAGE, Permission.ITEM_MANAGE, Permission.PURCHASE_ORDER_CREATE)),
         MANAGER(Set.of(Permission.INVENTORY_ADD, Permission.INVENTORY_MONITOR, Permission.PURCHASE_ORDER_GENERATE)),
         STAFF(Set.of(Permission.INVENTORY_VIEW, Permission.INVENTORY_REQUEST, Permission.INVENTORY_UPDATE));
 
         private final Set<Permission> permissions;
 
-        RoleEnum(Set<Permission> permissions) {
+        RoleType(Set<Permission> permissions) {
             this.permissions = permissions;
         }
 

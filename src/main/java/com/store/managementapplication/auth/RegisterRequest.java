@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RegisterRequest {
 
-    private Role.RoleEnum role;
-    
+    private Role.RoleType role;
+
     private String firstname;
     private String lastname;
     private String email;
