@@ -5,6 +5,17 @@ Status: Work in Progress
 ## Overview
 The Store Management Application streamlines the process of opening new stores, managing inventory, and optimizing store operations. The main aim is to eliminate the inefficiencies, inaccuracies, and delays in store operations that arise from manual processes.
 
+## Technology Stack
+- **Backend:** [Java](https://www.java.com/) with [Spring Boot](https://spring.io/projects/spring-boot)
+- **Security:** [Spring Security](https://spring.io/projects/spring-security) with JWT for authentication
+- **Database:** [H2 Database](https://www.h2database.com/)
+- **Object-Relational Mapping (ORM):** [Hibernate](https://hibernate.org/) with [JPA](https://jakarta.ee/specifications/persistence/)
+- **Data Validation:** [Jakarta Persistence API](https://jakarta.ee/specifications/persistence/)
+- **Build and Dependency Management:** [Maven](https://maven.apache.org/)
+- **Code Simplification:** [Lombok](https://projectlombok.org/)
+- **API Design:** RESTful APIs
+
+
 ## Features
 - **Store Creation and Search:** Allows admins to create stores and users to search for them based on various criteria.
 - **Item Creation and Search:** Admins can create items and users can search for items.
