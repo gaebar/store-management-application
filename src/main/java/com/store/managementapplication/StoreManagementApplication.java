@@ -9,6 +9,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootApplication
 public class StoreManagementApplication implements ApplicationRunner {
@@ -31,6 +32,7 @@ public class StoreManagementApplication implements ApplicationRunner {
 
     // The run method that Spring Boot calls when the application starts
     @Override
+    @Transactional  // Ensure this method runs in a transactional context
     public void run(ApplicationArguments args) {
         // Create a new Role object and save it
         Role role = new Role();
