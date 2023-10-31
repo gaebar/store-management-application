@@ -10,7 +10,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Represents a user in the store management application.
@@ -28,7 +30,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // private String username;
+    // Personal information fields
     private String firstname;
     private String lastname;
     private String email;
@@ -37,67 +39,23 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role.RoleEnum role;
 
-//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @JoinTable(name = "users_roles",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "role_id"))
-//    private Set<Role> roles;
+    // Relationship mapping between User and Role
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
 
-//    /**
-//     * Sets the id for the user.
-//     *
-//     * @param id the new id for the user.
-//     */
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
-//    public void setRole(Role role) {
-//        if (this.roles == null) {
-//            this.roles = Set.of(role);
-//            return;
-//        }
-//        this.roles.add(role);
-//    }
+    @Builder.Default
+    private Set<Role> roles = new HashSet<>();  // Initialize to avoid null
 
-
-// public void setRole(Role role) {
-//     if (this.roles == null) {
-//         this.roles = Set.of(role);
-//         return;
-//     }
-//     this.roles.add(role);
-// }
-
-// public Set<Role> getRoles() {
-//     if (this.roles == null) {
-//         this.roles = new HashSet<Role>();
-//         return this.roles;
-//     }
-//     return roles;
-// }
-
-// public void setRoles(Set<Role> roles) {
-//     this.roles = roles;
-// }
-
-// public void addRole(Role role) {
-//     if (this.roles == null) {
-//         this.roles = new HashSet<Role>();
-//     }
-//     this.roles.add(role);
-// }
+    // Method to add a role to the user
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Commenting this part out because it depends on 'roles'
-        // Set<SimpleGrantedAuthority> authorities = roles.stream()
-        //     .flatMap(role -> role.getAuthorities().stream())
-        //     .collect(Collectors.toSet());
-        // authorities.add(new SimpleGrantedAuthority("ROLE_" + this.role.name()));
-        // return authorities;
-
-        // Temporary code to return only the current role as authority
+        // Convert roles to a list of SimpleGrantedAuthorities
         return List.of(new SimpleGrantedAuthority("ROLE_" + this.role.name()));
     }
 
@@ -106,27 +64,10 @@ public class User implements UserDetails {
         return email;
     }
 
-    /**
-     * Sets the username for the user.
-     *
-     * @param email the new email for the user.
-     */
-    public void setUsername(String email) {
-        this.email = email;
-    }
-
+    // Other UserDetails methods
     @Override
     public String getPassword() {
         return password;
-    }
-
-    /**
-     * Sets the password for the user.
-     *
-     * @param password the new password for the user.
-     */
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.store.managementapplication.config;
 
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -21,7 +20,7 @@ public class JwtService {
     private static final String SECRET_KEY = "C0BYICaq9umufcoIpj1fnJRc3kSVlrCu";
 
     public String extractUsername(String token) {
-        return null;
+        return extractClaim(token, Claims::getSubject);
     }
 
 

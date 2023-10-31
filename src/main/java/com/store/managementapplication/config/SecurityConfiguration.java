@@ -11,9 +11,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static com.store.managementapplication.auth.Permission.*;
-import static com.store.managementapplication.entities.Role.RoleEnum.ADMIN;
-import static com.store.managementapplication.entities.Role.RoleEnum.MANAGER;
-import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 
@@ -30,7 +27,6 @@ public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthenticationProvider authenticationProvider;
 
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -39,12 +35,7 @@ public class SecurityConfiguration {
                         req
                                 .requestMatchers(AUTH_ALLOW_LIST)
                                 .permitAll()
-
-                                .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
-                                .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
-                                .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN_CREATE.name(), MANAGER_CREATE.name())
-                                .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN_UPDATE.name(), MANAGER_UPDATE.name())
-                                .requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(ADMIN_DELETE.name(), MANAGER_DELETE.name())
+                                .requestMatchers("/api/v1/management/**").hasAnyAuthority(STORE_CREATE.getPermission(), STORE_UPDATE.getPermission(), STORE_DELETE.getPermission(), USER_MANAGE.getPermission(), ITEM_MANAGE.getPermission(), PURCHASE_ORDER_CREATE.getPermission())
                                 .anyRequest()
                                 .authenticated()
                 )
