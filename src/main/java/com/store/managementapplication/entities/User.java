@@ -13,7 +13,7 @@ import java.util.Set;
 
 /**
  * Represents a user in the store management application.
- * Each user has an id, username, password, and associated roles.
+ * Each user has an id, username, password, and associated stores.
  */
 @Data
 @Builder
@@ -38,14 +38,6 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role.RoleType role;
 
-    // Relationship mapping between User and Role
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    @Builder.Default
-    private Set<Role> roles = new HashSet<>();  // Initialize to avoid null
-
     // Getter and Setter for managedStores
     @Getter
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -56,8 +48,8 @@ public class User implements UserDetails {
     private Set<Store> managedStores = new HashSet<>();  // Initialize to avoid null
 
     // Method to add a role to the user
-    public void addRole(Role role) {
-        this.roles.add(role);
+    public void addManagedStore(Store store) {
+        this.managedStores.add(store);
     }
 
     @Override

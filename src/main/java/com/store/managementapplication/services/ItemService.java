@@ -44,12 +44,7 @@ public class ItemService {
 //    public List<Item> viewInventoryByStore(Long storeId) {
 //        return itemRepository.findAllByStoreId(storeId);
 //    }
-
-    // Logic for Store Staff to request item addition
-    public Item requestItemAddition(Item item) {
-        item.setStatus("Requested");
-        return itemRepository.save(item);
-    }
+    
 
 //    // Logic for Store Staff to update item status
 //    public Item updateItemStatus(Long itemId, String newStatus) throws ResourceNotFoundException {

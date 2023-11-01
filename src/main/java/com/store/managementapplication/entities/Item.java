@@ -53,8 +53,6 @@ public class Item {
     @Positive
     private Integer initialQuantity;
 
-    @NotNull
-    private String status;
 
     @Positive
     private Integer quantity;
@@ -96,14 +94,6 @@ public class Item {
         this.category = category;
     }
 
-    /**
-     * Sets the status for the item.
-     *
-     * @param status the new status for the item.
-     */
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     /**
      * Sets the current quantity for the item.
@@ -167,7 +157,6 @@ public class Item {
                 ", category='" + category + '\'' +
                 ", price=" + price +
                 ", initialQuantity=" + initialQuantity +
-                ", status='" + status + '\'' +
                 ", quantity=" + quantity +
                 '}';
     }
