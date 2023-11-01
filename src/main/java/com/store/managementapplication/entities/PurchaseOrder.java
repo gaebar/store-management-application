@@ -1,7 +1,10 @@
 package com.store.managementapplication.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -24,8 +27,7 @@ public class PurchaseOrder {
 
     @OneToMany(mappedBy = "purchaseOrder")
     private List<PurchaseOrderLineItem> purchaseOrderLineItems;
-    
-    @Getter
+
     @ManyToOne
     private Item item;
 
