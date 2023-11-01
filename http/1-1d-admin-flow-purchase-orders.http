@@ -40,7 +40,7 @@ Authorization: Bearer {{auth-token}}
 }
 
 > {%
-    client.global.set("category-id", response.body.id);
+    client.global.set("itemCategory-id", response.body.id);
 %}
 
 
@@ -51,7 +51,7 @@ Content-Type: application/json
 {
   "name": "Item 1",
   "description": "Item 1 description",
-  "category": "{{category-id}}",
+  "itemCategory": "{{itemCategory-id}}",
   "price": 10.0,
   "quantity": 100,
   "initialQuantity": 100

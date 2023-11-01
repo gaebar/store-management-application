@@ -122,18 +122,6 @@ public class Item {
         this.initialQuantity = initialQuantity;
     }
 
-//    public void setStore(Store store) {
-//        this.store = store;
-//        this.storeId = (store != null ? store.getId() : null);
-//    }
-//
-//    public void setStoreId(Long storeId) {
-//        if (this.store == null) {
-//            this.store = new Store();
-//        }
-//        this.store.setId(storeId);
-//    }
-
 
     @Override
     public boolean equals(Object o) {

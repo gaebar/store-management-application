@@ -1,6 +1,6 @@
 package com.store.managementapplication.services;
 
-import com.store.managementapplication.entities.Category;
+import com.store.managementapplication.entities.ItemCategory;
 import com.store.managementapplication.exceptions.ResourceNotFoundException;
 import com.store.managementapplication.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
@@ -15,18 +15,18 @@ public class CategoryService {
     }
 
 
-    // Create a new category
-    public Category createCategory(Category category) {
-        return categoryRepository.save(category);
+    // Create a new itemCategory
+    public ItemCategory createCategory(ItemCategory itemCategory) {
+        return categoryRepository.save(itemCategory);
     }
 
     // Update an existing category
-    public Category updateCategory(Long categoryId, Category updatedCategory) throws ResourceNotFoundException {
+    public ItemCategory updateCategory(Long categoryId, ItemCategory updatedItemCategory) throws ResourceNotFoundException {
         if (categoryRepository.existsById(categoryId)) {
-            updatedCategory.setId(categoryId);
-            return categoryRepository.save(updatedCategory);
+            updatedItemCategory.setId(categoryId);
+            return categoryRepository.save(updatedItemCategory);
         } else {
-            throw new ResourceNotFoundException("Category not found");
+            throw new ResourceNotFoundException("ItemCategory not found");
         }
     }
 
@@ -35,12 +35,12 @@ public class CategoryService {
         if (categoryRepository.existsById(categoryId)) {
             categoryRepository.deleteById(categoryId);
         } else {
-            throw new ResourceNotFoundException("Category not found");
+            throw new ResourceNotFoundException("ItemCategory not found");
         }
     }
 
-    public Category getCategoryById(Long categoryId) throws ResourceNotFoundException {
+    public ItemCategory getCategoryById(Long categoryId) throws ResourceNotFoundException {
         return categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new ResourceNotFoundException("Category not found for this id :: " + categoryId));
+                .orElseThrow(() -> new ResourceNotFoundException("ItemCategory not found for this id :: " + categoryId));
     }
 }

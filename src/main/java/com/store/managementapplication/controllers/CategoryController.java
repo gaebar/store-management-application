@@ -1,6 +1,6 @@
 package com.store.managementapplication.controllers;
 
-import com.store.managementapplication.entities.Category;
+import com.store.managementapplication.entities.ItemCategory;
 import com.store.managementapplication.exceptions.ResourceNotFoundException;
 import com.store.managementapplication.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,17 +14,17 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping("/create")
-    public Category createCategory(@RequestBody Category category) {
-        return categoryService.createCategory(category);
+    public ItemCategory createCategory(@RequestBody ItemCategory itemCategory) {
+        return categoryService.createCategory(itemCategory);
     }
 
     @PutMapping("/update/{categoryId}")
-    public Category updateCategory(@PathVariable Long categoryId, @RequestBody Category category) throws ResourceNotFoundException {
-        return categoryService.updateCategory(categoryId, category);
+    public ItemCategory updateCategory(@PathVariable Long categoryId, @RequestBody ItemCategory itemCategory) throws ResourceNotFoundException {
+        return categoryService.updateCategory(categoryId, itemCategory);
     }
 
     @GetMapping("/{categoryId}")
-    public Category getCategory(@PathVariable Long categoryId) throws ResourceNotFoundException {
+    public ItemCategory getCategory(@PathVariable Long categoryId) throws ResourceNotFoundException {
         return categoryService.getCategoryById(categoryId);
     }
 

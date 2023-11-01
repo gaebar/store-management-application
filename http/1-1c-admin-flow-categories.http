@@ -22,11 +22,11 @@ Authorization: Bearer {{auth-token}}
 }
 
 > {%
-    client.global.set("category-id", response.body.id);
+    client.global.set("itemCategory-id", response.body.id);
 %}
 
 ### Update Category
-PUT http://localhost:8080/api/categories/update/{{category-id}}
+PUT http://localhost:8080/api/categories/update/{{itemCategory-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
@@ -35,7 +35,7 @@ Authorization: Bearer {{auth-token}}
 }
 
 ### Get Category by ID
-GET http://localhost:8080/api/categories/{{category-id}}
+GET http://localhost:8080/api/categories/{{itemCategory-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
@@ -44,6 +44,6 @@ Authorization: Bearer {{auth-token}}
 %}
 
 ### Delete Category by ID
-DELETE http://localhost:8080/api/categories/delete/{{category-id}}
+DELETE http://localhost:8080/api/categories/delete/{{itemCategory-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
