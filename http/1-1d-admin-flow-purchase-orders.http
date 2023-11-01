@@ -1,3 +1,4 @@
+
 ### Authenticate as Admin and save token
 
 POST http://localhost:8080/api/v1/auth/authenticate
@@ -12,7 +13,7 @@ Content-Type: application/json
     client.global.set("auth-token", response.body.token);
 %}
 
-### Create Store and save store id in global variable
+### Create Store 1 (Kirkland Megastore) and save store id in global variable
 POST http://localhost:8080/admin/createStore
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
@@ -26,11 +27,27 @@ Authorization: Bearer {{auth-token}}
 }
 
 > {%
-    client.global.set("store-id", response.body.id);
+    client.global.set("store1-id", response.body.id);
 %}
 
+### Create Store 2 (Bellevue MiniMart) and save store id in global variable
+POST http://localhost:8080/admin/createStore
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
 
-### Create Category
+{
+  "name": "Bellevue MiniMart",
+  "location": "456 Blue Avenue, Bellevue, WA 98004",
+  "contactInformation": "Telephone Number: 9876543210",
+  "storeType": "convenience",
+  "openingDate": "2020-01-15"
+}
+
+> {%
+    client.global.set("store2-id", response.body.id);
+%}
+
+### Create Category 1 (Beauty) and save category id in global variable
 POST http://localhost:8080/api/categories/create
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
@@ -41,35 +58,81 @@ Authorization: Bearer {{auth-token}}
 }
 
 > {%
-    client.global.set("itemCategory-id", response.body.id);
+    client.global.set("category1-id", response.body.id);
 %}
 
-
-### Create item 1
+### Create Item 1 (Lipstick)
 POST http://localhost:8080/api/items/create
 Content-Type: application/json
 
 {
-  "name": "Item 1",
-  "description": "Item 1 description",
-  "itemCategory": "{{itemCategory-id}}",
-  "price": 10.0,
-  "quantity": 100,
-  "initialQuantity": 100
+  "name": "Lipstick",
+  "description": "Matte finish, long-lasting",
+  "itemCategory": "{{category1-id}}",
+  "price": 20.0,
+  "quantity": 50,
+  "initialQuantity": 50
 }
 
+> {%
+    client.global.set("lipstick-id", response.body.id);
+%}
 
+### Create Category 2 (Electronics)
+POST http://localhost:8080/api/categories/create
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
 
-### Create Order as Admin
+{
+  "name": "Electronics",
+  "supplier": "Supplier 2"
+}
+
+> {%
+    client.global.set("category2-id", response.body.id);
+%}
+
+### Create Item 2 (Smartphone)
+POST http://localhost:8080/api/items/create
+Content-Type: application/json
+
+{
+  "name": "Smartphone",
+  "description": "Android, 128GB storage",
+  "itemCategory": "{{category2-id}}",
+  "price": 499.99,
+  "quantity": 20,
+  "initialQuantity": 20
+}
+
+> {%
+    client.global.set("smartphone-id", response.body.id);
+%}
+
+### Create Order as Admin for Kirkland Megastore
 POST http://localhost:8080/api/orders/create
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
 {
     "status": "CREATED",
-    "store": {{store-id}},
+    "store": {{store1-id}},
     "items": [
-        {"id": 1, "quantity": 25},
-        {"id": 2, "quantity": 4},
-        {"id": 3, "quantity": 5}]
+        {"id": "{{lipstick-id}}", "quantity": 25},
+        {"id": "{{smartphone-id}}", "quantity": 4}
+    ]
+}
+
+### Create Order as Admin for Bellevue MiniMart
+POST http://localhost:8080/api/orders/create
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
+{
+    "status": "CREATED",
+    "store": {{store2-id}},
+    "items": [
+        {"id": "{{lipstick-id}}", "quantity": 5},
+        {"id": "{{smartphone-id}}", "quantity": 10}
+    ]
 }
