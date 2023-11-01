@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -45,12 +43,12 @@ public class UserController {
         userService.deleteUser(id);
     }
 
-    // View inventory for a specific store (Store Staff role)
-    @PreAuthorize("hasRole('STORE_STAFF')")
-    @GetMapping("/inventory/{storeId}")
-    public List<Item> viewInventory(@PathVariable Long storeId) {
-        return userService.viewInventory(storeId);
-    }
+//    // View inventory for a specific store (Store Staff role)
+//    @PreAuthorize("hasRole('STORE_STAFF')")
+//    @GetMapping("/inventory/{storeId}")
+//    public List<Item> viewInventory(@PathVariable Long storeId) {
+//        return userService.viewInventory(storeId);
+//    }
 
     // Request item additions for a specific store (Store Staff role)
     @PreAuthorize("hasRole('STORE_STAFF')")

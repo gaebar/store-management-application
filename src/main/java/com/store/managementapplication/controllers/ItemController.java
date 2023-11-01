@@ -2,9 +2,8 @@ package com.store.managementapplication.controllers;
 
 import com.store.managementapplication.entities.Item;
 import com.store.managementapplication.services.ItemService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -12,8 +11,11 @@ import java.util.List;
 @RequestMapping("/api/items")
 public class ItemController {
 
-    @Autowired
-    private ItemService itemService;
+    private final ItemService itemService;
+
+    public ItemController(ItemService itemService) {
+        this.itemService = itemService;
+    }
 
     // Only admins and store managers can create a new item
     @PreAuthorize("hasAnyRole('ADMIN', 'STORE_MANAGER')")
@@ -35,6 +37,31 @@ public class ItemController {
     public void deleteItem(@PathVariable Long id) {
         itemService.deleteItem(id);
     }
+
+    /*
+
+    // Store Staff can view store inventory
+    @PreAuthorize("hasRole('STORE_STAFF')")
+    @GetMapping("/viewInventory/{storeId}")
+    public List<Item> viewInventoryByStore(@PathVariable Long storeId) {
+        return itemService.viewInventoryByStore(storeId);
+    }
+
+    // Store Staff can request item additions
+    @PreAuthorize("hasRole('STORE_STAFF')")
+    @PostMapping("/requestAddition")
+    public Item requestItemAddition(@RequestBody Item item) {
+        return itemService.requestItemAddition(item);
+    }
+
+    // Store Staff can update item statuses
+    @PreAuthorize("hasPermission('item:status_update')")
+    @PutMapping("/updateStatus/{itemId}/{newStatus}")
+    public Item updateItemStatus(@PathVariable Long itemId, @PathVariable String newStatus) {
+        return new Item(); //itemService.updateItemStatus(itemId, newStatus);
+    }
+
+    */
 
     // Any authenticated user can search for items by name
     @GetMapping("/search/name/{name}")

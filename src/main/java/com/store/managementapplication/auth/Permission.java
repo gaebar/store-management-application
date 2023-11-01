@@ -27,7 +27,10 @@ public enum Permission {
     // Store Staff permissions
     INVENTORY_VIEW("inventory:view"),
     INVENTORY_REQUEST("inventory:request"),
-    INVENTORY_UPDATE("inventory:update");
+    INVENTORY_UPDATE("inventory:update"),
+
+    // Store Staff permissions for item status update
+    ITEM_STATUS_UPDATE("item:status_update");
 
     private final String permission;
 }

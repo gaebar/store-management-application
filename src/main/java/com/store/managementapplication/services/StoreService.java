@@ -3,7 +3,6 @@ package com.store.managementapplication.services;
 import com.store.managementapplication.entities.Store;
 import com.store.managementapplication.exceptions.ResourceNotFoundException;
 import com.store.managementapplication.repositories.StoreRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +10,11 @@ import java.util.List;
 @Service
 public class StoreService {
 
-    @Autowired
-    private StoreRepository storeRepository;
+    private final StoreRepository storeRepository;
+
+    public StoreService(StoreRepository storeRepository) {
+        this.storeRepository = storeRepository;
+    }
 
     // Create a new Store
     public Store createStore(Store store) {
@@ -39,12 +41,9 @@ public class StoreService {
     }
 
     // Get a Store by its ID
-    public Store getStore(Long id) throws ResourceNotFoundException {
-        if (storeRepository.existsById(id)) {
-            return storeRepository.findById(id).get();
-        } else {
-            throw new ResourceNotFoundException("Store not found");
-        }
+    public Store getStoreById(Long id) throws ResourceNotFoundException {
+        return storeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Store not found"));
     }
 
     // Get all Stores

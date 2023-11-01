@@ -48,8 +48,8 @@ public class StoreController {
 
     // Get a store by its ID
     @GetMapping("/getStore/{id}")
-    public Store getStore(@PathVariable Long id) throws Exception {
-        return storeService.getStore(id);
+    public Store getStore(@PathVariable Long id) {
+        return storeService.getStoreById(id);
     }
 
     // Search for stores based on type

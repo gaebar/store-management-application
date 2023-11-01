@@ -34,7 +34,9 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long storeId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "storeId", referencedColumnName = "id")
+    private Store store;
 
     @NotNull
     @Column(unique = true)
@@ -50,6 +52,12 @@ public class Item {
 
     @Positive
     private Integer initialQuantity;
+
+    @NotNull
+    private String status;
+
+    @Positive
+    private Integer quantity;
 
     /**
      * Sets the id for the item.
@@ -87,9 +95,22 @@ public class Item {
         this.category = category;
     }
 
-    // Add a setter for this new field
-    public void setStoreId(Long storeId) {
-        this.storeId = storeId;
+    /**
+     * Sets the status for the item.
+     *
+     * @param status the new status for the item.
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    /**
+     * Sets the current quantity for the item.
+     *
+     * @param quantity the new current quantity for the item.
+     */
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     /**
@@ -109,6 +130,15 @@ public class Item {
     public void setInitialQuantity(Integer initialQuantity) {
         this.initialQuantity = initialQuantity;
     }
+
+
+    public void setStoreId(Long storeId) {
+        if (this.store == null) {
+            this.store = new Store();
+        }
+        this.store.setId(storeId);
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -132,7 +162,8 @@ public class Item {
                 ", category='" + category + '\'' +
                 ", price=" + price +
                 ", initialQuantity=" + initialQuantity +
-                ", storeId=" + storeId +
+                ", status='" + status + '\'' +
+                ", quantity=" + quantity +
                 '}';
     }
 }

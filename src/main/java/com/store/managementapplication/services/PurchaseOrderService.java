@@ -2,8 +2,9 @@ package com.store.managementapplication.services;
 
 import com.store.managementapplication.entities.PurchaseOrder;
 import com.store.managementapplication.exceptions.ResourceNotFoundException;
+import com.store.managementapplication.repositories.ItemRepository;
 import com.store.managementapplication.repositories.PurchaseOrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.store.managementapplication.repositories.StoreRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -14,15 +15,30 @@ import java.util.Optional;
 @Service
 public class PurchaseOrderService {
 
-    @Autowired
-    private PurchaseOrderRepository purchaseOrderRepository;
+    private final PurchaseOrderRepository purchaseOrderRepository;
+
+    private final ItemRepository itemRepository;
+    private final StoreRepository storeRepository;
+
+    public PurchaseOrderService(PurchaseOrderRepository purchaseOrderRepository, ItemRepository itemRepository, StoreRepository storeRepository) {
+        this.purchaseOrderRepository = purchaseOrderRepository;
+        this.itemRepository = itemRepository;
+        this.storeRepository = storeRepository;
+    }
 
     // Create a new Purchase Order
     public PurchaseOrder createPurchaseOrder(PurchaseOrder purchaseOrder) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserRole = authentication.getAuthorities().toString();  // This will give you a list of roles; you may need to format it
-        purchaseOrder.setCreatedBy(currentUserRole);
-        return purchaseOrderRepository.save(purchaseOrder);
+        // Check if Item and Store exist
+        if (itemRepository.existsById(purchaseOrder.getItem().getId()) &&
+                storeRepository.existsById(purchaseOrder.getStore().getId())) {
+
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String currentUserRole = authentication.getAuthorities().toString();
+            purchaseOrder.setCreatedBy(currentUserRole);
+            return purchaseOrderRepository.save(purchaseOrder);
+        } else {
+            throw new ResourceNotFoundException("Item or Store not found");
+        }
     }
 
     // Update an existing Purchase Order
