@@ -34,6 +34,9 @@ public class Store {
 
     private Date openingDate;
 
+    @ManyToOne
+    private PurchaseOrder purchaseOrder;
+
     /**
      * Sets the id for the store.
      *

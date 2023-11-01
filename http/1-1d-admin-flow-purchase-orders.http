@@ -36,7 +36,8 @@ Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
 {
-  "name": "Beauty"
+  "name": "Beauty",
+  "supplier": "Supplier 1"
 }
 
 > {%
@@ -65,14 +66,12 @@ Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
 {
-  "status": "APPROVED",
-  "store": {
-    "id": 1
-  },
-  "item": {
-    "id": 1
-  },
-  "quantity": 10
+    "status": "CREATED",
+    "store": {{store-id}},
+    "items": [
+        {"id": 1, "quantity": 25},
+        {"id": 2, "quantity": 4},
+        {"id": 3, "quantity": 5}]
 }
 
 ### Update Order as Admin
