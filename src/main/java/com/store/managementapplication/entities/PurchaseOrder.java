@@ -1,10 +1,7 @@
 package com.store.managementapplication.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * Represents a purchase order in the store management application.
@@ -27,4 +24,13 @@ public class PurchaseOrder {
     private PurchaseOrderLineItem purchaseOrderLineItem;
 
     private Integer quantity;
+
+    @Getter
+    @ManyToOne
+    private Item item;
+
+    @Getter
+    @ManyToOne
+    private Store store;
+
 }

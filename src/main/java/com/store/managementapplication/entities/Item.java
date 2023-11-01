@@ -3,10 +3,7 @@ package com.store.managementapplication.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Objects;
 
@@ -30,6 +27,8 @@ import java.util.Objects;
 @Entity
 public class Item {
 
+    // Getter method
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -56,7 +55,6 @@ public class Item {
 
     @Positive
     private Integer quantity;
-
 
     /**
      * Sets the id for the item.
