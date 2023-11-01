@@ -18,7 +18,7 @@ Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
 {
-  "name": "Electronics"
+  "name": "Technology"
 }
 
 > {%
@@ -30,15 +30,18 @@ PUT http://localhost:8080/api/categories/update/{{category-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
-
 {
-  "name": "Technology"
+  "name": "Electronics"
 }
 
 ### Get Category by ID
 GET http://localhost:8080/api/categories/{{category-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
+
+> {%
+    client.assert(response.body.name == "Electronics");
+%}
 
 ### Delete Category by ID
 DELETE http://localhost:8080/api/categories/delete/{{category-id}}

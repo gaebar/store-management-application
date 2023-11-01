@@ -2,7 +2,6 @@ package com.store.managementapplication.controllers;
 
 import com.store.managementapplication.entities.PurchaseOrder;
 import com.store.managementapplication.services.PurchaseOrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +13,11 @@ import java.util.Optional;
 @RequestMapping("/api/orders")
 public class PurchaseOrderController {
 
-    @Autowired
-    private PurchaseOrderService purchaseOrderService;
+    private final PurchaseOrderService purchaseOrderService;
+
+    public PurchaseOrderController(PurchaseOrderService purchaseOrderService) {
+        this.purchaseOrderService = purchaseOrderService;
+    }
 
     // Only admins and store managers can create a new purchase order;
     @PreAuthorize("hasAnyRole('ADMIN', 'STORE_MANAGER')")
@@ -26,7 +28,7 @@ public class PurchaseOrderController {
     }
 
     // Only by admins and store managers can update an existing purchase order
-    @PreAuthorize("hasAnyRole('ADMIN', 'STORE_MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/update/{id}")
     public PurchaseOrder updatePurchaseOrder(@PathVariable Long id, @RequestBody PurchaseOrder purchaseOrder) throws Exception {
         // Calls the service method to update an existing purchase order
@@ -41,7 +43,7 @@ public class PurchaseOrderController {
         purchaseOrderService.deletePurchaseOrder(id);
     }
 
-    // Only by admins get all purchase orders;
+    // Only admins can get all purchase orders;
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/all")
     public List<PurchaseOrder> getAllPurchaseOrders() {

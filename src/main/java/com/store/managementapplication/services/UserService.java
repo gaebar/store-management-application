@@ -55,10 +55,10 @@ public class UserService {
 //        return itemRepository.findAllByStoreId(storeId);
 //    }
 
-    public Item requestItemAddition(Long storeId, Item item) {
-        item.setStoreId(storeId);
-        return itemRepository.save(item);
-    }
+//    public Item requestItemAddition(Long storeId, Item item) {
+//        item.setStoreId(storeId);
+//        return itemRepository.save(item);
+//    }
 
     public Item updateItemQuantity(Long storeId, Long itemId, int quantity) throws Exception {
         return itemRepository.findById(itemId)

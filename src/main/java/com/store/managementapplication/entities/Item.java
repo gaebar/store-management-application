@@ -59,6 +59,7 @@ public class Item {
     @Positive
     private Integer quantity;
 
+
     /**
      * Sets the id for the item.
      *
@@ -131,13 +132,17 @@ public class Item {
         this.initialQuantity = initialQuantity;
     }
 
-
-    public void setStoreId(Long storeId) {
-        if (this.store == null) {
-            this.store = new Store();
-        }
-        this.store.setId(storeId);
-    }
+//    public void setStore(Store store) {
+//        this.store = store;
+//        this.storeId = (store != null ? store.getId() : null);
+//    }
+//
+//    public void setStoreId(Long storeId) {
+//        if (this.store == null) {
+//            this.store = new Store();
+//        }
+//        this.store.setId(storeId);
+//    }
 
 
     @Override

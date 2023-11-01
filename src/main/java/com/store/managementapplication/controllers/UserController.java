@@ -51,11 +51,11 @@ public class UserController {
 //    }
 
     // Request item additions for a specific store (Store Staff role)
-    @PreAuthorize("hasRole('STORE_STAFF')")
-    @PostMapping("/requestAddition/{storeId}")
-    public Item requestItemAddition(@PathVariable Long storeId, @RequestBody Item item) {
-        return userService.requestItemAddition(storeId, item);
-    }
+//    @PreAuthorize("hasRole('STORE_STAFF')")
+//    @PostMapping("/requestAddition/{storeId}")
+//    public Item requestItemAddition(@PathVariable Long storeId, @RequestBody Item item) {
+//        return userService.requestItemAddition(storeId, item);
+//    }
 
     // Update item quantities for a specific store (Store Staff role)
     @PreAuthorize("hasRole('STORE_STAFF')")

@@ -17,6 +17,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     List<Item> findByPriceBetween(double minPrice, double maxPrice);
 
-    // @Query("SELECT i FROM Item i WHERE i.store.id = :storeId")
-    // List<Item> findAllByStoreId(@Param("storeId") Long storeId);
+    // @Query("SELECT i FROM Item i WHERE i.store.id = :storeID")
+    List<Item> findAllByStoreId(long storeId);
 }
