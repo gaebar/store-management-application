@@ -73,20 +73,3 @@ Authorization: Bearer {{auth-token}}
         {"id": 2, "quantity": 4},
         {"id": 3, "quantity": 5}]
 }
-
-### Update Order as Admin
-PUT http://localhost:8080/api/orders/update/
-Content-Type: application/json
-Authorization: Bearer {{auth-token}}
-
-{
-  "id": 1,
-  "status": "APPROVED",
-  "store": {
-    "id": 1
-  },
-  "item": {
-    "id": 1
-  },
-  "quantity": 26
-}
