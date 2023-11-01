@@ -3,6 +3,8 @@ package com.store.managementapplication.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 /**
  * Represents a purchase order in the store management application.
  * Each purchase order has an id, status, associated store, item, and a quantity.
@@ -20,17 +22,15 @@ public class PurchaseOrder {
 
     private String status;
 
-    @ManyToOne
-    private PurchaseOrderLineItem purchaseOrderLineItem;
-
-    private Integer quantity;
-
+    @OneToMany(mappedBy = "purchaseOrder")
+    private List<PurchaseOrderLineItem> purchaseOrderLineItems;
+    
     @Getter
     @ManyToOne
     private Item item;
 
-    @Getter
     @ManyToOne
+    @JoinColumn(name = "store_id")
     private Store store;
 
 }

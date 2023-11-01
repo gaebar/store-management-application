@@ -43,8 +43,9 @@ public class Item {
 
     private String description;
 
-    @NotNull
-    private String category;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoryId", referencedColumnName = "id")
+    private ItemCategory category;
 
     @Positive
     private Double price;
@@ -88,7 +89,8 @@ public class Item {
      *
      * @param category the new category for the item.
      */
-    public void setCategory(String category) {
+    // Update this method to accept an ItemCategory object
+    public void setCategory(ItemCategory category) {
         this.category = category;
     }
 

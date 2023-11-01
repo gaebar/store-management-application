@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Represents a store in the store management application.
@@ -34,8 +35,11 @@ public class Store {
 
     private Date openingDate;
 
-    @ManyToOne
-    private PurchaseOrder purchaseOrder;
+    @OneToMany(mappedBy = "store")
+    private List<PurchaseOrder> purchaseOrders;
+
+    @OneToMany(mappedBy = "store")
+    private List<StoreInventory> storeInventories;
 
     /**
      * Sets the id for the store.

@@ -64,6 +64,7 @@ Authorization: Bearer {{auth-token}}
 ### Create Item 1 (Lipstick)
 POST http://localhost:8080/api/items/create
 Content-Type: application/json
+Authorization: Bearer {{auth-token}}
 
 {
   "name": "Lipstick",
@@ -95,6 +96,8 @@ Authorization: Bearer {{auth-token}}
 ### Create Item 2 (Smartphone)
 POST http://localhost:8080/api/items/create
 Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
 
 {
   "name": "Smartphone",
