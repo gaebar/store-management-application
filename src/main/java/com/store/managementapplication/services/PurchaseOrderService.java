@@ -24,6 +24,11 @@ public class PurchaseOrderService {
         this.storeRepository = storeRepository;
     }
 
+    // Create a new Purchase Order
+    public PurchaseOrder createPurchaseOrder(PurchaseOrder purchaseOrder) {
+        return purchaseOrderRepository.save(purchaseOrder);
+    }
+
 
     // Update an existing Purchase Order
     public PurchaseOrder updatePurchaseOrder(Long id, PurchaseOrder purchaseOrder) throws ResourceNotFoundException {

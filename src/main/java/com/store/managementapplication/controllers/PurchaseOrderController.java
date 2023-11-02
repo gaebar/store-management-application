@@ -19,13 +19,13 @@ public class PurchaseOrderController {
         this.purchaseOrderService = purchaseOrderService;
     }
 
-//    // Only admins and store managers can create a new purchase order;
-//    @PreAuthorize("hasAnyRole('ADMIN', 'STORE_MANAGER')")
-//    @PostMapping("/create")
-//    public PurchaseOrder createPurchaseOrder(@RequestBody PurchaseOrder purchaseOrder) {
-//        // Calls the service method to create a new purchase order
-//        return purchaseOrderService.createPurchaseOrder(purchaseOrder);
-//    }
+    // Only admins and store managers can create a new purchase order;
+    @PreAuthorize("hasAnyRole('ADMIN', 'STORE_MANAGER')")
+    @PostMapping("/create")
+    public PurchaseOrder createPurchaseOrder(@RequestBody PurchaseOrder purchaseOrder) {
+        // Calls the service method to create a new purchase order
+        return purchaseOrderService.createPurchaseOrder(purchaseOrder);
+    }
 
     // Only by admins and store managers can update an existing purchase order
     @PreAuthorize("hasAnyRole('ADMIN')")
@@ -53,9 +53,10 @@ public class PurchaseOrderController {
 
     // Only admins and store managers can get a specific purchase order by ID;
     @PreAuthorize("hasAnyRole('ADMIN', 'STORE_MANAGER')")
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public Optional<PurchaseOrder> getPurchaseOrderById(@PathVariable Long id) {
         // Calls the service method to get a specific purchase order by its ID
-        return purchaseOrderService.getPurchaseOrderById(id);
+        var order = purchaseOrderService.getPurchaseOrderById(id);
+        return order;
     }
 }

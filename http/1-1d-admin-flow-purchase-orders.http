@@ -31,6 +31,16 @@ Authorization: Bearer {{auth-token}}
     client.global.set("store1-id", response.body.id);
 %}
 
+### Get Store by Id
+GET http://localhost:8080/api/stores/{{store1-id}}
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
+> {%
+    client.assert(response.body.id, "Store is not found");
+%}
+
+
 ### Create Store 2 (Bellevue MiniMart) and save store id in global variable
 POST http://localhost:8080/admin/createStore
 Content-Type: application/json
@@ -55,11 +65,12 @@ Authorization: Bearer {{auth-token}}
 
 {
   "name": "Beauty",
-  "supplier": "Supplier 1"
+  "supplier": "Baci Cosmetics"
 }
 
 > {%
     client.global.set("category1-id", response.body.id);
+    client.assert(response.body.name, "Beauty");
 %}
 
 ### Create Item 1 (Lipstick)
@@ -78,6 +89,7 @@ Authorization: Bearer {{auth-token}}
 
 > {%
     client.global.set("lipstick-id", response.body.id);
+    client.assert(response.body.name, "Item is not created")
 %}
 
 ### Create Category 2 (Electronics)
@@ -87,18 +99,18 @@ Authorization: Bearer {{auth-token}}
 
 {
   "name": "Electronics",
-  "supplier": "Supplier 2"
+  "supplier": "Tech Warehouse Inc."
 }
 
 > {%
     client.global.set("category2-id", response.body.id);
+    client.assert(response.body.name, "Electronics");
 %}
 
 ### Create Item 2 (Smartphone)
 POST http://localhost:8080/api/items/create
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
-
 
 {
   "name": "Smartphone",
@@ -111,6 +123,7 @@ Authorization: Bearer {{auth-token}}
 
 > {%
     client.global.set("smartphone-id", response.body.id);
+    client.assert(response.body.name, "Smartphone");
 %}
 
 ### Create Order as Admin for Kirkland Megastore
@@ -120,23 +133,45 @@ Authorization: Bearer {{auth-token}}
 
 {
     "status": "CREATED",
-    "store": {{store1-id}},
-    "items": [
-        {"id": "{{lipstick-id}}", "quantity": 25},
-        {"id": "{{smartphone-id}}", "quantity": 4}
-    ]
+    "store": {{store1-id}}
 }
 
-### Create Order as Admin for Bellevue MiniMart
-POST http://localhost:8080/api/orders/create
+> {%
+    client.assert(response.body.id, "Order is not created");
+    client.global.set("order1-id", response.body.id);
+%}
+
+### Get Order by Id
+GET http://localhost:8080/api/orders/{{order1-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
-{
-    "status": "CREATED",
-    "store": {{store2-id}},
-    "items": [
-        {"id": "{{lipstick-id}}", "quantity": 5},
-        {"id": "{{smartphone-id}}", "quantity": 10}
-    ]
-}
+> {%
+    client.assert(response.body.id, "Order is not found");
+%}
+
+
+### Delete Order 1
+DELETE http://localhost:8080/api/orders/{{order1-id}}
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
+### Delete Category 1
+DELETE http://localhost:8080/api/categories/{{category1-id}}
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
+### Delete Category 2
+DELETE http://localhost:8080/api/categories/{{category2-id}}
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
+### Delete Item 1
+DELETE http://localhost:8080/api/items/delete/{{lipstick-id}}
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
+### Delete Item 2
+DELETE http://localhost:8080/api/items/delete/{{smartphone-id}}
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
