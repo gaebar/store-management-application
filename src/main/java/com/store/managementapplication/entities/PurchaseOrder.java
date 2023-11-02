@@ -3,7 +3,6 @@ package com.store.managementapplication.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class PurchaseOrder implements Serializable {
+public class PurchaseOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +27,9 @@ public class PurchaseOrder implements Serializable {
     @OneToMany(mappedBy = "purchaseOrder", fetch = FetchType.EAGER)
     private Set<PurchaseOrderLineItem> purchaseOrderLineItems = new HashSet<>();
 
-    // @ManyToOne(fetch = FetchType.EAGER)
-    // @JoinColumn(name = "storeId", referencedColumnName = "id")
-    // private Store store;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "storeId", referencedColumnName = "id")
+    private Store store;
+
+
 }

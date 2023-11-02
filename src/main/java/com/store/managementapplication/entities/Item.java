@@ -62,6 +62,15 @@ public class Item implements Serializable {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "item")
     private Set<PurchaseOrderLineItem> purchaseOrderLineItem = new HashSet<>();
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "item")
+    private Set<StoreInventory> storeInventories = new HashSet<>();
+
+    public void setStoreInventory(StoreInventory storeInventory) {
+        this.storeInventories.add(storeInventory);
+        storeInventory.setItem(this);
+    }
+
+
     /**
      * Sets the id for the item.
      *
@@ -94,7 +103,6 @@ public class Item implements Serializable {
      *
      * @param category the new category for the item.
      */
-    // Update this method to accept an ItemCategory object
     public void setCategory(ItemCategory category) {
         this.category = category;
     }

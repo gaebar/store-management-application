@@ -33,19 +33,18 @@ public class StoreInventoryService {
         storeInventoryRepository.deleteById(id);
     }
 
+    public void setStoreInventory(Long storeId, Long itemId, int count) {
+        StoreInventory inventory = getInventoryById(storeId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid inventory ID"));
+
+    }
+
     public void addItemsToInventory(Long id, int count) {
         StoreInventory inventory = getInventoryById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid inventory ID"));
-        inventory.addItems(count);
         storeInventoryRepository.save(inventory);
     }
 
-    public void removeItemsFromInventory(Long id, int count) {
-        StoreInventory inventory = getInventoryById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid inventory ID"));
-        inventory.removeItems(count);
-        storeInventoryRepository.save(inventory);
-    }
 
     public boolean isInventoryBelowThreshold(Long id, int threshold) {
         StoreInventory inventory = getInventoryById(id)
