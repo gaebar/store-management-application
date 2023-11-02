@@ -5,8 +5,9 @@ import jakarta.validation.constraints.Positive;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Represents an item in the store management application.
@@ -34,7 +35,7 @@ public class Item implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "storeId", referencedColumnName = "id")
     private Store store;
 
@@ -44,7 +45,7 @@ public class Item implements Serializable {
 
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "categoryId", referencedColumnName = "id")
     private ItemCategory category;
 
@@ -58,8 +59,8 @@ public class Item implements Serializable {
     @Positive
     private Integer quantity;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<PurchaseOrderLineItem> purchaseOrderLineItem;
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<PurchaseOrderLineItem> purchaseOrderLineItem = new HashSet<>();
 
     /**
      * Sets the id for the item.

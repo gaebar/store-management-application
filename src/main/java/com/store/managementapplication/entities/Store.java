@@ -5,7 +5,8 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Represents a store in the store management application.
@@ -38,7 +39,7 @@ public class Store implements Serializable {
     private Date openingDate;
 
     @OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<StoreInventory> storeInventories;
+    private Set<StoreInventory> storeInventories = new HashSet<>();
 
     /**
      * Sets the id for the store.

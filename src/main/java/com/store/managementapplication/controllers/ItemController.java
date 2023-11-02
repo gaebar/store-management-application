@@ -38,6 +38,14 @@ public class ItemController {
         itemService.deleteItem(id);
     }
 
+    // Only admins and store managers can add an item to a category
+    @PreAuthorize("hasAnyRole('ADMIN', 'STORE_MANAGER')")
+    @PutMapping("/addToCategory/{itemId}/{categoryId}")
+    public Item addItemToCategory(@PathVariable Long itemId, @PathVariable Long categoryId) {
+        return itemService.addItemToCategory(itemId, categoryId);
+    }
+
+
     /*
 
     // Store Staff can view store inventory

@@ -58,7 +58,6 @@ public class User implements UserDetails, Serializable {
         this.role = role;
     }
 
-    // Method to add a role to the user
     public void addManagedStore(Store store) {
         this.managedStores.add(store);
     }

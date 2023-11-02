@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Builder
@@ -23,6 +24,11 @@ public class ItemCategory implements Serializable {
     @NonNull
     private String supplier;
 
-    @OneToMany(mappedBy = "category")
-    private List<Item> items;
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    private Set<Item> items = new HashSet<>();
+
+    public void addItem(Item item) {
+        items.add(item);
+        item.setCategory(this);
+    }
 }

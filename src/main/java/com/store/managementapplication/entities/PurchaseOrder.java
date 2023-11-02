@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Represents a purchase order in the store management application.
@@ -25,7 +26,7 @@ public class PurchaseOrder implements Serializable {
     private String status;
 
     @OneToMany(mappedBy = "purchaseOrder")
-    private List<PurchaseOrderLineItem> purchaseOrderLineItems;
+    private Set<PurchaseOrderLineItem> purchaseOrderLineItems = new HashSet<>();
 
     @ManyToOne
     private Store store;

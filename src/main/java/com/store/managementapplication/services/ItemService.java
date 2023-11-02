@@ -1,7 +1,9 @@
 package com.store.managementapplication.services;
 
 import com.store.managementapplication.entities.Item;
+import com.store.managementapplication.entities.ItemCategory;
 import com.store.managementapplication.exceptions.ResourceNotFoundException;
+import com.store.managementapplication.repositories.CategoryRepository;
 import com.store.managementapplication.repositories.ItemRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +12,11 @@ import java.util.List;
 @Service
 public class ItemService {
     private final ItemRepository itemRepository;
+    private final CategoryRepository categoryRepository;
 
-    public ItemService(ItemRepository itemRepository) {
+    public ItemService(ItemRepository itemRepository, CategoryRepository categoryRepository) {
         this.itemRepository = itemRepository;
+        this.categoryRepository = categoryRepository;
     }
 
 
@@ -40,11 +44,20 @@ public class ItemService {
         }
     }
 
+    // Add item to category
+    public Item addItemToCategory(Long itemId, Long categoryId) throws ResourceNotFoundException {
+        Item item = itemRepository.findById(itemId).orElseThrow(() -> new ResourceNotFoundException("Item not found"));
+        ItemCategory category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not found"));
+        category.addItem(item);
+        categoryRepository.save(category);
+        return itemRepository.save(item);
+    }
+
 //    // Logic for Store Staff to view inventory by store
 //    public List<Item> viewInventoryByStore(Long storeId) {
 //        return itemRepository.findAllByStoreId(storeId);
 //    }
-    
+
 
 //    // Logic for Store Staff to update item status
 //    public Item updateItemStatus(Long itemId, String newStatus) throws ResourceNotFoundException {
