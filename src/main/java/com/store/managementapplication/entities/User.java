@@ -43,7 +43,7 @@ public class User implements UserDetails, Serializable {
 
     // Getter and Setter for managedStores
     @Getter
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_managed_stores",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "store_id"))

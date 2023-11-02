@@ -1,24 +1,24 @@
 package com.store.managementapplication.services;
 
-import com.store.managementapplication.entities.Item;
+import com.store.managementapplication.entities.Store;
 import com.store.managementapplication.entities.User;
 import com.store.managementapplication.exceptions.ResourceNotFoundException;
-import com.store.managementapplication.repositories.ItemRepository;
+import com.store.managementapplication.repositories.StoreRepository;
 import com.store.managementapplication.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+    private final StoreRepository storeRepository;
 
-    private final ItemRepository itemRepository;
-
-    public UserService(UserRepository userRepository, ItemRepository itemRepository) {
+    public UserService(UserRepository userRepository, StoreRepository storeRepository) {
         this.userRepository = userRepository;
-        this.itemRepository = itemRepository;
+        this.storeRepository = storeRepository;
     }
 
     public User createUser(User user) {
@@ -26,6 +26,15 @@ public class UserService {
     }
 
     public User updateUser(Long id, User user) throws ResourceNotFoundException {
+        User prevUser = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        user.setManagedStores(prevUser.getManagedStores());
+        return userRepository.findById(id).map(existingUser -> {
+            user.setId(id);
+            return userRepository.save(user);
+        }).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    }
+
+    public User updateUser2(Long id, User user) throws ResourceNotFoundException {
         return userRepository.findById(id)
                 .map(existingUser -> {
                     user.setId(id);
@@ -60,14 +69,14 @@ public class UserService {
 //        return itemRepository.save(item);
 //    }
 
-    public Item updateItemQuantity(Long storeId, Long itemId, int quantity) throws Exception {
-        return itemRepository.findById(itemId)
-                .map(existingItem -> {
-                    existingItem.setInitialQuantity(quantity);
-                    return itemRepository.save(existingItem);
-                })
-                .orElseThrow(() -> new Exception("Item not found in the given store"));
-    }
+//    public Item updateItemQuantity(Long storeId, Long itemId, int quantity) throws Exception {
+//        return itemRepository.findById(itemId)
+//                .map(existingItem -> {
+//                    existingItem.setInitialQuantity(quantity);
+//                    return itemRepository.save(existingItem);
+//                })
+//                .orElseThrow(() -> new Exception("Item not found in the given store"));
+//    }
 
     public boolean isUserStoreManager(String email) {
         return userRepository.findByEmail(email)
@@ -80,5 +89,31 @@ public class UserService {
                 .map(user -> user.getManagedStores().stream()
                         .anyMatch(store -> store.getId().equals(storeId)))
                 .orElse(false);
+    }
+
+    // get the stores managed by a user
+    public Set<Store> getManagedStores(String email) {
+        return userRepository.findByEmail(email)
+                .map(User::getManagedStores)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    }
+
+    // add a store to the stores managed by a user, by user id and store id
+    public User addManagedStore(Long userId, Long storeId) {
+        return userRepository.findById(userId)
+                .map(user -> {
+                    user.addManagedStore(storeRepository.findById(storeId)
+                            .orElseThrow(() -> new ResourceNotFoundException("Store not found")));
+                    return userRepository.save(user);
+                })
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    }
+
+    public void addManagedStore(String email, Store store) {
+        userRepository.findByEmail(email)
+                .ifPresent(user -> {
+                    user.addManagedStore(store);
+                    userRepository.save(user);
+                });
     }
 }

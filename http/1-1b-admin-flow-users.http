@@ -29,7 +29,84 @@ Authorization: Bearer {{auth-token}}
 }
 
 > {%
+    client.assert(response.body.id, "User is not generated");
     client.global.set("user-id", response.body.id);
+%}
+
+### Create Store 1 (Kirkland Megastore) and save store id in global variable
+POST http://localhost:8080/admin/createStore
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
+{
+  "name": "Kirkland Megastore",
+  "location": "123 Red Street, Kirkland, WA 98074",
+  "contactInformation": "Telephone Number: 1234567890",
+  "storeType": "retail",
+  "openingDate": "2019-10-01"
+}
+
+> {%
+    client.assert(response.body.id, "Store 1 is not generated");
+    client.global.set("store1-id", response.body.id);
+%}
+
+### Create Store 2 (Bellevue Megastore) and save store id in global variable
+POST http://localhost:8080/admin/createStore
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
+{
+  "name": "Bellevue Megastore",
+  "location": "123 Blue Street, Bellevue, WA 98074",
+  "contactInformation": "Telephone Number: 1234567890",
+  "storeType": "retail",
+  "openingDate": "2019-10-01"
+}
+
+> {%
+    client.assert(response.body.id, "Store 2 is not generated");
+    client.global.set("store2-id", response.body.id);
+%}
+
+### Add Store 1 (Kirkland Megastore) to User
+POST http://localhost:8080/api/users/addManagedStore/{{user-id}}/{{store1-id}}
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
+> {%
+    client.assert(response.status === 200, "Store is not added to user");
+    client.assert(response.body.managedStores[0].id, client.global.get("store1-id"));
+%}
+
+### Get User, and check if Store 1 (Kirkland Megastore) is added to User
+GET http://localhost:8080/api/users/get/{{user-id}}
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
+> {%
+    client.assert(response.body.id, "User is not retrieved");
+    client.assert(response.body.managedStores[0].id, client.global.get("store1-id"));
+%}
+
+
+### Add Store 1 (Kirkland Megastore) to User again
+POST http://localhost:8080/api/users/addManagedStore/{{user-id}}/{{store1-id}}
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
+> {%
+    //ensures there is only one store in the user's managedStores array
+    client.assert(response.body.managedStores.length === 1, "Store is added to user, while it should have not been added, since it's repeated");
+%}
+
+### Add Store 2 (Bellevue Megastore) to User
+POST http://localhost:8080/api/users/addManagedStore/{{user-id}}/{{store2-id}}
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
+> {%
+    client.assert(response.status === 200, "Store 2 is not added to user");
 %}
 
 ### Update User
@@ -45,8 +122,45 @@ Authorization: Bearer {{auth-token}}
   "role": "MANAGER"
 }
 
+> {%
+    client.assert(response.body.id, "User is not updated");
+    client.assert(response.body.managedStores[0].id, client.global.get("store1-id"));
+    client.assert(response.body.managedStores[1].id, client.global.get("store2-id"));
+%}
+
+
 ### Get User
 GET http://localhost:8080/api/users/get/{{user-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
+> {%
+    client.assert(response.body.id, "User is not retrieved");
+%}
+
+### Delete User
+DELETE http://localhost:8080/api/users/delete/{{user-id}}
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
+> {%
+    client.assert(response.status === 200, "User is not deleted");
+%}
+
+### Delete Store 1 (Kirkland Megastore)
+DELETE http://localhost:8080/admin/deleteStore/{{store1-id}}
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
+> {%
+    client.assert(response.status === 200, "Store is not deleted");
+%}
+
+### Delete Store 2 (Bellevue Megastore)
+DELETE http://localhost:8080/admin/deleteStore/{{store2-id}}
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
+> {%
+    client.assert(response.status === 200, "Store is not deleted");
+%}

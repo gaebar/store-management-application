@@ -1,6 +1,5 @@
 package com.store.managementapplication.controllers;
 
-import com.store.managementapplication.entities.Item;
 import com.store.managementapplication.entities.User;
 import com.store.managementapplication.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +42,14 @@ public class UserController {
         userService.deleteUser(id);
     }
 
+    // Add store to a user (Admin role)
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/addManagedStore/{userId}/{storeId}")
+    public User addManagedStore(@PathVariable Long userId, @PathVariable Long storeId) {
+        return userService.addManagedStore(userId, storeId);
+    }
+
+
 //    // View inventory for a specific store (Store Staff role)
 //    @PreAuthorize("hasRole('STORE_STAFF')")
 //    @GetMapping("/inventory/{storeId}")
@@ -53,14 +60,14 @@ public class UserController {
     // Request item additions for a specific store (Store Staff role)
 //    @PreAuthorize("hasRole('STORE_STAFF')")
 //    @PostMapping("/requestAddition/{storeId}")
-//    public Item requestItemAddition(@PathVariable Long storeId, @RequestBody Item item) {
+//    public Item requestItemAddition(@PathVariable Long storeId, @RequestBody Item item) {®
 //        return userService.requestItemAddition(storeId, item);
 //    }
 
     // Update item quantities for a specific store (Store Staff role)
-    @PreAuthorize("hasRole('STORE_STAFF')")
-    @PutMapping("/updateQuantity/{storeId}/{itemId}/{quantity}")
-    public Item updateItemQuantity(@PathVariable Long storeId, @PathVariable Long itemId, @PathVariable int quantity) throws Exception {
-        return userService.updateItemQuantity(storeId, itemId, quantity);
-    }
+//    @PreAuthorize("hasRole('STORE_STAFF')")
+//    @PutMapping("/updateQuantity/{storeId}/{itemId}/{quantity}")
+//    public Item updateItemQuantity(@PathVariable Long storeId, @PathVariable Long itemId, @PathVariable int quantity) throws Exception {
+//        return userService.updateItemQuantity(storeId, itemId, quantity);
+//    }
 }
