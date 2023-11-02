@@ -40,5 +40,11 @@ public class StoreManagementApplication implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         User superUser = new User("Molly", "Brown", "admin@example.com", "adminPassword", Role.RoleType.ADMIN);
         userRepository.save(superUser);
+
+        User superUser2 = new User("Tom", "Smith", "manager@example.com", "managerPassword", Role.RoleType.MANAGER);
+        userRepository.save(superUser2);
+
+        User superUser3 = new User("Jane", "Doe", "staff@example.com", "staffPassword", Role.RoleType.STAFF);
+        userRepository.save(superUser3);
     }
 }

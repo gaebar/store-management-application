@@ -38,3 +38,4 @@ build/
 ### Project Files ###
 store-management.mv.db
 store-management.trace.db
+.idea/httpRequests/http-requests-log.http
