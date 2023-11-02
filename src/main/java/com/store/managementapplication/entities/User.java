@@ -5,7 +5,9 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -21,21 +23,22 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "_user")
-public class User implements UserDetails {
-
+public class User implements UserDetails, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     // Personal information fields
     private String firstname;
     private String lastname;
 
     @Column(unique = true)
+    @NonNull
     private String email;
+    @NonNull
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @NonNull
     private Role.RoleType role;
 
     // Getter and Setter for managedStores
@@ -46,6 +49,14 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "store_id"))
     @Builder.Default
     private Set<Store> managedStores = new HashSet<>();  // Initialize to avoid null
+
+    public User(String firstname, String lastname, String email, String password, Role.RoleType role) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = new BCryptPasswordEncoder().encode(password);
+        this.role = role;
+    }
 
     // Method to add a role to the user
     public void addManagedStore(Store store) {
@@ -72,7 +83,6 @@ public class User implements UserDetails {
     public void setManagedStores(Set<Store> managedStores) {
         this.managedStores = managedStores;
     }
-
 
     @Override
     public boolean isAccountNonExpired() {

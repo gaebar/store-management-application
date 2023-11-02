@@ -6,6 +6,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -21,13 +22,14 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Entity
 @Table(name = "_role")
-public class Role implements GrantedAuthority {
+public class Role implements GrantedAuthority, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)
+    @NonNull
     private String name;
 
     // New: Added a Set of permissions to the Role class

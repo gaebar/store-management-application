@@ -1,10 +1,9 @@
 package com.store.managementapplication.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.io.Serializable;
 
 /**
  * Represents a purchase order in the store management application.
@@ -15,14 +14,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class PurchaseOrderLineItem {
+public class PurchaseOrderLineItem implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NonNull
     private Long itemId;
 
+    @NonNull
     private Integer quantity;
 
     @ManyToOne

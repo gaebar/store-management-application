@@ -1,10 +1,11 @@
 package com.store.managementapplication.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 
+import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -25,7 +26,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Item {
+public class Item implements Serializable {
 
     // Getter method
     @Getter
@@ -37,7 +38,7 @@ public class Item {
     @JoinColumn(name = "storeId", referencedColumnName = "id")
     private Store store;
 
-    @NotNull
+    @NonNull
     @Column(unique = true)
     private String name;
 
@@ -56,6 +57,9 @@ public class Item {
 
     @Positive
     private Integer quantity;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<PurchaseOrderLineItem> purchaseOrderLineItem;
 
     /**
      * Sets the id for the item.

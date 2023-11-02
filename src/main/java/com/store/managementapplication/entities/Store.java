@@ -1,11 +1,9 @@
 package com.store.managementapplication.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Store {
+public class Store implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,18 +25,19 @@ public class Store {
     @Column(unique = true)
     private String name;
 
+    @NonNull
     private String location;
 
+    @NonNull
     private String contactInformation;
 
+    @NonNull
     private String storeType;
 
+    @NonNull
     private Date openingDate;
 
-    @OneToMany(mappedBy = "store")
-    private List<PurchaseOrder> purchaseOrders;
-
-    @OneToMany(mappedBy = "store")
+    @OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<StoreInventory> storeInventories;
 
     /**

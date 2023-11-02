@@ -11,6 +11,7 @@ Content-Type: application/json
 }
 
 > {%
+    client.assert(response.body.token, "Token is not generated");
     client.global.set("auth-token", response.body.token);
 %}
 
@@ -28,6 +29,7 @@ Authorization: Bearer {{auth-token}}
 }
 
 > {%
+    client.assert(response.body.id, "Store ID is not generated");
     client.global.set("store-id", response.body.id);
 %}
 
@@ -44,10 +46,36 @@ Authorization: Bearer {{auth-token}}
   "openingDate": "2019-01-01"
 }
 
+> {%
+    client.assert(response.body.location == "234 Blue Street, Redmond, WA 98074", "Store location is not updated");
+%}
+
 ### Get Store by ID
 GET http://localhost:8080/stores/getStore/{{store-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
+
+> {%
+    client.assert(response.body.id == client.global.get("store-id"), "Store ID is not matching");
+%}
+
+### Create Store and save store id in global variable
+POST http://localhost:8080/admin/createStore
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
+{
+  "name": "Redmond Megastore 2",
+  "location": "123 2 Red Street, Redmond, WA 98074",
+  "contactInformation": "Telephone Number: 1234567890",
+  "storeType": "retail",
+  "openingDate": "2019-01-01"
+}
+
+> {%
+    client.assert(response.body.id, "Store ID is not generated");
+    client.global.set("store-id", response.body.id);
+%}
 
 ### Delete Store by ID
 DELETE http://localhost:8080/admin/deleteStore/{{store-id}}

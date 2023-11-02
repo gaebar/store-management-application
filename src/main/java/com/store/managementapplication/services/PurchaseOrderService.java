@@ -25,18 +25,6 @@ public class PurchaseOrderService {
     }
 
 
-    // Create a new Purchase Order
-    public PurchaseOrder createPurchaseOrder(PurchaseOrder purchaseOrder) {
-        // Check if Item and Store exist
-        if (itemRepository.existsById(purchaseOrder.getItem().getId()) &&
-                storeRepository.existsById(purchaseOrder.getStore().getId())) {
-
-            return purchaseOrderRepository.save(purchaseOrder);
-        } else {
-            throw new ResourceNotFoundException("Item or Store not found");
-        }
-    }
-
     // Update an existing Purchase Order
     public PurchaseOrder updatePurchaseOrder(Long id, PurchaseOrder purchaseOrder) throws ResourceNotFoundException {
         if (purchaseOrderRepository.existsById(id)) {

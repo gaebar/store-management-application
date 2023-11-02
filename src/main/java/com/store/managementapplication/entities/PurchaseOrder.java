@@ -1,11 +1,9 @@
 package com.store.managementapplication.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -17,22 +15,18 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class PurchaseOrder {
+public class PurchaseOrder implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NonNull
     private String status;
 
     @OneToMany(mappedBy = "purchaseOrder")
     private List<PurchaseOrderLineItem> purchaseOrderLineItems;
 
     @ManyToOne
-    private Item item;
-
-    @ManyToOne
-    @JoinColumn(name = "store_id")
     private Store store;
-
 }

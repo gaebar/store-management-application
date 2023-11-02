@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * Represents a store in the store management application.
  * Each store has an id, name, location, contact information, store type, and opening date.
@@ -15,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class StoreInventory {
+public class StoreInventory implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

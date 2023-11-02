@@ -8,5 +8,6 @@ Content-Type: application/json
 }
 
 > {%
+    client.assert(response.body.token, "Token is not generated");
     client.global.set("staff-token", response.body.token);
 %}
