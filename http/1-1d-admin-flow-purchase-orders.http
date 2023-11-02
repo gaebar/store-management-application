@@ -77,7 +77,7 @@ Authorization: Bearer {{auth-token}}
 %}
 
 
-### Create Order as Admin for Kirkland Megastore
+### Create Order as Admin for Sammamish Megastore
 POST http://localhost:8080/api/orders/create
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
@@ -102,15 +102,13 @@ Authorization: Bearer {{auth-token}}
 %}
 
 
-
-
 ### Delete Order 1
-DELETE http://localhost:8080/api/orders/{{order1-id}}
+DELETE http://localhost:8080/api/orders/delete/{{order1-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
 ### Delete Category 1
-DELETE http://localhost:8080/api/categories/{{category1-id}}
+DELETE http://localhost:8080/api/categories/delete/{{category1-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
