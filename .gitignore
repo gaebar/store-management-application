@@ -18,6 +18,8 @@ target/
 *.iws
 *.iml
 *.ipr
+.idea/httpRequests/http-requests-log.http
+
 
 ### NetBeans ###
 /nbproject/private/
@@ -32,5 +34,7 @@ build/
 ### VS Code ###
 .vscode/
 .DS_Store
+
+### Project Files ###
 store-management.mv.db
 store-management.trace.db

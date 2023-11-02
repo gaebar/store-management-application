@@ -59,7 +59,7 @@ public class Item implements Serializable {
     @Positive
     private Integer quantity;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "item")
     private Set<PurchaseOrderLineItem> purchaseOrderLineItem = new HashSet<>();
 
     /**

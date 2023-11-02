@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
 
     @Autowired
-    private StoreService storeService;  // Assuming you have StoreService
+    private StoreService storeService;
 
     @Autowired
-    private RoleService roleService;  // Assuming you have created RoleService
+    private RoleService roleService;
 
     // Only Admin can create a new store
     @PostMapping("/createStore")

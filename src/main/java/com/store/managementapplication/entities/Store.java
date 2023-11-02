@@ -38,11 +38,11 @@ public class Store implements Serializable {
     @NonNull
     private Date openingDate;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "store")
     private Set<StoreInventory> storeInventories = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private Set<PurchaseOrder> purchaseOrders = new HashSet<>();
+    //  @OneToMany(fetch = FetchType.EAGER, mappedBy = "store")
+    //  private Set<PurchaseOrder> purchaseOrders = new HashSet<>();
 
 
     /**

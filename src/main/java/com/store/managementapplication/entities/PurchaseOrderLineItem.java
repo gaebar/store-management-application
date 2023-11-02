@@ -21,12 +21,14 @@ public class PurchaseOrderLineItem implements Serializable {
     private Long id;
 
     @NonNull
-    private Long itemId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "itemId", referencedColumnName = "id")
+    private Item item;
 
     @NonNull
     private Integer quantity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "purchase_order_id", referencedColumnName = "id")
     private PurchaseOrder purchaseOrder;
 }

@@ -25,9 +25,10 @@ public class PurchaseOrder implements Serializable {
     @NonNull
     private String status;
 
-    @OneToMany(mappedBy = "purchaseOrder")
+    @OneToMany(mappedBy = "purchaseOrder", fetch = FetchType.EAGER)
     private Set<PurchaseOrderLineItem> purchaseOrderLineItems = new HashSet<>();
 
-    @ManyToOne
-    private Store store;
+    // @ManyToOne(fetch = FetchType.EAGER)
+    // @JoinColumn(name = "storeId", referencedColumnName = "id")
+    // private Store store;
 }

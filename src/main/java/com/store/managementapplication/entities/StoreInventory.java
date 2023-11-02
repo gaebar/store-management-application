@@ -24,11 +24,11 @@ public class StoreInventory implements Serializable {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "storeId", nullable = false)
+    @JoinColumn(name = "storeId", referencedColumnName = "id")
     private Store store;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "itemId", nullable = false)
+    @JoinColumn(name = "itemId", referencedColumnName = "id")
     private Item item;
 
     @Column(nullable = false)

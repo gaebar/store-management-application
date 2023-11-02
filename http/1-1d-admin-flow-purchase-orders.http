@@ -20,19 +20,20 @@ Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
 {
-  "name": "Kirkland Megastore",
-  "location": "123 Red Street, Kirkland, WA 98074",
+  "name": "Sammamish Megastore",
+  "location": "123 Red Street, Sammamish, WA 98074",
   "contactInformation": "Telephone Number: 1234567890",
   "storeType": "retail",
-  "openingDate": "2019-10-01"
+  "openingDate": "2021-10-01"
 }
 
 > {%
+    client.assert(response.body.id, "Store 1 is not generated");
     client.global.set("store1-id", response.body.id);
 %}
 
 ### Get Store by Id
-GET http://localhost:8080/api/stores/{{store1-id}}
+GET http://localhost:8080/stores/getStore/{{store1-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
@@ -40,23 +41,6 @@ Authorization: Bearer {{auth-token}}
     client.assert(response.body.id, "Store is not found");
 %}
 
-
-### Create Store 2 (Bellevue MiniMart) and save store id in global variable
-POST http://localhost:8080/admin/createStore
-Content-Type: application/json
-Authorization: Bearer {{auth-token}}
-
-{
-  "name": "Bellevue MiniMart",
-  "location": "456 Blue Avenue, Bellevue, WA 98004",
-  "contactInformation": "Telephone Number: 9876543210",
-  "storeType": "convenience",
-  "openingDate": "2020-01-15"
-}
-
-> {%
-    client.global.set("store2-id", response.body.id);
-%}
 
 ### Create Category 1 (Beauty) and save category id in global variable
 POST http://localhost:8080/api/categories/create
@@ -92,39 +76,6 @@ Authorization: Bearer {{auth-token}}
     client.assert(response.body.name, "Item is not created")
 %}
 
-### Create Category 2 (Electronics)
-POST http://localhost:8080/api/categories/create
-Content-Type: application/json
-Authorization: Bearer {{auth-token}}
-
-{
-  "name": "Electronics",
-  "supplier": "Tech Warehouse Inc."
-}
-
-> {%
-    client.global.set("category2-id", response.body.id);
-    client.assert(response.body.name, "Electronics");
-%}
-
-### Create Item 2 (Smartphone)
-POST http://localhost:8080/api/items/create
-Content-Type: application/json
-Authorization: Bearer {{auth-token}}
-
-{
-  "name": "Smartphone",
-  "description": "Android, 128GB storage",
-  "itemCategory": "{{category2-id}}",
-  "price": 499.99,
-  "quantity": 20,
-  "initialQuantity": 20
-}
-
-> {%
-    client.global.set("smartphone-id", response.body.id);
-    client.assert(response.body.name, "Smartphone");
-%}
 
 ### Create Order as Admin for Kirkland Megastore
 POST http://localhost:8080/api/orders/create
@@ -151,6 +102,8 @@ Authorization: Bearer {{auth-token}}
 %}
 
 
+
+
 ### Delete Order 1
 DELETE http://localhost:8080/api/orders/{{order1-id}}
 Content-Type: application/json
@@ -161,17 +114,15 @@ DELETE http://localhost:8080/api/categories/{{category1-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
-### Delete Category 2
-DELETE http://localhost:8080/api/categories/{{category2-id}}
-Content-Type: application/json
-Authorization: Bearer {{auth-token}}
-
 ### Delete Item 1
 DELETE http://localhost:8080/api/items/delete/{{lipstick-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
-### Delete Item 2
-DELETE http://localhost:8080/api/items/delete/{{smartphone-id}}
+### Delete Store 1
+DELETE http://localhost:8080/admin/deleteStore/{{store1-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
+
+
+
