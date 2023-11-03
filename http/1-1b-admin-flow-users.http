@@ -16,7 +16,7 @@ Content-Type: application/json
 %}
 
 ### Create User
-POST http://localhost:8080/api/users/create
+POST http://localhost:8080/api/v1/users/create
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
@@ -34,7 +34,7 @@ Authorization: Bearer {{auth-token}}
 %}
 
 ### Create Store 1 (Kirkland Megastore) and save store id in global variable
-POST http://localhost:8080/admin/createStore
+POST http://localhost:8080/api/v1/admin/createStore
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
@@ -52,7 +52,7 @@ Authorization: Bearer {{auth-token}}
 %}
 
 ### Create Store 2 (Bellevue Megastore) and save store id in global variable
-POST http://localhost:8080/admin/createStore
+POST http://localhost:8080/api/v1/admin/createStore
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
@@ -70,7 +70,7 @@ Authorization: Bearer {{auth-token}}
 %}
 
 ### Add Store 1 (Kirkland Megastore) to User
-POST http://localhost:8080/api/users/addManagedStore/{{user-id}}/{{store1-id}}
+POST http://localhost:8080/api/v1/users/addManagedStore/{{user-id}}/{{store1-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
@@ -80,7 +80,7 @@ Authorization: Bearer {{auth-token}}
 %}
 
 ### Get User, and check if Store 1 (Kirkland Megastore) is added to User
-GET http://localhost:8080/api/users/get/{{user-id}}
+GET http://localhost:8080/api/v1/users/get/{{user-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
@@ -91,7 +91,7 @@ Authorization: Bearer {{auth-token}}
 
 
 ### Add Store 1 (Kirkland Megastore) to User again
-POST http://localhost:8080/api/users/addManagedStore/{{user-id}}/{{store1-id}}
+POST http://localhost:8080/api/v1/users/addManagedStore/{{user-id}}/{{store1-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
@@ -101,7 +101,7 @@ Authorization: Bearer {{auth-token}}
 %}
 
 ### Add Store 2 (Bellevue Megastore) to User
-POST http://localhost:8080/api/users/addManagedStore/{{user-id}}/{{store2-id}}
+POST http://localhost:8080/api/v1/users/addManagedStore/{{user-id}}/{{store2-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
@@ -110,7 +110,7 @@ Authorization: Bearer {{auth-token}}
 %}
 
 ### Update User
-PUT http://localhost:8080/api/users/update/{{user-id}}
+PUT http://localhost:8080/api/v1/users/update/{{user-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
@@ -130,7 +130,7 @@ Authorization: Bearer {{auth-token}}
 
 
 ### Get User
-GET http://localhost:8080/api/users/get/{{user-id}}
+GET http://localhost:8080/api/v1/users/get/{{user-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
@@ -139,7 +139,7 @@ Authorization: Bearer {{auth-token}}
 %}
 
 ### Delete User
-DELETE http://localhost:8080/api/users/delete/{{user-id}}
+DELETE http://localhost:8080/api/v1/users/delete/{{user-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
@@ -148,7 +148,7 @@ Authorization: Bearer {{auth-token}}
 %}
 
 ### Delete Store 1 (Kirkland Megastore)
-DELETE http://localhost:8080/admin/deleteStore/{{store1-id}}
+DELETE http://localhost:8080/api/v1/admin/deleteStore/{{store1-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
@@ -157,7 +157,7 @@ Authorization: Bearer {{auth-token}}
 %}
 
 ### Delete Store 2 (Bellevue Megastore)
-DELETE http://localhost:8080/admin/deleteStore/{{store2-id}}
+DELETE http://localhost:8080/api/v1/admin/deleteStore/{{store2-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 

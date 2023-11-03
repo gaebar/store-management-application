@@ -15,7 +15,7 @@ Content-Type: application/json
 
 ### Create Store and save store id in global variable
 
-POST http://localhost:8080/admin/createStore
+POST http://localhost:8080/api/v1/admin/createStore
 Content-Type: application/json
 Authorization: Bearer {{admin-token}}
 
@@ -34,7 +34,7 @@ Authorization: Bearer {{admin-token}}
 
 ### Create Store Manager
 
-POST http://localhost:8080/api/users/create
+POST http://localhost:8080/api/v1/users/create
 Content-Type: application/json
 Authorization: Bearer {{admin-token}}
 
@@ -53,7 +53,7 @@ Authorization: Bearer {{admin-token}}
 
 ### Assign the store to the manager
 
-POST http://localhost:8080/api/users/addManagedStore/{{manager-id}}/{{store-id}}
+POST http://localhost:8080/api/v1/users/addManagedStore/{{manager-id}}/{{store-id}}
 Content-Type: application/json
 Authorization: Bearer {{admin-token}}
 
@@ -63,7 +63,7 @@ Authorization: Bearer {{admin-token}}
 
 ### Get the stores associated with the authenticated manager
 
-GET http://localhost:8080/api/users/managedStores/{{manager-id}}
+GET http://localhost:8080/api/v1/users/managedStores/{{manager-id}}
 Content-Type: application/json
 Authorization: Bearer {{admin-token}}
 
@@ -74,7 +74,7 @@ Authorization: Bearer {{admin-token}}
 
 ### Check the Manager's Access to Store
 
-GET http://localhost:8080/api/users/get/{{manager-id}}
+GET http://localhost:8080/api/v1/users/get/{{manager-id}}
 Content-Type: application/json
 Authorization: Bearer {{admin-token}}
 
@@ -84,7 +84,7 @@ Authorization: Bearer {{admin-token}}
 %}
 
 ### Create Item 1 (Lipstick)
-POST http://localhost:8080/api/items/create
+POST http://localhost:8080/api/v1/items/create
 Content-Type: application/json
 Authorization: Bearer {{admin-token}}
 
@@ -120,7 +120,7 @@ Content-Type: application/json
 
 ### Add items to a store's inventory
 
-PUT http://localhost:8080/api/inventories/{{store-id}}/{{item1-id}}/3
+PUT http://localhost:8080/api/v1/inventories/{{store-id}}/{{item1-id}}/3
 Authorization: Bearer {{manager-token}}
 Content-Type: application/json
 
@@ -131,7 +131,7 @@ Content-Type: application/json
 
 ### Add items to a store's inventory again
 
-PUT http://localhost:8080/api/inventories/{{store-id}}/{{item1-id}}/1
+PUT http://localhost:8080/api/v1/inventories/{{store-id}}/{{item1-id}}/1
 Authorization: Bearer {{manager-token}}
 Content-Type: application/json
 
@@ -144,7 +144,7 @@ Content-Type: application/json
 
 ### Delete Inventory from the store (cleanup after tests)
 
-DELETE http://localhost:8080/api/inventories/{{store-id}}
+DELETE http://localhost:8080/api/v1/inventories/{{store-id}}
 Authorization: Bearer {{admin-token}}
 
 > {%
@@ -153,7 +153,7 @@ Authorization: Bearer {{admin-token}}
 
 ### Delete Store Manager (cleanup after tests)
 
-DELETE http://localhost:8080/api/users/delete/{{manager-id}}
+DELETE http://localhost:8080/api/v1/users/delete/{{manager-id}}
 Content-Type: application/json
 Authorization: Bearer {{admin-token}}
 
@@ -163,7 +163,7 @@ Authorization: Bearer {{admin-token}}
 
 ### Delete Store (cleanup after tests)
 
-DELETE http://localhost:8080/admin/deleteStore/{{store-id}}
+DELETE http://localhost:8080/api/v1/admin/deleteStore/{{store-id}}
 Content-Type: application/json
 Authorization: Bearer {{admin-token}}
 
@@ -172,7 +172,7 @@ Authorization: Bearer {{admin-token}}
 %}
 
 ### Delete Item 1
-DELETE http://localhost:8080/api/items/delete/{{item1-id}}
+DELETE http://localhost:8080/api/v1/items/delete/{{item1-id}}
 Content-Type: application/json
 Authorization: Bearer {{admin-token}}
 

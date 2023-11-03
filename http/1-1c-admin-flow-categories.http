@@ -14,7 +14,7 @@ Content-Type: application/json
 %}
 
 ### Create Category
-POST http://localhost:8080/api/categories/create
+POST http://localhost:8080/api/v1/categories/create
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
@@ -31,7 +31,7 @@ Authorization: Bearer {{auth-token}}
 %}
 
 ### Update Category
-PUT http://localhost:8080/api/categories/update/{{itemCategory1-id}}
+PUT http://localhost:8080/api/v1/categories/update/{{itemCategory1-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
@@ -46,7 +46,7 @@ Authorization: Bearer {{auth-token}}
 %}
 
 ### Get Category by ID
-GET http://localhost:8080/api/categories/{{itemCategory1-id}}
+GET http://localhost:8080/api/v1/categories/{{itemCategory1-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
@@ -56,7 +56,7 @@ Authorization: Bearer {{auth-token}}
 
 
 ### Create Category
-POST http://localhost:8080/api/categories/create
+POST http://localhost:8080/api/v1/categories/create
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
@@ -70,7 +70,7 @@ Authorization: Bearer {{auth-token}}
 %}
 
 ### Create Item
-POST http://localhost:8080/api/items/create
+POST http://localhost:8080/api/v1/items/create
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
@@ -89,7 +89,7 @@ Authorization: Bearer {{auth-token}}
 %}
 
 ### Get Item by ID
-GET http://localhost:8080/api/items/{{item-id}}
+GET http://localhost:8080/api/v1/items/{{item-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
@@ -98,12 +98,12 @@ Authorization: Bearer {{auth-token}}
 %}
 
 ### Add Item to Category
-PUT http://localhost:8080/api/items/addToCategory/{{item-id}}/{{itemCategory1-id}}
+PUT http://localhost:8080/api/v1/items/addToCategory/{{item-id}}/{{itemCategory1-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
 ### Delete Item by ID
-DELETE http://localhost:8080/api/items/delete/{{item-id}}
+DELETE http://localhost:8080/api/v1/items/delete/{{item-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
@@ -112,7 +112,7 @@ Authorization: Bearer {{auth-token}}
 %}
 
 ### Delete Category 1
-DELETE http://localhost:8080/api/categories/delete/{{itemCategory1-id}}
+DELETE http://localhost:8080/api/v1/categories/delete/{{itemCategory1-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
@@ -121,7 +121,7 @@ Authorization: Bearer {{auth-token}}
 %}
 
 ### Delete Category 2
-DELETE http://localhost:8080/api/categories/delete/{{itemCategory2-id}}
+DELETE http://localhost:8080/api/v1/categories/delete/{{itemCategory2-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 

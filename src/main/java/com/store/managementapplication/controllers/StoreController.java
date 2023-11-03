@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController // Indicates that the class is a RESTful web service controller
-@RequestMapping("/stores") // Maps all HTTP operations by default
+@RequestMapping("/api/v1/stores") // Maps all HTTP operations by default
 public class StoreController {
 
     @Autowired // Automatically injects StoreService into this controller
