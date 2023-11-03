@@ -33,6 +33,7 @@ public class StoreInventory implements Serializable {
 
     @Column(nullable = false)
     private Integer quantity;
+    private String status;
 
     public StoreInventory(Long storeId, Long itemId, int count) {
         this.store = new Store(storeId);
@@ -46,6 +47,11 @@ public class StoreInventory implements Serializable {
 
     public void removeItems(int count) {
         this.quantity -= count;
+    }
+
+    // add status column field request
+    public void setStatus(String status) {
+        this.status = status;
     }
 
 

@@ -14,7 +14,7 @@ Content-Type: application/json
     client.global.set("admin-token", response.body.token);
 %}
 
-### Create Store 1 (Kirkland Megastore) and save store id in global variable
+### Create Store 1 (Sammamish Megastore) and save store id in global variable
 POST http://localhost:8080/admin/createStore
 Content-Type: application/json
 Authorization: Bearer {{admin-token}}
@@ -233,7 +233,6 @@ Authorization: Bearer {{admin-token}}
 > {%
     client.assert(response.status == 200);
 %}
-
 
 ### Delete Store 1
 DELETE http://localhost:8080/admin/deleteStore/{{store1-id}}
