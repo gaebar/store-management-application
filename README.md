@@ -19,7 +19,7 @@ from manual processes.
 - **Build and Dependency Management:** [Maven](https://maven.apache.org/)
 - **Code Simplification:** [Lombok](https://projectlombok.org/)
 - **API Design:** RESTful APIs
-- **API Documentation:** [Swagger](https://swagger.io/)
+- **API Documentation:** [Swagger (OpenAPI)](https://swagger.io/)
 
 ## Features
 
@@ -37,6 +37,24 @@ from manual processes.
 ## Project Requirements
 
 For detailed project requirements, see [Project Requirements](ProjectRequirements.md).
+
+## API Documentation
+
+Interactive API documentation is provided through Swagger UI. This tool facilitates a clear understanding and
+interaction with the API's endpoints.
+
+### Using Swagger UI
+
+- Navigate to [`http://localhost:8080/swagger-ui.html`](http://localhost:8080/swagger-ui.html) once the application is
+  running to view and interact with the API's endpoints.
+- Explore the comprehensive list of available REST endpoints.
+- View detailed information about request and response formats by expanding each endpoint.
+- Directly test API endpoints using the "Try it out" feature within the Swagger UI interface.
+
+### Security in Swagger
+
+- If the API requires authentication, click the "Authorize" button in the Swagger UI to input your JWT credentials.
+- Once authorized, you will be able to send requests to protected endpoints directly from the Swagger UI.
 
 ## Installation and Setup
 
