@@ -32,4 +32,8 @@ public class PurchaseOrder {
     private Store store;
 
 
+    public void addPurchaseOrderLineItem(PurchaseOrderLineItem purchaseOrderLineItem) {
+        purchaseOrderLineItems.add(purchaseOrderLineItem);
+        purchaseOrderLineItem.setPurchaseOrder(this);
+    }
 }

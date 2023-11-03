@@ -1,8 +1,10 @@
 package com.store.managementapplication.services;
 
 import com.store.managementapplication.entities.PurchaseOrder;
+import com.store.managementapplication.entities.PurchaseOrderLineItem;
 import com.store.managementapplication.exceptions.ResourceNotFoundException;
 import com.store.managementapplication.repositories.ItemRepository;
+import com.store.managementapplication.repositories.PurchaseOrderLineItemRepository;
 import com.store.managementapplication.repositories.PurchaseOrderRepository;
 import com.store.managementapplication.repositories.StoreRepository;
 import org.springframework.stereotype.Service;
@@ -17,11 +19,14 @@ public class PurchaseOrderService {
 
     private final ItemRepository itemRepository;
     private final StoreRepository storeRepository;
+    private final PurchaseOrderLineItemRepository puchaseOrderLineItemRepository;
 
-    public PurchaseOrderService(PurchaseOrderRepository purchaseOrderRepository, ItemRepository itemRepository, StoreRepository storeRepository) {
+
+    public PurchaseOrderService(PurchaseOrderRepository purchaseOrderRepository, ItemRepository itemRepository, StoreRepository storeRepository, PurchaseOrderLineItemRepository puchaseOrderLineItemRepository) {
         this.purchaseOrderRepository = purchaseOrderRepository;
         this.itemRepository = itemRepository;
         this.storeRepository = storeRepository;
+        this.puchaseOrderLineItemRepository = puchaseOrderLineItemRepository;
     }
 
     // Create a new Purchase Order
@@ -57,5 +62,24 @@ public class PurchaseOrderService {
     // Get a specific Purchase Order by ID
     public Optional<PurchaseOrder> getPurchaseOrderById(Long id) {
         return purchaseOrderRepository.findById(id);
+    }
+
+    // Add an item to a purchase order, with a specified quantity
+    public PurchaseOrderLineItem addItemToPurchaseOrder(Long purchaseOrderId, Long itemId, int quantity) throws ResourceNotFoundException {
+        var purchaseOrder = purchaseOrderRepository.findById(purchaseOrderId)
+                .orElseThrow(() -> new ResourceNotFoundException("Purchase Order not found"));
+        var item = itemRepository.findById(itemId)
+                .orElseThrow(() -> new ResourceNotFoundException("Item not found"));
+
+
+        PurchaseOrderLineItem lineItem = new PurchaseOrderLineItem();
+        lineItem.setItem(item);
+        lineItem.setQuantity(quantity);
+        lineItem.setPurchaseOrder(null);
+        purchaseOrder.addPurchaseOrderLineItem(lineItem);
+        puchaseOrderLineItemRepository.save(lineItem);
+
+        //save purchase order line item
+        return lineItem;
     }
 }

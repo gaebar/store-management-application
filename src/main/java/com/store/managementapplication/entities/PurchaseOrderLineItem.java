@@ -31,4 +31,5 @@ public class PurchaseOrderLineItem implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "purchase_order_id", referencedColumnName = "id")
     private PurchaseOrder purchaseOrder;
+
 }

@@ -45,6 +45,7 @@ public class Item implements Serializable {
 
     private String description;
 
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "categoryId", referencedColumnName = "id")
     private ItemCategory category;

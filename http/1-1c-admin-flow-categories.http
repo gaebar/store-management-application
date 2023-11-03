@@ -88,6 +88,14 @@ Authorization: Bearer {{auth-token}}
     client.global.set("item-id", response.body.id);
 %}
 
+### Get Item by ID
+GET http://localhost:8080/api/items/{{item-id}}
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
+> {%
+    client.assert(response.body.name == "iPhone 15");
+%}
 
 ### Add Item to Category
 PUT http://localhost:8080/api/items/addToCategory/{{item-id}}/{{itemCategory1-id}}

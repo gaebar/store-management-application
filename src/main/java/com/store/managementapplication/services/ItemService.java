@@ -19,6 +19,11 @@ public class ItemService {
         this.categoryRepository = categoryRepository;
     }
 
+    // Get item by ID
+    public Item getItemById(Long id) throws ResourceNotFoundException {
+        return itemRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Item not found"));
+    }
+
 
     // Create a new item
     public Item createItem(Item item) {

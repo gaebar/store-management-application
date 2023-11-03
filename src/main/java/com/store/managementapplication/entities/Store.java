@@ -40,9 +40,8 @@ public class Store implements Serializable {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "store")
     private Set<StoreInventory> storeInventories = new HashSet<>();
-    
+
     public Store(Long id) {
         this.id = id;
     }
-
 }

@@ -45,6 +45,12 @@ public class ItemController {
         return itemService.addItemToCategory(itemId, categoryId);
     }
 
+    // Get item by ID
+    @GetMapping("/{id}")
+    public Item getItemById(@PathVariable Long id) {
+        return itemService.getItemById(id);
+    }
+
 
     /*
 

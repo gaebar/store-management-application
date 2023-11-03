@@ -11,13 +11,13 @@ Content-Type: application/json
 
 > {%
     client.assert(response.body.token, "Token is not generated");
-    client.global.set("auth-token", response.body.token);
+    client.global.set("admin-token", response.body.token);
 %}
 
 ### Create Store 1 (Kirkland Megastore) and save store id in global variable
 POST http://localhost:8080/admin/createStore
 Content-Type: application/json
-Authorization: Bearer {{auth-token}}
+Authorization: Bearer {{admin-token}}
 
 {
   "name": "Sammamish Megastore",
@@ -35,7 +35,7 @@ Authorization: Bearer {{auth-token}}
 ### Get Store by Id
 GET http://localhost:8080/stores/getStore/{{store1-id}}
 Content-Type: application/json
-Authorization: Bearer {{auth-token}}
+Authorization: Bearer {{admin-token}}
 
 > {%
     client.assert(response.body.id, "Store is not found");
@@ -45,7 +45,7 @@ Authorization: Bearer {{auth-token}}
 ### Create Category 1 (Beauty) and save category id in global variable
 POST http://localhost:8080/api/categories/create
 Content-Type: application/json
-Authorization: Bearer {{auth-token}}
+Authorization: Bearer {{admin-token}}
 
 {
   "name": "Beauty",
@@ -60,7 +60,7 @@ Authorization: Bearer {{auth-token}}
 ### Create Item 1 (Lipstick)
 POST http://localhost:8080/api/items/create
 Content-Type: application/json
-Authorization: Bearer {{auth-token}}
+Authorization: Bearer {{admin-token}}
 
 {
   "name": "Lipstick",
@@ -72,15 +72,25 @@ Authorization: Bearer {{auth-token}}
 }
 
 > {%
-    client.global.set("lipstick-id", response.body.id);
+    client.global.set("item-id", response.body.id);
     client.assert(response.body.name, "Item is not created")
 %}
+
+### Get Item by Id
+GET http://localhost:8080/api/items/{{item-id}}
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.body.id, "Item is not found")
+%}
+
 
 
 ### Create Order as Admin for Sammamish Megastore
 POST http://localhost:8080/api/orders/create
 Content-Type: application/json
-Authorization: Bearer {{auth-token}}
+Authorization: Bearer {{admin-token}}
 
 {
     "status": "CREATED",
@@ -95,17 +105,37 @@ Authorization: Bearer {{auth-token}}
 ### Get Order by Id
 GET http://localhost:8080/api/orders/{{order1-id}}
 Content-Type: application/json
-Authorization: Bearer {{auth-token}}
+Authorization: Bearer {{admin-token}}
 
 > {%
     client.assert(response.body.id, "Order is not found");
 %}
 
+### Add Item 1 to Order 1
+PUT http://localhost:8080/api/orders/addItem/{{order1-id}}/{{item-id}}/3
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.status == 200);
+%}
+
+### Get Order by Id
+GET http://localhost:8080/api/orders/{{order1-id}}
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.body.id, "Order is not found");
+    client.assert(response.body.purchaseOrderLineItems[0].quantity == 3);
+%}
+
+
 
 ### Delete Order 1
 DELETE http://localhost:8080/api/orders/delete/{{order1-id}}
 Content-Type: application/json
-Authorization: Bearer {{auth-token}}
+Authorization: Bearer {{admin-token}}
 
 > {%
     client.assert(response.status == 200);
@@ -115,7 +145,7 @@ Authorization: Bearer {{auth-token}}
 ### Delete Category 1
 DELETE http://localhost:8080/api/categories/delete/{{category1-id}}
 Content-Type: application/json
-Authorization: Bearer {{auth-token}}
+Authorization: Bearer {{admin-token}}
 
 > {%
     client.assert(response.status == 200);
@@ -125,7 +155,7 @@ Authorization: Bearer {{auth-token}}
 ### Delete Item 1
 DELETE http://localhost:8080/api/items/delete/{{lipstick-id}}
 Content-Type: application/json
-Authorization: Bearer {{auth-token}}
+Authorization: Bearer {{admin-token}}
 
 > {%
     client.assert(response.status == 200);
@@ -135,7 +165,7 @@ Authorization: Bearer {{auth-token}}
 ### Delete Store 1
 DELETE http://localhost:8080/admin/deleteStore/{{store1-id}}
 Content-Type: application/json
-Authorization: Bearer {{auth-token}}
+Authorization: Bearer {{admin-token}}
 
 > {%
     client.assert(response.status == 200);

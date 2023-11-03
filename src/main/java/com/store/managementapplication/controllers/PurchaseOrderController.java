@@ -1,6 +1,7 @@
 package com.store.managementapplication.controllers;
 
 import com.store.managementapplication.entities.PurchaseOrder;
+import com.store.managementapplication.entities.PurchaseOrderLineItem;
 import com.store.managementapplication.services.PurchaseOrderService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -58,5 +59,14 @@ public class PurchaseOrderController {
         // Calls the service method to get a specific purchase order by its ID
         var order = purchaseOrderService.getPurchaseOrderById(id);
         return order;
+    }
+
+    // Add items to purchase order
+    @PreAuthorize("hasAnyRole('ADMIN', 'STORE_MANAGER')")
+    @PutMapping("/addItem/{purchaseOrderId}/{itemId}/{count}")
+    public PurchaseOrderLineItem addItemsToPurchaseOrder(@PathVariable Long purchaseOrderId, @PathVariable Long itemId, @PathVariable int count) throws Exception {
+        // Calls the service method to add items to a purchase order
+
+        return purchaseOrderService.addItemToPurchaseOrder(purchaseOrderId, itemId, count);
     }
 }
