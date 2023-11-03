@@ -72,12 +72,12 @@ Authorization: Bearer {{admin-token}}
 }
 
 > {%
-    client.global.set("item-id", response.body.id);
-    client.assert(response.body.name, "Item is not created")
+    client.global.set("item1-id", response.body.id);
+    client.assert(response.body.name, "Item 1 is not created")
 %}
 
 ### Get Item by Id
-GET http://localhost:8080/api/items/{{item-id}}
+GET http://localhost:8080/api/items/{{item1-id}}
 Content-Type: application/json
 Authorization: Bearer {{admin-token}}
 
@@ -85,7 +85,33 @@ Authorization: Bearer {{admin-token}}
     client.assert(response.body.id, "Item is not found")
 %}
 
+### Create Item 2 (Eyeliner)
+POST http://localhost:8080/api/items/create
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
 
+{
+    "name": "Eyeliner",
+    "description": "Waterproof, long-lasting",
+    "itemCategory": "{{category1-id}}",
+    "price": 15.0,
+    "quantity": 50,
+    "initialQuantity": 50
+}
+
+> {%
+    client.global.set("item2-id", response.body.id);
+    client.assert(response.body.name, "Item 2 is not created")
+%}
+
+### Get Item 2 by Id
+GET http://localhost:8080/api/items/{{item2-id}}
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.body.id, "Item 2 is not found")
+%}
 
 ### Create Order as Admin for Sammamish Megastore
 POST http://localhost:8080/api/orders/create
@@ -112,7 +138,16 @@ Authorization: Bearer {{admin-token}}
 %}
 
 ### Add Item 1 to Order 1
-PUT http://localhost:8080/api/orders/addItem/{{order1-id}}/{{item-id}}/3
+PUT http://localhost:8080/api/orders/addItem/{{order1-id}}/{{item1-id}}/3
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.status == 200);
+%}
+
+### Add Item 2 to Order 1
+PUT http://localhost:8080/api/orders/addItem/{{order1-id}}/{{item2-id}}/5
 Content-Type: application/json
 Authorization: Bearer {{admin-token}}
 
@@ -153,7 +188,16 @@ Authorization: Bearer {{admin-token}}
 
 
 ### Delete Item 1
-DELETE http://localhost:8080/api/items/delete/{{lipstick-id}}
+DELETE http://localhost:8080/api/items/delete/{{item1-id}}
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.status == 200);
+%}
+
+### Delete Item 2
+DELETE http://localhost:8080/api/items/delete/{{item2-id}}
 Content-Type: application/json
 Authorization: Bearer {{admin-token}}
 

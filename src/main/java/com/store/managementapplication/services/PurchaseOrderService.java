@@ -65,7 +65,7 @@ public class PurchaseOrderService {
     }
 
     // Add an item to a purchase order, with a specified quantity
-    public PurchaseOrderLineItem addItemToPurchaseOrder(Long purchaseOrderId, Long itemId, int quantity) throws ResourceNotFoundException {
+    public PurchaseOrder addItemToPurchaseOrder(Long purchaseOrderId, Long itemId, int quantity) throws ResourceNotFoundException {
         var purchaseOrder = purchaseOrderRepository.findById(purchaseOrderId)
                 .orElseThrow(() -> new ResourceNotFoundException("Purchase Order not found"));
         var item = itemRepository.findById(itemId)
@@ -80,6 +80,6 @@ public class PurchaseOrderService {
         puchaseOrderLineItemRepository.save(lineItem);
 
         //save purchase order line item
-        return lineItem;
+        return purchaseOrder;
     }
 }
