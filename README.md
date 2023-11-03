@@ -76,4 +76,4 @@ For major changes, please open an issue first to discuss what you would like to 
 Ensure to update tests as appropriate.
 
 License
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](LICENSE.txt)
