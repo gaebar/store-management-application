@@ -1,5 +1,6 @@
 package com.store.managementapplication.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
@@ -63,14 +64,18 @@ public class Item implements Serializable {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "item")
     private Set<PurchaseOrderLineItem> purchaseOrderLineItem = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "item")
     private Set<StoreInventory> storeInventories = new HashSet<>();
+
+    public Item(Long id) {
+        this.id = id;
+    }
 
     public void setStoreInventory(StoreInventory storeInventory) {
         this.storeInventories.add(storeInventory);
         storeInventory.setItem(this);
     }
-
 
     /**
      * Sets the id for the item.

@@ -34,12 +34,18 @@ public class StoreInventory implements Serializable {
     @Column(nullable = false)
     private Integer quantity;
 
+    public StoreInventory(Long storeId, Long itemId, int count) {
+        this.store = new Store(storeId);
+        this.quantity = count;
+        this.item = new Item(itemId);
+    }
 
-    // adds the item to the store inventory
-    public void addItem(Item item, Integer quantity) {
-        this.item = item;
-        this.quantity = quantity;
-        item.setStoreInventory(this);
+    public void addItems(int count) {
+        this.quantity += count;
+    }
+
+    public void removeItems(int count) {
+        this.quantity -= count;
     }
 
 

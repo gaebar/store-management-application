@@ -33,18 +33,22 @@ public class StoreInventoryService {
         storeInventoryRepository.deleteById(id);
     }
 
-    public void setStoreInventory(Long storeId, Long itemId, int count) {
-        StoreInventory inventory = getInventoryById(storeId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid inventory ID"));
+    public StoreInventory addItemToStoreInventory(Long storeId, Long itemId, int count) {
+        StoreInventory inventory = getInventoryByItemIdAndStoreId(itemId, storeId);
+        if (inventory == null) {
+            inventory = new StoreInventory(storeId, itemId, count);
+        } else {
+            inventory.addItems(count);
+        }
 
+        return saveInventory(inventory);
     }
 
-    public void addItemsToInventory(Long id, int count) {
-        StoreInventory inventory = getInventoryById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid inventory ID"));
-        storeInventoryRepository.save(inventory);
+    public StoreInventory getInventoryByItemIdAndStoreId(Long itemId, Long storeId) {
+        // if exists, return the inventory
+        // else, create a new inventory and return it
+        return storeInventoryRepository.findByItemIdAndStoreId(itemId, storeId);
     }
-
 
     public boolean isInventoryBelowThreshold(Long id, int threshold) {
         StoreInventory inventory = getInventoryById(id)

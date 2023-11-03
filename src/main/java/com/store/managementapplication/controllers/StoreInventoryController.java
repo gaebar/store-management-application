@@ -34,10 +34,10 @@ public class StoreInventoryController {
         return ResponseEntity.ok(storeInventoryService.saveInventory(storeInventory));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> addItemsToInventory(@PathVariable Long id, @RequestParam int count) {
-        storeInventoryService.addItemsToInventory(id, count);
-        return ResponseEntity.ok().build();
+    @PutMapping("/{storeId}/{itemId}/{count}")
+    public ResponseEntity<StoreInventory> addItemsToInventory(@PathVariable Long storeId, @PathVariable Long itemId, @PathVariable int count) {
+
+        return ResponseEntity.ok(storeInventoryService.addItemToStoreInventory(storeId, itemId, count));
     }
 
     @DeleteMapping("/{id}")
