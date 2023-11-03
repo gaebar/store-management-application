@@ -1,7 +1,10 @@
 package com.store.managementapplication.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +16,6 @@ import java.util.Set;
 @Data
 @Builder
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class PurchaseOrder {
 
@@ -32,8 +34,27 @@ public class PurchaseOrder {
     private Store store;
 
 
+    public PurchaseOrder(Long id, @NonNull String status, Set<PurchaseOrderLineItem> purchaseOrderLineItems, Store store) {
+        this.id = id;
+        this.status = status;
+        this.purchaseOrderLineItems = purchaseOrderLineItems;
+        this.store = store;
+    }
+
     public void addPurchaseOrderLineItem(PurchaseOrderLineItem purchaseOrderLineItem) {
         purchaseOrderLineItems.add(purchaseOrderLineItem);
-        purchaseOrderLineItem.setPurchaseOrder(this);
     }
+
+    // override tostring method
+    @Override
+    public String toString() {
+        return "PurchaseOrder{" +
+                "id=" + id +
+                ", status='" + status + '\'' +
+                // ", purchaseOrderLineItems=" + purchaseOrderLineItems +
+                // ", store=" + store +
+                '}';
+    }
+
+
 }

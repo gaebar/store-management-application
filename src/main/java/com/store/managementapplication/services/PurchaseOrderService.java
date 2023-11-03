@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class PurchaseOrderService {
@@ -75,11 +76,32 @@ public class PurchaseOrderService {
         PurchaseOrderLineItem lineItem = new PurchaseOrderLineItem();
         lineItem.setItem(item);
         lineItem.setQuantity(quantity);
-        lineItem.setPurchaseOrder(null);
         purchaseOrder.addPurchaseOrderLineItem(lineItem);
         puchaseOrderLineItemRepository.save(lineItem);
+        purchaseOrderRepository.save(purchaseOrder);
 
         //save purchase order line item
         return purchaseOrder;
+    }
+
+    // Get all purchase order line items by purchase order id
+    public Set<PurchaseOrderLineItem> getPurchaseOrderLineItems(Long purchaseOrderId) throws ResourceNotFoundException {
+        var purchaseOrder = purchaseOrderRepository.findById(purchaseOrderId)
+                .orElseThrow(() -> new ResourceNotFoundException("Purchase Order not found"));
+        return purchaseOrder.getPurchaseOrderLineItems();
+    }
+
+    // Get all purchase orders line items
+    public List<PurchaseOrderLineItem> getAllPurchaseOrderLineItems() {
+        return puchaseOrderLineItemRepository.findAll();
+    }
+
+    // Delete a purchase order line item by its id
+    public void deletePurchaseOrderLineItem(Long lineItemId) throws ResourceNotFoundException {
+        if (puchaseOrderLineItemRepository.existsById(lineItemId)) {
+            puchaseOrderLineItemRepository.deleteById(lineItemId);
+        } else {
+            throw new ResourceNotFoundException("Purchase Order Line Item not found");
+        }
     }
 }

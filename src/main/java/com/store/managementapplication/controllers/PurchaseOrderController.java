@@ -1,6 +1,7 @@
 package com.store.managementapplication.controllers;
 
 import com.store.managementapplication.entities.PurchaseOrder;
+import com.store.managementapplication.entities.PurchaseOrderLineItem;
 import com.store.managementapplication.services.PurchaseOrderService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -67,5 +68,21 @@ public class PurchaseOrderController {
         // Calls the service method to add items to a purchase order
 
         return purchaseOrderService.addItemToPurchaseOrder(purchaseOrderId, itemId, count);
+    }
+
+    // Get all purchase order line items by purchase order id
+    @PreAuthorize("hasAnyRole('ADMIN', 'STORE_MANAGER')")
+    @GetMapping("/getItems/{purchaseOrderId}")
+    public List<PurchaseOrderLineItem> getPurchaseOrderLineItems(@PathVariable Long purchaseOrderId) throws Exception {
+        // Calls the service method to get all purchase order line items by purchase order id
+        return purchaseOrderService.getAllPurchaseOrderLineItems();
+    }
+
+    // delete purchase order line item
+    @PreAuthorize("hasAnyRole('ADMIN', 'STORE_MANAGER')")
+    @DeleteMapping("/deleteItem/{itemId}")
+    public void deletePurchaseOrderLineItem(@PathVariable Long itemId) throws Exception {
+        // Calls the service method to delete a purchase order line item
+        purchaseOrderService.deletePurchaseOrderLineItem(itemId);
     }
 }

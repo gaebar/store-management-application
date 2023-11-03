@@ -144,6 +144,7 @@ Authorization: Bearer {{admin-token}}
 
 > {%
     client.assert(response.status == 200);
+    client.global.set("lineitem1-id", response.body.purchaseOrderLineItems[0].id);
 %}
 
 ### Add Item 2 to Order 1
@@ -153,7 +154,19 @@ Authorization: Bearer {{admin-token}}
 
 > {%
     client.assert(response.status == 200);
+    client.global.set("lineitem2-id", response.body.purchaseOrderLineItems[0].id);
 %}
+
+### Get Items in Order 1
+GET http://localhost:8080/api/orders/getItems/{{order1-id}}
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    //client.assert(response.body.id, "Order is not found");
+    client.assert(response.body[0].quantity == 3);
+%}
+
 
 ### Get Order by Id
 GET http://localhost:8080/api/orders/{{order1-id}}
@@ -162,7 +175,6 @@ Authorization: Bearer {{admin-token}}
 
 > {%
     client.assert(response.body.id, "Order is not found");
-    client.assert(response.body.purchaseOrderLineItems[0].quantity == 3);
 %}
 
 
@@ -186,6 +198,23 @@ Authorization: Bearer {{admin-token}}
     client.assert(response.status == 200);
 %}
 
+### Delete line item 1
+DELETE http://localhost:8080/api/orders/deleteItem/{{lineitem1-id}}
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.status == 200);
+%}
+
+### Delete line item 2
+DELETE http://localhost:8080/api/orders/deleteItem/{{lineitem2-id}}
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.status == 200);
+%}
 
 ### Delete Item 1
 DELETE http://localhost:8080/api/items/delete/{{item1-id}}
