@@ -60,6 +60,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
+
 //    public List<Item> viewInventory(Long storeId) {
 //        return itemRepository.findAllByStoreId(storeId);
 //    }
@@ -94,6 +95,12 @@ public class UserService {
     // get the stores managed by a user
     public Set<Store> getManagedStores(String email) {
         return userRepository.findByEmail(email)
+                .map(User::getManagedStores)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    }
+
+    public Set<Store> getManagedStores(Long userId) {
+        return userRepository.findById(userId)
                 .map(User::getManagedStores)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }

@@ -1,10 +1,42 @@
-POST http://localhost:8080/api/stores/
+DELETE http://localhost:8080/admin/deleteStore/2
 Content-Type: application/json
-Authorization: Bearer managerPassword
-Content-Length: 0
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjQyOCwiZXhwIjoxNjk5NTg3MjI4fQ.E4Otcj805duaMI7MPu6P5MnOC_gAdKq0OLh0naHQsco
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+DELETE http://localhost:8080/api/users/delete/5
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjQyOCwiZXhwIjoxNjk5NTg3MjI4fQ.E4Otcj805duaMI7MPu6P5MnOC_gAdKq0OLh0naHQsco
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+DELETE http://localhost:8080/api/inventories/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjQyOCwiZXhwIjoxNjk5NTg3MjI4fQ.E4Otcj805duaMI7MPu6P5MnOC_gAdKq0OLh0naHQsco
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+PUT http://localhost:8080/api/inventories/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYW5hZ2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNjk4OTgyNDI4LCJleHAiOjE2OTk1ODcyMjh9.5i4n6IcEMs5ayE9i1muWXr3_Ogml2ZSXvJ7d4RC2LBY
+Content-Type: application/json
+Content-Length: 17
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "count": 10
+}
+
+<> 2023-11-02T203348.500.txt
 
 ###
 
@@ -20,621 +52,67 @@ Accept-Encoding: br,deflate,gzip,x-gzip
   "password": "managerPassword"
 }
 
-<> 2023-11-02T161208.200.json
+<> 2023-11-02T203348-6.200.json
 
 ###
 
-POST http://localhost:8080/api/v1/auth/authenticate
+GET http://localhost:8080/api/users/get/5
 Content-Type: application/json
-Content-Length: 65
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjQyOCwiZXhwIjoxNjk5NTg3MjI4fQ.E4Otcj805duaMI7MPu6P5MnOC_gAdKq0OLh0naHQsco
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "email": "staff@example.com",
-  "password": "staffPassword"
-}
-
-<> 2023-11-02T161128.200.json
+<> 2023-11-02T203348-5.200.json
 
 ###
 
-POST http://localhost:8080/api/v1/auth/authenticate
+GET http://localhost:8080/api/users/managedStores/5
 Content-Type: application/json
-Content-Length: 65
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjQyOCwiZXhwIjoxNjk5NTg3MjI4fQ.E4Otcj805duaMI7MPu6P5MnOC_gAdKq0OLh0naHQsco
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "email": "staff@example.com",
-  "password": "staffPassword"
-}
-
-<> 2023-11-02T160926.500.txt
+<> 2023-11-02T203348-4.200.json
 
 ###
 
-POST http://localhost:8080/api/v1/auth/authenticate
+POST http://localhost:8080/api/users/addManagedStore/5/2
 Content-Type: application/json
-Content-Length: 69
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "email": "manager@example.com",
-  "password": "managerPassword"
-}
-
-<> 2023-11-02T160923.200.json
-
-###
-
-POST http://localhost:8080/api/v1/auth/authenticate
-Content-Type: application/json
-Content-Length: 65
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "email": "staff@example.com",
-  "password": "staffPassword"
-}
-
-<> 2023-11-02T160844.500.txt
-
-###
-
-POST http://localhost:8080/api/v1/auth/authenticate
-Content-Type: application/json
-Content-Length: 69
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "email": "manager@example.com",
-  "password": "managerPassword"
-}
-
-<> 2023-11-02T160709.200.json
-
-###
-
-DELETE http://localhost:8080/admin/deleteStore/5
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQyNSwiZXhwIjoxNjk5NTcxMjI1fQ.npHqDajRh5kzpjZ5Kqffaa6Y0c_6ChJytGCyDmCxxSc
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-###
-
-DELETE http://localhost:8080/api/items/delete/2
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQyNSwiZXhwIjoxNjk5NTcxMjI1fQ.npHqDajRh5kzpjZ5Kqffaa6Y0c_6ChJytGCyDmCxxSc
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-###
-
-DELETE http://localhost:8080/api/categories/delete/3
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQyNSwiZXhwIjoxNjk5NTcxMjI1fQ.npHqDajRh5kzpjZ5Kqffaa6Y0c_6ChJytGCyDmCxxSc
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-###
-
-DELETE http://localhost:8080/api/orders/delete/1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQyNSwiZXhwIjoxNjk5NTcxMjI1fQ.npHqDajRh5kzpjZ5Kqffaa6Y0c_6ChJytGCyDmCxxSc
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-###
-
-GET http://localhost:8080/api/orders/1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQyNSwiZXhwIjoxNjk5NTcxMjI1fQ.npHqDajRh5kzpjZ5Kqffaa6Y0c_6ChJytGCyDmCxxSc
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-02T160705-6.200.json
-
-###
-
-POST http://localhost:8080/api/orders/create
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQyNSwiZXhwIjoxNjk5NTcxMjI1fQ.npHqDajRh5kzpjZ5Kqffaa6Y0c_6ChJytGCyDmCxxSc
-Content-Length: 43
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-    "status": "CREATED",
-    "store": 5
-}
-
-<> 2023-11-02T160705-5.200.json
-
-###
-
-POST http://localhost:8080/api/items/create
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQyNSwiZXhwIjoxNjk5NTcxMjI1fQ.npHqDajRh5kzpjZ5Kqffaa6Y0c_6ChJytGCyDmCxxSc
-Content-Length: 154
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "name": "Lipstick",
-  "description": "Matte finish, long-lasting",
-  "itemCategory": "3",
-  "price": 20.0,
-  "quantity": 50,
-  "initialQuantity": 50
-}
-
-<> 2023-11-02T160705-4.200.json
-
-###
-
-POST http://localhost:8080/api/categories/create
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQyNSwiZXhwIjoxNjk5NTcxMjI1fQ.npHqDajRh5kzpjZ5Kqffaa6Y0c_6ChJytGCyDmCxxSc
-Content-Length: 54
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "name": "Beauty",
-  "supplier": "Baci Cosmetics"
-}
-
-<> 2023-11-02T160705-3.200.json
-
-###
-
-GET http://localhost:8080/stores/getStore/5
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQyNSwiZXhwIjoxNjk5NTcxMjI1fQ.npHqDajRh5kzpjZ5Kqffaa6Y0c_6ChJytGCyDmCxxSc
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-02T160705-2.200.json
-
-###
-
-POST http://localhost:8080/admin/createStore
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQyNSwiZXhwIjoxNjk5NTcxMjI1fQ.npHqDajRh5kzpjZ5Kqffaa6Y0c_6ChJytGCyDmCxxSc
-Content-Length: 200
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "name": "Sammamish Megastore",
-  "location": "123 Red Street, Sammamish, WA 98074",
-  "contactInformation": "Telephone Number: 1234567890",
-  "storeType": "retail",
-  "openingDate": "2021-10-01"
-}
-
-<> 2023-11-02T160705-1.200.json
-
-###
-
-POST http://localhost:8080/api/v1/auth/authenticate
-Content-Type: application/json
-Content-Length: 65
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "email": "admin@example.com",
-  "password": "adminPassword"
-}
-
-<> 2023-11-02T160705.200.json
-
-###
-
-DELETE http://localhost:8080/api/categories/delete/2
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQyMiwiZXhwIjoxNjk5NTcxMjIyfQ.mtxEYfxFNimEAo5-saldoPZtFQzQFjVWQaCTu07vx-M
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-###
-
-DELETE http://localhost:8080/api/categories/delete/1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQyMiwiZXhwIjoxNjk5NTcxMjIyfQ.mtxEYfxFNimEAo5-saldoPZtFQzQFjVWQaCTu07vx-M
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-###
-
-DELETE http://localhost:8080/api/items/delete/1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQyMiwiZXhwIjoxNjk5NTcxMjIyfQ.mtxEYfxFNimEAo5-saldoPZtFQzQFjVWQaCTu07vx-M
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-###
-
-PUT http://localhost:8080/api/items/addToCategory/1/1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQyMiwiZXhwIjoxNjk5NTcxMjIyfQ.mtxEYfxFNimEAo5-saldoPZtFQzQFjVWQaCTu07vx-M
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjQyOCwiZXhwIjoxNjk5NTg3MjI4fQ.E4Otcj805duaMI7MPu6P5MnOC_gAdKq0OLh0naHQsco
 Content-Length: 0
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-11-02T160702-6.200.json
-
-###
-
-POST http://localhost:8080/api/items/create
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQyMiwiZXhwIjoxNjk5NTcxMjIyfQ.mtxEYfxFNimEAo5-saldoPZtFQzQFjVWQaCTu07vx-M
-Content-Length: 162
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "name": "iPhone 15",
-  "description": "Apple iPhone 15",
-  "itemCategory": "{{category2-id}}",
-  "price": 1199.99,
-  "quantity": 20,
-  "initialQuantity": 20
-}
-
-<> 2023-11-02T160702-5.200.json
-
-###
-
-POST http://localhost:8080/api/categories/create
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQyMiwiZXhwIjoxNjk5NTcxMjIyfQ.mtxEYfxFNimEAo5-saldoPZtFQzQFjVWQaCTu07vx-M
-Content-Length: 57
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "name": "Beauty",
-  "supplier": "Baci and Abbracci"
-}
-
-<> 2023-11-02T160702-4.200.json
-
-###
-
-GET http://localhost:8080/api/categories/1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQyMiwiZXhwIjoxNjk5NTcxMjIyfQ.mtxEYfxFNimEAo5-saldoPZtFQzQFjVWQaCTu07vx-M
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-02T160702-3.200.json
-
-###
-
-PUT http://localhost:8080/api/categories/update/1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQyMiwiZXhwIjoxNjk5NTcxMjIyfQ.mtxEYfxFNimEAo5-saldoPZtFQzQFjVWQaCTu07vx-M
-Content-Length: 53
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "name": "Electronics",
-  "supplier": "Tech Inc"
-}
-
-<> 2023-11-02T160702-2.200.json
-
-###
-
-POST http://localhost:8080/api/categories/create
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQyMiwiZXhwIjoxNjk5NTcxMjIyfQ.mtxEYfxFNimEAo5-saldoPZtFQzQFjVWQaCTu07vx-M
-Content-Length: 52
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "name": "Technology",
-  "supplier": "Tech Inc"
-}
-
-<> 2023-11-02T160702-1.200.json
-
-###
-
-POST http://localhost:8080/api/v1/auth/authenticate
-Content-Type: application/json
-Content-Length: 65
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "email": "admin@example.com",
-  "password": "adminPassword"
-}
-
-<> 2023-11-02T160702.200.json
-
-###
-
-DELETE http://localhost:8080/admin/deleteStore/4
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQxOCwiZXhwIjoxNjk5NTcxMjE4fQ.K8Tc1SiuytuvbJcfzpFWQgSWGUBo8djlj3Zc_nbYBeo
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-###
-
-DELETE http://localhost:8080/admin/deleteStore/3
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQxOCwiZXhwIjoxNjk5NTcxMjE4fQ.K8Tc1SiuytuvbJcfzpFWQgSWGUBo8djlj3Zc_nbYBeo
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-###
-
-DELETE http://localhost:8080/api/users/delete/3
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQxOCwiZXhwIjoxNjk5NTcxMjE4fQ.K8Tc1SiuytuvbJcfzpFWQgSWGUBo8djlj3Zc_nbYBeo
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-###
-
-GET http://localhost:8080/api/users/get/3
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQxOCwiZXhwIjoxNjk5NTcxMjE4fQ.K8Tc1SiuytuvbJcfzpFWQgSWGUBo8djlj3Zc_nbYBeo
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-02T160659-1.200.json
-
-###
-
-PUT http://localhost:8080/api/users/update/3
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQxOCwiZXhwIjoxNjk5NTcxMjE4fQ.K8Tc1SiuytuvbJcfzpFWQgSWGUBo8djlj3Zc_nbYBeo
-Content-Length: 122
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "firstname": "John1",
-  "lastname": "Doe1",
-  "email": "john@doe.com",
-  "password": "password",
-  "role": "MANAGER"
-}
-
-<> 2023-11-02T160659.200.json
-
-###
-
-POST http://localhost:8080/api/users/addManagedStore/3/4
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQxOCwiZXhwIjoxNjk5NTcxMjE4fQ.K8Tc1SiuytuvbJcfzpFWQgSWGUBo8djlj3Zc_nbYBeo
-Content-Length: 0
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-02T160658-7.200.json
-
-###
-
-POST http://localhost:8080/api/users/addManagedStore/3/3
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQxOCwiZXhwIjoxNjk5NTcxMjE4fQ.K8Tc1SiuytuvbJcfzpFWQgSWGUBo8djlj3Zc_nbYBeo
-Content-Length: 0
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-02T160658-6.200.json
-
-###
-
-GET http://localhost:8080/api/users/get/3
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQxOCwiZXhwIjoxNjk5NTcxMjE4fQ.K8Tc1SiuytuvbJcfzpFWQgSWGUBo8djlj3Zc_nbYBeo
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-02T160658-5.200.json
-
-###
-
-POST http://localhost:8080/api/users/addManagedStore/3/3
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQxOCwiZXhwIjoxNjk5NTcxMjE4fQ.K8Tc1SiuytuvbJcfzpFWQgSWGUBo8djlj3Zc_nbYBeo
-Content-Length: 0
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-02T160658-4.200.json
-
-###
-
-POST http://localhost:8080/admin/createStore
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQxOCwiZXhwIjoxNjk5NTcxMjE4fQ.K8Tc1SiuytuvbJcfzpFWQgSWGUBo8djlj3Zc_nbYBeo
-Content-Length: 199
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "name": "Bellevue Megastore",
-  "location": "123 Blue Street, Bellevue, WA 98074",
-  "contactInformation": "Telephone Number: 1234567890",
-  "storeType": "retail",
-  "openingDate": "2019-10-01"
-}
-
-<> 2023-11-02T160658-3.200.json
-
-###
-
-POST http://localhost:8080/admin/createStore
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQxOCwiZXhwIjoxNjk5NTcxMjE4fQ.K8Tc1SiuytuvbJcfzpFWQgSWGUBo8djlj3Zc_nbYBeo
-Content-Length: 198
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "name": "Kirkland Megastore",
-  "location": "123 Red Street, Kirkland, WA 98074",
-  "contactInformation": "Telephone Number: 1234567890",
-  "storeType": "retail",
-  "openingDate": "2019-10-01"
-}
-
-<> 2023-11-02T160658-2.200.json
+<> 2023-11-02T203348-3.200.json
 
 ###
 
 POST http://localhost:8080/api/users/create
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQxOCwiZXhwIjoxNjk5NTcxMjE4fQ.K8Tc1SiuytuvbJcfzpFWQgSWGUBo8djlj3Zc_nbYBeo
-Content-Length: 118
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjQyOCwiZXhwIjoxNjk5NTg3MjI4fQ.E4Otcj805duaMI7MPu6P5MnOC_gAdKq0OLh0naHQsco
+Content-Length: 141
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 {
-  "firstname": "John",
-  "lastname": "Doe",
-  "email": "john@doe.com",
-  "password": "password",
-  "role": "STAFF"
+  "firstname": "Robert",
+  "lastname": "Taylor",
+  "email": "manager@megastore.com",
+  "password": "managerPassword",
+  "role": "MANAGER"
 }
 
-<> 2023-11-02T160658-1.200.json
-
-###
-
-POST http://localhost:8080/api/v1/auth/authenticate
-Content-Type: application/json
-Content-Length: 65
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "email": "admin@example.com",
-  "password": "adminPassword"
-}
-
-<> 2023-11-02T160658.200.json
-
-###
-
-DELETE http://localhost:8080/admin/deleteStore/2
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQxNCwiZXhwIjoxNjk5NTcxMjE0fQ.czaJ17mzp8KVCB660-Zb-3qY3zeoqD11DYt2x5Zb3WA
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
+<> 2023-11-02T203348-2.200.json
 
 ###
 
 POST http://localhost:8080/admin/createStore
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQxNCwiZXhwIjoxNjk5NTcxMjE0fQ.czaJ17mzp8KVCB660-Zb-3qY3zeoqD11DYt2x5Zb3WA
-Content-Length: 200
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "name": "Redmond Megastore 2",
-  "location": "123 2 Red Street, Redmond, WA 98074",
-  "contactInformation": "Telephone Number: 1234567890",
-  "storeType": "retail",
-  "openingDate": "2019-01-01"
-}
-
-<> 2023-11-02T160654-4.200.json
-
-###
-
-GET http://localhost:8080/stores/getStore/1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQxNCwiZXhwIjoxNjk5NTcxMjE0fQ.czaJ17mzp8KVCB660-Zb-3qY3zeoqD11DYt2x5Zb3WA
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-02T160654-3.200.json
-
-###
-
-PUT http://localhost:8080/admin/updateStore/1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQxNCwiZXhwIjoxNjk5NTcxMjE0fQ.czaJ17mzp8KVCB660-Zb-3qY3zeoqD11DYt2x5Zb3WA
-Content-Length: 197
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "name": "Redmond Megastore",
-  "location": "234 Blue Street, Redmond, WA 98074",
-  "contactInformation": "Telephone Number: 1234567890",
-  "storeType": "retail",
-  "openingDate": "2019-01-01"
-}
-
-<> 2023-11-02T160654-2.200.json
-
-###
-
-POST http://localhost:8080/admin/createStore
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2NjQxNCwiZXhwIjoxNjk5NTcxMjE0fQ.czaJ17mzp8KVCB660-Zb-3qY3zeoqD11DYt2x5Zb3WA
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjQyOCwiZXhwIjoxNjk5NTg3MjI4fQ.E4Otcj805duaMI7MPu6P5MnOC_gAdKq0OLh0naHQsco
 Content-Length: 196
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
@@ -648,7 +126,7 @@ Accept-Encoding: br,deflate,gzip,x-gzip
   "openingDate": "2019-01-01"
 }
 
-<> 2023-11-02T160654-1.200.json
+<> 2023-11-02T203348-1.200.json
 
 ###
 
@@ -664,43 +142,513 @@ Accept-Encoding: br,deflate,gzip,x-gzip
   "password": "adminPassword"
 }
 
-<> 2023-11-02T160654.200.json
+<> 2023-11-02T203348.200.json
 
 ###
 
-DELETE http://localhost:8080/admin/deleteStore/2
+DELETE http://localhost:8080/admin/deleteStore/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2Mzk5NCwiZXhwIjoxNjk5NTY4Nzk0fQ.jDbwjoDQYek89fokJoTHgslaA0piRpX58oDB980kkn8
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjIyNiwiZXhwIjoxNjk5NTg3MDI2fQ.EgjvGIraHwEQLfyKH7fUXfqdXCzmW8Djx6xNZDbPxN8
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 ###
 
-POST http://localhost:8080/admin/createStore
+DELETE http://localhost:8080/api/users/delete/4
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2Mzk5NCwiZXhwIjoxNjk5NTY4Nzk0fQ.jDbwjoDQYek89fokJoTHgslaA0piRpX58oDB980kkn8
-Content-Length: 200
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjIyNiwiZXhwIjoxNjk5NTg3MDI2fQ.EgjvGIraHwEQLfyKH7fUXfqdXCzmW8Djx6xNZDbPxN8
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+DELETE http://localhost:8080/api/inventories/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjIyNiwiZXhwIjoxNjk5NTg3MDI2fQ.EgjvGIraHwEQLfyKH7fUXfqdXCzmW8Djx6xNZDbPxN8
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+PUT http://localhost:8080/api/inventories/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYW5hZ2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNjk4OTgyMjI2LCJleHAiOjE2OTk1ODcwMjZ9.9BAaDb7QtOMbO_aO0SUD1iR9zaE_tZRb6t9u3FlHFng
+Content-Type: application/json
+Content-Length: 17
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 {
-  "name": "Redmond Megastore 2",
-  "location": "123 2 Red Street, Redmond, WA 98074",
+  "count": 10
+}
+
+<> 2023-11-02T203027.500.txt
+
+###
+
+POST http://localhost:8080/api/v1/auth/authenticate
+Content-Type: application/json
+Content-Length: 69
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "email": "manager@example.com",
+  "password": "managerPassword"
+}
+
+<> 2023-11-02T203026-5.200.json
+
+###
+
+GET http://localhost:8080/api/users/get/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjIyNiwiZXhwIjoxNjk5NTg3MDI2fQ.EgjvGIraHwEQLfyKH7fUXfqdXCzmW8Djx6xNZDbPxN8
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-02T203026-4.200.json
+
+###
+
+GET http://localhost:8080/api/users/managedStores
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjIyNiwiZXhwIjoxNjk5NTg3MDI2fQ.EgjvGIraHwEQLfyKH7fUXfqdXCzmW8Djx6xNZDbPxN8
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+POST http://localhost:8080/api/users/addManagedStore/4/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjIyNiwiZXhwIjoxNjk5NTg3MDI2fQ.EgjvGIraHwEQLfyKH7fUXfqdXCzmW8Djx6xNZDbPxN8
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-02T203026-3.200.json
+
+###
+
+POST http://localhost:8080/api/users/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjIyNiwiZXhwIjoxNjk5NTg3MDI2fQ.EgjvGIraHwEQLfyKH7fUXfqdXCzmW8Djx6xNZDbPxN8
+Content-Length: 141
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "firstname": "Robert",
+  "lastname": "Taylor",
+  "email": "manager@megastore.com",
+  "password": "managerPassword",
+  "role": "MANAGER"
+}
+
+<> 2023-11-02T203026-2.200.json
+
+###
+
+POST http://localhost:8080/admin/createStore
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjIyNiwiZXhwIjoxNjk5NTg3MDI2fQ.EgjvGIraHwEQLfyKH7fUXfqdXCzmW8Djx6xNZDbPxN8
+Content-Length: 196
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name": "Redmond Megastore",
+  "location": "123 Red Street, Redmond, WA 98074",
   "contactInformation": "Telephone Number: 1234567890",
   "storeType": "retail",
   "openingDate": "2019-01-01"
 }
 
+<> 2023-11-02T203026-1.200.json
+
 ###
 
-GET http://localhost:8080/stores/getStore/2
+POST http://localhost:8080/api/v1/auth/authenticate
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk2Mzk5NCwiZXhwIjoxNjk5NTY4Nzk0fQ.jDbwjoDQYek89fokJoTHgslaA0piRpX58oDB980kkn8
+Content-Length: 65
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "email": "admin@example.com",
+  "password": "adminPassword"
+}
+
+<> 2023-11-02T203026.200.json
+
+###
+
+DELETE http://localhost:8080/admin/deleteStore/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjAzMCwiZXhwIjoxNjk5NTg2ODMwfQ.3LAsv7hNSHRmGfKRFPi4vA7J3E2Zj2FDG_fMVro3_5c
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+DELETE http://localhost:8080/api/users/delete/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjAzMCwiZXhwIjoxNjk5NTg2ODMwfQ.3LAsv7hNSHRmGfKRFPi4vA7J3E2Zj2FDG_fMVro3_5c
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+DELETE http://localhost:8080/api/inventories/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjAzMCwiZXhwIjoxNjk5NTg2ODMwfQ.3LAsv7hNSHRmGfKRFPi4vA7J3E2Zj2FDG_fMVro3_5c
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+PUT http://localhost:8080/api/inventories/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYW5hZ2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNjk4OTgyMDMxLCJleHAiOjE2OTk1ODY4MzF9.C2qQj0JrzLWx2_vMEWUJ2q4NGhUC1vqGRCNKuhws-Es
+Content-Type: application/json
+Content-Length: 17
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "count": 10
+}
+
+<> 2023-11-02T202711.500.txt
+
+###
+
+POST http://localhost:8080/api/v1/auth/authenticate
+Content-Type: application/json
+Content-Length: 69
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "email": "manager@example.com",
+  "password": "managerPassword"
+}
+
+<> 2023-11-02T202711-1.200.json
+
+###
+
+GET http://localhost:8080/api/users/get/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjAzMCwiZXhwIjoxNjk5NTg2ODMwfQ.3LAsv7hNSHRmGfKRFPi4vA7J3E2Zj2FDG_fMVro3_5c
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-02T202711.200.json
+
+###
+
+GET http://localhost:8080/api/users/managedStores
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjAzMCwiZXhwIjoxNjk5NTg2ODMwfQ.3LAsv7hNSHRmGfKRFPi4vA7J3E2Zj2FDG_fMVro3_5c
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-02T202710-4.200.json
+
+###
+
+POST http://localhost:8080/api/users/addManagedStore/4/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjAzMCwiZXhwIjoxNjk5NTg2ODMwfQ.3LAsv7hNSHRmGfKRFPi4vA7J3E2Zj2FDG_fMVro3_5c
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-02T202710-3.200.json
+
+###
+
+POST http://localhost:8080/api/users/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjAzMCwiZXhwIjoxNjk5NTg2ODMwfQ.3LAsv7hNSHRmGfKRFPi4vA7J3E2Zj2FDG_fMVro3_5c
+Content-Length: 141
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "firstname": "Robert",
+  "lastname": "Taylor",
+  "email": "manager@megastore.com",
+  "password": "managerPassword",
+  "role": "MANAGER"
+}
+
+<> 2023-11-02T202710-2.200.json
+
+###
+
+POST http://localhost:8080/admin/createStore
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MjAzMCwiZXhwIjoxNjk5NTg2ODMwfQ.3LAsv7hNSHRmGfKRFPi4vA7J3E2Zj2FDG_fMVro3_5c
+Content-Length: 196
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name": "Redmond Megastore",
+  "location": "123 Red Street, Redmond, WA 98074",
+  "contactInformation": "Telephone Number: 1234567890",
+  "storeType": "retail",
+  "openingDate": "2019-01-01"
+}
+
+<> 2023-11-02T202710-1.200.json
+
+###
+
+POST http://localhost:8080/api/v1/auth/authenticate
+Content-Type: application/json
+Content-Length: 65
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "email": "admin@example.com",
+  "password": "adminPassword"
+}
+
+<> 2023-11-02T202710.200.json
+
+###
+
+DELETE http://localhost:8080/admin/deleteStore/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MTk0NywiZXhwIjoxNjk5NTg2NzQ3fQ.mECI997IdMq4h6-Roc9TQ1epP0HdRjK7iAA8d4gsH24
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+DELETE http://localhost:8080/api/users/delete/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MTk0NywiZXhwIjoxNjk5NTg2NzQ3fQ.mECI997IdMq4h6-Roc9TQ1epP0HdRjK7iAA8d4gsH24
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+DELETE http://localhost:8080/api/inventories/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MTk0NywiZXhwIjoxNjk5NTg2NzQ3fQ.mECI997IdMq4h6-Roc9TQ1epP0HdRjK7iAA8d4gsH24
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+PUT http://localhost:8080/api/inventories/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYW5hZ2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNjk4OTgxOTQ3LCJleHAiOjE2OTk1ODY3NDd9.QuunVo5a3wYtS21mr-HzYD1Vexj8xc7sp4Qf-ONBMQM
+Content-Type: application/json
+Content-Length: 17
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "count": 10
+}
+
+<> 2023-11-02T202547.500.txt
+
+###
+
+POST http://localhost:8080/api/v1/auth/authenticate
+Content-Type: application/json
+Content-Length: 69
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "email": "manager@example.com",
+  "password": "managerPassword"
+}
+
+<> 2023-11-02T202547-6.200.json
+
+###
+
+GET http://localhost:8080/api/users/get/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MTk0NywiZXhwIjoxNjk5NTg2NzQ3fQ.mECI997IdMq4h6-Roc9TQ1epP0HdRjK7iAA8d4gsH24
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-02T202547-5.200.json
+
+###
+
+GET http://localhost:8080/api/users/managedStores
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MTk0NywiZXhwIjoxNjk5NTg2NzQ3fQ.mECI997IdMq4h6-Roc9TQ1epP0HdRjK7iAA8d4gsH24
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-02T202547-4.200.json
+
+###
+
+POST http://localhost:8080/api/users/addManagedStore/4/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MTk0NywiZXhwIjoxNjk5NTg2NzQ3fQ.mECI997IdMq4h6-Roc9TQ1epP0HdRjK7iAA8d4gsH24
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-02T202547-3.200.json
+
+###
+
+POST http://localhost:8080/api/users/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MTk0NywiZXhwIjoxNjk5NTg2NzQ3fQ.mECI997IdMq4h6-Roc9TQ1epP0HdRjK7iAA8d4gsH24
+Content-Length: 141
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "firstname": "Robert",
+  "lastname": "Taylor",
+  "email": "manager@megastore.com",
+  "password": "managerPassword",
+  "role": "MANAGER"
+}
+
+<> 2023-11-02T202547-2.200.json
+
+###
+
+POST http://localhost:8080/admin/createStore
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MTk0NywiZXhwIjoxNjk5NTg2NzQ3fQ.mECI997IdMq4h6-Roc9TQ1epP0HdRjK7iAA8d4gsH24
+Content-Length: 196
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name": "Redmond Megastore",
+  "location": "123 Red Street, Redmond, WA 98074",
+  "contactInformation": "Telephone Number: 1234567890",
+  "storeType": "retail",
+  "openingDate": "2019-01-01"
+}
+
+<> 2023-11-02T202547-1.200.json
+
+###
+
+POST http://localhost:8080/api/v1/auth/authenticate
+Content-Type: application/json
+Content-Length: 65
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "email": "admin@example.com",
+  "password": "adminPassword"
+}
+
+<> 2023-11-02T202547.200.json
+
+###
+
+DELETE http://localhost:8080/admin/deleteStore/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MTk0MiwiZXhwIjoxNjk5NTg2NzQyfQ.gCsO-GA612iCiB32phO2kADD5SC0s3GyV1K6zT-knr8
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+DELETE http://localhost:8080/api/items/delete/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MTk0MiwiZXhwIjoxNjk5NTg2NzQyfQ.gCsO-GA612iCiB32phO2kADD5SC0s3GyV1K6zT-knr8
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+DELETE http://localhost:8080/api/categories/delete/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MTk0MiwiZXhwIjoxNjk5NTg2NzQyfQ.gCsO-GA612iCiB32phO2kADD5SC0s3GyV1K6zT-knr8
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+DELETE http://localhost:8080/api/orders/delete/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MTk0MiwiZXhwIjoxNjk5NTg2NzQyfQ.gCsO-GA612iCiB32phO2kADD5SC0s3GyV1K6zT-knr8
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+GET http://localhost:8080/api/orders/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MTk0MiwiZXhwIjoxNjk5NTg2NzQyfQ.gCsO-GA612iCiB32phO2kADD5SC0s3GyV1K6zT-knr8
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-02T202543-5.200.json
+
+###
+
+POST http://localhost:8080/api/orders/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY5ODk4MTk0MiwiZXhwIjoxNjk5NTg2NzQyfQ.gCsO-GA612iCiB32phO2kADD5SC0s3GyV1K6zT-knr8
+Content-Length: 43
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "status": "CREATED",
+    "store": 1
+}
+
+<> 2023-11-02T202543-4.200.json
 
 ###
 

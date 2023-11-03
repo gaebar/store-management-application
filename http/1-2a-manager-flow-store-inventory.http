@@ -1,4 +1,90 @@
-### Authenticate as Store Manager and save token
+### Super Admin login and token generation
+
+POST http://localhost:8080/api/v1/auth/authenticate
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "adminPassword"
+}
+
+> {%
+    client.assert(response.body.token, "Token is not generated");
+    client.global.set("admin-token", response.body.token);
+%}
+
+### Create Store and save store id in global variable
+
+POST http://localhost:8080/admin/createStore
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+{
+  "name": "Redmond Megastore",
+  "location": "123 Red Street, Redmond, WA 98074",
+  "contactInformation": "Telephone Number: 1234567890",
+  "storeType": "retail",
+  "openingDate": "2019-01-01"
+}
+
+> {%
+    client.assert(response.body.id, "Store ID is not generated");
+    client.global.set("store-id", response.body.id);
+%}
+
+### Create Store Manager
+
+POST http://localhost:8080/api/users/create
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+{
+  "firstname": "Robert",
+  "lastname": "Taylor",
+  "email": "manager@megastore.com",
+  "password": "managerPassword",
+  "role": "MANAGER"
+}
+
+> {%
+    client.assert(response.body.id, "Manager is not generated");
+    client.global.set("manager-id", response.body.id);
+%}
+
+### Assign the store to the manager
+
+POST http://localhost:8080/api/users/addManagedStore/{{manager-id}}/{{store-id}}
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.status === 200, "Failed to assign store to manager");
+%}
+
+### Get the stores associated with the authenticated manager
+
+GET http://localhost:8080/api/users/managedStores/{{manager-id}}
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.body[0].id, "Store is not found");
+    client.global.set("store-id", response.body[0].id);
+%}
+
+### Check the Manager's Access to Store
+
+GET http://localhost:8080/api/users/get/{{manager-id}}
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.body.id, "Manager is not retrieved");
+    client.assert(response.body.managedStores[0].id, client.global.get("store-id"));
+%}
+
+### Super Store Manager login and token generation
+
 POST http://localhost:8080/api/v1/auth/authenticate
 Content-Type: application/json
 
@@ -8,11 +94,46 @@ Content-Type: application/json
 }
 
 > {%
-    client.assert(response.body.token, "Token is not generated");
+    client.assert(response.body.token, "Manager Token is not generated");
     client.global.set("manager-token", response.body.token);
 %}
 
-### Get All Stores (Store Manager the pselects one)
-POST http://localhost:8080/api/stores/
-Content-Type: application/json
+
+### Add items to a store's inventory
+
+PUT http://localhost:8080/api/inventories/{{store-id}}
 Authorization: Bearer {{manager-token}}
+Content-Type: application/json
+
+{
+  "count": 10
+}
+
+### Delete Inventory from the store (cleanup after tests)
+
+DELETE http://localhost:8080/api/inventories/{{store-id}}
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.status === 200, "Inventory is not deleted");
+%}
+
+### Delete Store Manager (cleanup after tests)
+
+DELETE http://localhost:8080/api/users/delete/{{manager-id}}
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.status === 200, "Manager is not deleted");
+%}
+
+### Delete Store (cleanup after tests)
+
+DELETE http://localhost:8080/admin/deleteStore/{{store-id}}
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.status === 200, "Store is not deleted");
+%}

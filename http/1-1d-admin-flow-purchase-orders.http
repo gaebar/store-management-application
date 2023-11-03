@@ -21,7 +21,7 @@ Authorization: Bearer {{auth-token}}
 
 {
   "name": "Sammamish Megastore",
-  "location": "123 Red Street, Sammamish, WA 98074",
+  "location": "1234 Red Street, Sammamish, WA 98074",
   "contactInformation": "Telephone Number: 1234567890",
   "storeType": "retail",
   "openingDate": "2021-10-01"
@@ -107,20 +107,40 @@ DELETE http://localhost:8080/api/orders/delete/{{order1-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
+> {%
+    client.assert(response.status == 200);
+%}
+
+
 ### Delete Category 1
 DELETE http://localhost:8080/api/categories/delete/{{category1-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
+
+> {%
+    client.assert(response.status == 200);
+%}
+
 
 ### Delete Item 1
 DELETE http://localhost:8080/api/items/delete/{{lipstick-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
+> {%
+    client.assert(response.status == 200);
+%}
+
+
 ### Delete Store 1
 DELETE http://localhost:8080/admin/deleteStore/{{store1-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
+
+> {%
+    client.assert(response.status == 200);
+%}
+
 
 
 
