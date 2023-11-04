@@ -2,6 +2,7 @@ package com.store.managementapplication.controllers;
 
 import com.store.managementapplication.entities.StoreInventory;
 import com.store.managementapplication.services.StoreInventoryService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/inventories")
+@Tag(name = "Store Inventory", description = "Store Inventory API")
 public class StoreInventoryController {
 
     private final StoreInventoryService storeInventoryService;

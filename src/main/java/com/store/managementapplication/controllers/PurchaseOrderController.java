@@ -3,6 +3,7 @@ package com.store.managementapplication.controllers;
 import com.store.managementapplication.entities.PurchaseOrder;
 import com.store.managementapplication.entities.PurchaseOrderLineItem;
 import com.store.managementapplication.services.PurchaseOrderService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/orders")
+@Tag(name = "Purchase Order", description = "Purchase Order API")
 public class PurchaseOrderController {
 
     private final PurchaseOrderService purchaseOrderService;

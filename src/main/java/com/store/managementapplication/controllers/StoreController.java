@@ -2,6 +2,7 @@ package com.store.managementapplication.controllers;
 
 import com.store.managementapplication.entities.Store;
 import com.store.managementapplication.services.StoreService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController // Indicates that the class is a RESTful web service controller
 @RequestMapping("/api/v1/stores") // Maps all HTTP operations by default
+@Tag(name = "Store", description = "Store API") // Swagger annotation
 public class StoreController {
 
     @Autowired // Automatically injects StoreService into this controller

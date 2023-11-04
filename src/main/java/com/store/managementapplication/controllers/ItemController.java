@@ -2,6 +2,7 @@ package com.store.managementapplication.controllers;
 
 import com.store.managementapplication.entities.Item;
 import com.store.managementapplication.services.ItemService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/items")
+@Tag(name = "Item", description = "Item API")
 public class ItemController {
 
     private final ItemService itemService;

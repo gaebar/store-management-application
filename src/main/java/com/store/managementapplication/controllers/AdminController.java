@@ -4,6 +4,8 @@ import com.store.managementapplication.entities.Role;
 import com.store.managementapplication.entities.Store;
 import com.store.managementapplication.services.RoleService;
 import com.store.managementapplication.services.StoreService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/admin")
 @PreAuthorize("hasRole('ADMIN')")
+@SecurityRequirement(name = "bearerAuth")
+@Tag(name = "Admin", description = "Admin API")
 public class AdminController {
 
     @Autowired

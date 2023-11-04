@@ -53,7 +53,24 @@ interaction with the API's endpoints.
 
 ### Security in Swagger
 
-- If the API requires authentication, click the "Authorize" button in the Swagger UI to input your JWT credentials.
+- Use the `authenticate` endpoint to log into the application with the default admin credentials
+
+```
+{
+  "email": "admin@example.com",
+  "password": "adminPassword"
+}
+```
+
+- The `authenticate` endpoint will return a JWT token that can be used to authorize requests to protected endpoints.
+
+```
+{
+  "token": "XXX"
+}
+```
+
+- Click the "Authorize" button at the top of the Swagger UI page, and input your JWT token value.
 - Once authorized, you will be able to send requests to protected endpoints directly from the Swagger UI.
 
 ## Installation and Setup

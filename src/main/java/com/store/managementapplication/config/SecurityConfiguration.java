@@ -21,12 +21,16 @@ public class SecurityConfiguration {
 
     private static final String[] AUTH_ALLOW_LIST = {
             "/api/v1/auth/**",
-            "/api/v1/auth/h2-console/**",
+            "/v2/api-docs",
+            "/v3/api-docs/",
             "/v3/api-docs/**",
+            "/h2-console/**",
+            "/h2-console/",
             "/configuration/ui",
             "/configuration/security",
             "/swagger-ui/**",
             "/swagger-ui.html",
+            "/swagger-resources",
             "/swagger-resources/**",
             "/webjars/**"
     };
