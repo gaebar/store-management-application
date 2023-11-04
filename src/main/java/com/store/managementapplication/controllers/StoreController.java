@@ -1,6 +1,7 @@
 package com.store.managementapplication.controllers;
 
 import com.store.managementapplication.entities.Store;
+import com.store.managementapplication.entities.StoreInventory;
 import com.store.managementapplication.services.StoreService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,12 @@ public class StoreController {
     @GetMapping("/getStore/{id}")
     public Store getStore(@PathVariable Long id) {
         return storeService.getStoreById(id);
+    }
+
+    // Get store inventory by store ID
+    @GetMapping("/getStoreInventory/{id}")
+    public List<StoreInventory> getStoreInventory(@PathVariable Long id) {
+        return storeService.getStoreInventory(id);
     }
 
     // Search for stores based on type

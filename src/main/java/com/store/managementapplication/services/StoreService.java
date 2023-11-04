@@ -19,7 +19,7 @@ public class StoreService {
         this.storeRepository = storeRepository;
         this.storeInventoryRepository = storeInventoryRepository;
     }
-    
+
     // Create a new Store
     public Store createStore(Store store) {
         return storeRepository.save(store);
@@ -55,6 +55,15 @@ public class StoreService {
     public Store getStoreById(Long id) throws ResourceNotFoundException {
         return storeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Store not found"));
+    }
+
+    // Get store inventory by store ID
+    public List<StoreInventory> getStoreInventory(Long id) throws ResourceNotFoundException {
+        if (storeRepository.existsById(id)) {
+            return storeInventoryRepository.findAllByStoreId(id);
+        } else {
+            throw new ResourceNotFoundException("Store not found");
+        }
     }
 
     // Get all Stores

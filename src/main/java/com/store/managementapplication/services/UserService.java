@@ -5,6 +5,7 @@ import com.store.managementapplication.entities.User;
 import com.store.managementapplication.exceptions.ResourceNotFoundException;
 import com.store.managementapplication.repositories.StoreRepository;
 import com.store.managementapplication.repositories.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,8 @@ public class UserService {
     }
 
     public User createUser(User user) {
+        String password = user.getPassword();
+        user.setPassword(new BCryptPasswordEncoder().encode(password));
         return userRepository.save(user);
     }
 
@@ -52,8 +55,18 @@ public class UserService {
     }
 
     public User getUserById(Long id) throws ResourceNotFoundException {
-        return userRepository.findById(id)
+        //map users to stores, remove the additional store properties, keep id only
+        var user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        //use map or foreach to remove the additional store properties from the User object, keep id only
+        var managedStores = user.getManagedStores();
+        // remove all properties except id from the managedStores
+        managedStores.forEach(store -> {
+            store.setStoreInventories(null);
+        });
+        user.setManagedStores(managedStores);
+
+        return user;
     }
 
     public List<User> getAllUsers() {
@@ -110,6 +123,17 @@ public class UserService {
         return userRepository.findById(userId)
                 .map(user -> {
                     user.addManagedStore(storeRepository.findById(storeId)
+                            .orElseThrow(() -> new ResourceNotFoundException("Store not found")));
+                    return userRepository.save(user);
+                })
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    }
+
+    // remove a store from the stores managed by a user, by user id and store id
+    public User removeManagedStore(Long userId, Long storeId) {
+        return userRepository.findById(userId)
+                .map(user -> {
+                    user.removeManagedStore(storeRepository.findById(storeId)
                             .orElseThrow(() -> new ResourceNotFoundException("Store not found")));
                     return userRepository.save(user);
                 })

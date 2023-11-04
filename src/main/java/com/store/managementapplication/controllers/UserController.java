@@ -53,6 +53,13 @@ public class UserController {
         return userService.addManagedStore(userId, storeId);
     }
 
+    // Remove store from a user (Admin role)
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/removeManagedStore/{userId}/{storeId}")
+    public User removeManagedStore(@PathVariable Long userId, @PathVariable Long storeId) {
+        return userService.removeManagedStore(userId, storeId);
+    }
+
     // Retrieve the stores managed by the authenticated store manager
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/managedStores/{userId}")

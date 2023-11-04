@@ -65,7 +65,7 @@ public class Item implements Serializable {
     private Set<PurchaseOrderLineItem> purchaseOrderLineItem = new HashSet<>();
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "item")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "item", cascade = CascadeType.ALL)
     private Set<StoreInventory> storeInventories = new HashSet<>();
 
     public Item(Long id) {

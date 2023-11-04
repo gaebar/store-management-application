@@ -62,6 +62,10 @@ public class User implements UserDetails, Serializable {
         this.managedStores.add(store);
     }
 
+    public void removeManagedStore(Store store) {
+        this.managedStores.remove(store);
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // Convert roles to a list of SimpleGrantedAuthorities

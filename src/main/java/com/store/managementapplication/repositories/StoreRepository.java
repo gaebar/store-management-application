@@ -15,4 +15,6 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
     List<Store> findByLocationContaining(String location);
 
     List<Store> findByOpeningDateContaining(String date);
+
+
 }
