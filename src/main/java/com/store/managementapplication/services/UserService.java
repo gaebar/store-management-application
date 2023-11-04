@@ -69,28 +69,15 @@ public class UserService {
         return user;
     }
 
+    // get user by email
+    public User getUserByEmail(String email) throws ResourceNotFoundException {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    }
+
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
-
-
-//    public List<Item> viewInventory(Long storeId) {
-//        return itemRepository.findAllByStoreId(storeId);
-//    }
-
-//    public Item requestItemAddition(Long storeId, Item item) {
-//        item.setStoreId(storeId);
-//        return itemRepository.save(item);
-//    }
-
-//    public Item updateItemQuantity(Long storeId, Long itemId, int quantity) throws Exception {
-//        return itemRepository.findById(itemId)
-//                .map(existingItem -> {
-//                    existingItem.setInitialQuantity(quantity);
-//                    return itemRepository.save(existingItem);
-//                })
-//                .orElseThrow(() -> new Exception("Item not found in the given store"));
-//    }
 
     public boolean isUserStoreManager(String email) {
         return userRepository.findByEmail(email)

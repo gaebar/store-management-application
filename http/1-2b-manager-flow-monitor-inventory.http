@@ -13,24 +13,6 @@ Content-Type: application/json
     client.global.set("admin-token", response.body.token);
 %}
 
-### Create Store and save store id in global variable
-
-POST http://localhost:8080/api/v1/admin/createStore
-Content-Type: application/json
-Authorization: Bearer {{admin-token}}
-
-{
-  "name": "Redmond Megastore",
-  "location": "123 Red Street, Redmond, WA 98074",
-  "contactInformation": "Telephone Number: 1234567890",
-  "storeType": "retail",
-  "openingDate": "2019-01-01"
-}
-
-> {%
-    client.assert(response.body.id, "Store ID is not generated");
-    client.global.set("store-id", response.body.id);
-%}
 
 ### Create Store Manager
 
@@ -50,6 +32,43 @@ Authorization: Bearer {{admin-token}}
     client.assert(response.body.id, "Manager is not generated");
     client.global.set("manager-id", response.body.id);
 %}
+
+### Store Manager login and token generation
+
+POST http://localhost:8080/api/v1/auth/authenticate
+Content-Type: application/json
+
+{
+  "email": "manager@megastore.com",
+  "password": "managerPassword"
+}
+
+> {%
+    client.assert(response.body.token, "Manager Token is not generated");
+    client.global.set("manager-token", response.body.token);
+%}
+
+
+
+### Create Store and save store id in global variable
+
+POST http://localhost:8080/api/v1/admin/createStore
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+{
+  "name": "Redmond Megastore",
+  "location": "123 Red Street, Redmond, WA 98074",
+  "contactInformation": "Telephone Number: 1234567890",
+  "storeType": "retail",
+  "openingDate": "2019-01-01"
+}
+
+> {%
+    client.assert(response.body.id, "Store ID is not generated");
+    client.global.set("store-id", response.body.id);
+%}
+
 
 ### Assign the store to the manager
 
@@ -102,6 +121,11 @@ Authorization: Bearer {{admin-token}}
     client.assert(response.body.name, "Item 1 is not created")
 %}
 
+### Get Item by ID
+GET http://localhost:8080/api/v1/items/{{item1-id}}
+Content-Type: application/json
+Authorization: Bearer {{manager-token}}
+
 ### Create Item 2 (Foundation)
 POST http://localhost:8080/api/v1/items/create
 Content-Type: application/json
@@ -121,20 +145,32 @@ Authorization: Bearer {{admin-token}}
     client.assert(response.body.name, "Item 2 is not created")
 %}
 
-
-### Store Manager login and token generation
-
-POST http://localhost:8080/api/v1/auth/authenticate
+### Get Item by ID
+GET http://localhost:8080/api/v1/items/{{item2-id}}
 Content-Type: application/json
+Authorization: Bearer {{manager-token}}
+
+> {%
+    client.assert(response.body.name == "Foundation");
+%}
+
+
+### Create Item 3 with manager token - Item creation should fail
+POST http://localhost:8080/api/v1/items/create
+Content-Type: application/json
+Authorization: Bearer {{manager-token}}
 
 {
-  "email": "manager@example.com",
-  "password": "managerPassword"
+  "name": "Eyeliner",
+  "description": "Black, waterproof",
+  "itemCategory": "{{category1-id}}",
+  "price": 20.0,
+  "quantity": 50,
+  "initialQuantity": 50
 }
 
 > {%
-    client.assert(response.body.token, "Manager Token is not generated");
-    client.global.set("manager-token", response.body.token);
+    client.assert(response.body.name == null, "Item 3 was created")
 %}
 
 
@@ -150,11 +186,24 @@ Content-Type: application/json
     client.assert(response.body.quantity === 3, "Inventory is not added");
 %}
 
+### Add item 1 to store inventory
+
+PUT http://localhost:8080/api/v1/inventories/{{store-id}}/{{item1-id}}/3
+Authorization: Bearer {{manager-token}}
+Content-Type: application/json
+
+> {%
+    client.global.set("inventory1-id", response.body.id);
+    client.assert(response.status === 200, "Inventory is not added");
+    client.assert(response.body.quantity === 3, "Inventory is not added");
+%}
+
+
 ### Add item 2 to a store inventory
 
 PUT http://localhost:8080/api/v1/inventories/{{store-id}}/{{item2-id}}/5
-Content-Type: application/json
 Authorization: Bearer {{manager-token}}
+Content-Type: application/json
 
 > {%
     client.global.set("inventory2-id", response.body.id);
@@ -176,7 +225,7 @@ Authorization: Bearer {{manager-token}}
 ### Delete Inventory 1 from the store (cleanup after tests)
 
 DELETE http://localhost:8080/api/v1/inventories/{{inventory1-id}}
-Authorization: Bearer {{admin-token}}
+Authorization: Bearer {{manager-token}}
 
 > {%
     client.assert(response.status === 200, "Inventory is not deleted");

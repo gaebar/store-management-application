@@ -7,7 +7,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootApplication
@@ -15,12 +14,10 @@ public class StoreManagementApplication implements ApplicationRunner {
 
     // Repositories and PasswordEncoder are injected via constructor
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
     // Constructor-based dependency injection
-    public StoreManagementApplication(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public StoreManagementApplication(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     public static void main(String[] args) {
@@ -40,11 +37,5 @@ public class StoreManagementApplication implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         User superUser = new User("Molly", "Brown", "admin@example.com", "adminPassword", Role.RoleType.ADMIN);
         userRepository.save(superUser);
-
-        User superUser2 = new User("Tom", "Smith", "manager@example.com", "managerPassword", Role.RoleType.MANAGER);
-        userRepository.save(superUser2);
-
-        User superUser3 = new User("Jane", "Doe", "staff@example.com", "staffPassword", Role.RoleType.STAFF);
-        userRepository.save(superUser3);
     }
 }

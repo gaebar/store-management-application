@@ -36,16 +36,11 @@ public class Item implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "storeId", referencedColumnName = "id")
-    private Store store;
-
     @NonNull
     @Column(unique = true)
     private String name;
 
     private String description;
-
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "categoryId", referencedColumnName = "id")

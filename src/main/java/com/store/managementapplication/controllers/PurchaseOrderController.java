@@ -34,7 +34,7 @@ public class PurchaseOrderController {
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/update/{id}")
     public PurchaseOrder updatePurchaseOrder(@PathVariable Long id, @RequestBody PurchaseOrder purchaseOrder) throws Exception {
-        // Calls the service method to update an existing purchase order
+
         return purchaseOrderService.updatePurchaseOrder(id, purchaseOrder);
     }
 

@@ -1,9 +1,14 @@
 package com.store.managementapplication.controllers;
 
 import com.store.managementapplication.entities.StoreInventory;
+import com.store.managementapplication.entities.User;
 import com.store.managementapplication.services.StoreInventoryService;
+import com.store.managementapplication.services.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,9 +19,11 @@ import java.util.List;
 public class StoreInventoryController {
 
     private final StoreInventoryService storeInventoryService;
+    private final UserService userService;
 
-    public StoreInventoryController(StoreInventoryService storeInventoryService) {
+    public StoreInventoryController(StoreInventoryService storeInventoryService, UserService userService) {
         this.storeInventoryService = storeInventoryService;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -25,6 +32,7 @@ public class StoreInventoryController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('MANAGER')")
     public ResponseEntity<StoreInventory> getInventoryById(@PathVariable Long id) {
         return storeInventoryService.getInventoryById(id)
                 .map(ResponseEntity::ok)
@@ -37,9 +45,24 @@ public class StoreInventoryController {
     }
 
     @PutMapping("/{storeId}/{itemId}/{count}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<StoreInventory> addItemsToInventory(@PathVariable Long storeId, @PathVariable Long itemId, @PathVariable int count) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        var roles = auth.getAuthorities();
 
-        return ResponseEntity.ok(storeInventoryService.addItemToStoreInventory(storeId, itemId, count));
+        // User is admin
+        if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+            var response = storeInventoryService.addItemToStoreInventory(storeId, itemId, count);
+            return ResponseEntity.ok(response);
+        } else if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_MANAGER"))) {
+            User user = userService.getUserByEmail(auth.getName());
+            user.getManagedStores().stream().
+                    filter(s -> s.getId().equals(storeId)).
+                    findFirst().orElseThrow(() -> new RuntimeException("User is not authorized to perform this action"));
+            return ResponseEntity.ok(storeInventoryService.addItemToStoreInventory(storeId, itemId, count));
+        } else {
+            throw new RuntimeException("User with role " + roles + " is not authorized to perform this action");
+        }
     }
 
     @DeleteMapping("/{id}")

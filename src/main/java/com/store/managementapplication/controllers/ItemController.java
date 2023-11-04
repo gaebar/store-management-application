@@ -20,27 +20,27 @@ public class ItemController {
     }
 
     // Only admins and store managers can create a new item
-    @PreAuthorize("hasAnyRole('ADMIN', 'STORE_MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/create")
     public Item createItem(@RequestBody Item item) {
         return itemService.createItem(item);
     }
 
-    // Only admins and store managers can update an existing item
-    @PreAuthorize("hasAnyRole('ADMIN', 'STORE_MANAGER')")
+    // Only admins can update an existing items
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/update/{id}")
     public Item updateItem(@PathVariable Long id, @RequestBody Item item) {
         return itemService.updateItem(id, item);
     }
 
-    // Only admins and store managers can delete an item
-    @PreAuthorize("hasAnyRole('ADMIN', 'STORE_MANAGER')")
+    // Only admins can delete an item
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public void deleteItem(@PathVariable Long id) {
         itemService.deleteItem(id);
     }
 
-    // Only admins and store managers can add an item to a category
+    // Only admins can add an item to a category
     @PreAuthorize("hasAnyRole('ADMIN', 'STORE_MANAGER')")
     @PutMapping("/addToCategory/{itemId}/{categoryId}")
     public Item addItemToCategory(@PathVariable Long itemId, @PathVariable Long categoryId) {
