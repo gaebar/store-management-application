@@ -51,6 +51,24 @@ Authorization: Bearer {{admin-token}}
     client.global.set("manager-id", response.body.id);
 %}
 
+### Store Manager login and token generation
+
+POST http://localhost:8080/api/v1/auth/authenticate
+Content-Type: application/json
+
+{
+  "email": "manager@example.com",
+  "password": "managerPassword"
+}
+
+> {%
+    client.assert(response.body.token, "Manager Token is not generated");
+    client.global.set("manager-token", response.body.token);
+%}
+
+
+
+
 ### Assign the store to the manager
 
 POST http://localhost:8080/api/v1/users/addManagedStore/{{manager-id}}/{{store-id}}
@@ -59,17 +77,6 @@ Authorization: Bearer {{admin-token}}
 
 > {%
     client.assert(response.status === 200, "Failed to assign store to manager");
-%}
-
-### Get the stores associated with the authenticated manager
-
-GET http://localhost:8080/api/v1/users/managedStores/{{manager-id}}
-Content-Type: application/json
-Authorization: Bearer {{admin-token}}
-
-> {%
-    client.assert(response.body[0].id, "Store is not found");
-    client.global.set("store-id", response.body[0].id);
 %}
 
 ### Check the Manager's Access to Store
@@ -102,20 +109,6 @@ Authorization: Bearer {{admin-token}}
     client.assert(response.body.name, "Item 1 is not created")
 %}
 
-### Store Manager login and token generation
-
-POST http://localhost:8080/api/v1/auth/authenticate
-Content-Type: application/json
-
-{
-  "email": "manager@example.com",
-  "password": "managerPassword"
-}
-
-> {%
-    client.assert(response.body.token, "Manager Token is not generated");
-    client.global.set("manager-token", response.body.token);
-%}
 
 
 ### Add items to a store's inventory

@@ -90,13 +90,7 @@ public class UserService {
                 .map(User::getManagedStores)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
-
-    public Set<Store> getManagedStores(Long userId) {
-        return userRepository.findById(userId)
-                .map(User::getManagedStores)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-    }
-
+    
     // add a store to the stores managed by a user, by user id and store id
     @Transactional
     public User addManagedStore(Long userId, Long storeId) {

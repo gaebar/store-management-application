@@ -1,14 +1,11 @@
 package com.store.managementapplication.controllers;
 
-import com.store.managementapplication.entities.Store;
 import com.store.managementapplication.entities.User;
 import com.store.managementapplication.services.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -62,12 +59,6 @@ public class UserController {
         return userService.removeManagedStore(userId, storeId);
     }
 
-    // Retrieve the stores managed by the authenticated store manager
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/managedStores/{userId}")
-    public Set<Store> getManagedStores(@PathVariable Long userId) {
-        return userService.getManagedStores(userId);
-    }
 
 //    // View inventory for a specific store (Store Staff role)
 //    @PreAuthorize("hasRole('STORE_STAFF')")
