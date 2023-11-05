@@ -1,6 +1,4 @@
-# WIP Store Management Application
-
-Status: Work in Progress
+# Store Management Application
 
 ## Overview
 
@@ -88,9 +86,8 @@ To be added once the application is ready for deployment.
 - Analytics dashboard for business insights.
 
 ## Contributing
+Your contributions are welcome! If you're interested in improving the Retail Inventory Management System, please feel free to fork the repository and submit a pull request. For substantial changes, please open an issue first to discuss what you propose. Check out the [Contribution Guidelines](CONTRIBUTING.md) for more details on how to contribute effectively.
 
-For major changes, please open an issue first to discuss what you would like to change. Pull requests are welcome.
-Ensure to update tests as appropriate.
+## License
+The Retail Inventory Management System is made available as open source under the [MIT License](LICENSE), which provides a broad permission to use, modify, and distribute the software.
 
-License
-[MIT](LICENSE.txt)
