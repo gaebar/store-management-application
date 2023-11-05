@@ -1,7 +1,9 @@
 package com.store.managementapplication.controllers;
 
+import com.store.managementapplication.entities.Item;
 import com.store.managementapplication.entities.PurchaseOrder;
 import com.store.managementapplication.entities.PurchaseOrderLineItem;
+import com.store.managementapplication.entities.Store;
 import com.store.managementapplication.services.PurchaseOrderService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 
 @RestController
@@ -58,26 +61,38 @@ public class PurchaseOrderController {
     @PreAuthorize("hasAnyRole('ADMIN', 'STORE_MANAGER')")
     @GetMapping("/{id}")
     public Optional<PurchaseOrder> getPurchaseOrderById(@PathVariable Long id) {
-        // Calls the service method to get a specific purchase order by its ID
-        var order = purchaseOrderService.getPurchaseOrderById(id);
+        Optional<PurchaseOrder> order = purchaseOrderService.getPurchaseOrderById(id);
+        if (order.isPresent()) {
+            Store store = order.get().getStore();
+            order.get().setStore(new Store(store.getId()));
+            order.get().getPurchaseOrderLineItems().forEach(item -> {
+                item.setPurchaseOrder(null);
+            });
+        }
         return order;
     }
 
     // Add items to purchase order
     @PreAuthorize("hasAnyRole('ADMIN', 'STORE_MANAGER')")
     @PutMapping("/addItem/{purchaseOrderId}/{itemId}/{count}")
-    public PurchaseOrder addItemsToPurchaseOrder(@PathVariable Long purchaseOrderId, @PathVariable Long itemId, @PathVariable int count) throws Exception {
-        // Calls the service method to add items to a purchase order
+    public PurchaseOrderLineItem addItemsToPurchaseOrder(@PathVariable Long purchaseOrderId, @PathVariable Long itemId, @PathVariable int count) throws Exception {
+        PurchaseOrderLineItem purchaseOrderLineItem = purchaseOrderService.addItemToPurchaseOrder(purchaseOrderId, itemId, count);
+        purchaseOrderLineItem.setItem(new Item(purchaseOrderLineItem.getItem().getId()));
+        purchaseOrderLineItem.setPurchaseOrder(new PurchaseOrder(purchaseOrderLineItem.getPurchaseOrder().getId()));
 
-        return purchaseOrderService.addItemToPurchaseOrder(purchaseOrderId, itemId, count);
+        return purchaseOrderLineItem;
     }
 
     // Get all purchase order line items by purchase order id
     @PreAuthorize("hasAnyRole('ADMIN', 'STORE_MANAGER')")
     @GetMapping("/getItems/{purchaseOrderId}")
-    public List<PurchaseOrderLineItem> getPurchaseOrderLineItems(@PathVariable Long purchaseOrderId) throws Exception {
-        // Calls the service method to get all purchase order line items by purchase order id
-        return purchaseOrderService.getAllPurchaseOrderLineItems();
+    public Set<PurchaseOrderLineItem> getPurchaseOrderLineItems(@PathVariable Long purchaseOrderId) throws Exception {
+        var lineItems = purchaseOrderService.getPurchaseOrderLineItems(purchaseOrderId);
+        lineItems.forEach(item -> {
+            item.setItem(new Item(item.getItem().getId()));
+            item.setPurchaseOrder(new PurchaseOrder(item.getPurchaseOrder().getId(), item.getPurchaseOrder().getStatus()));
+        });
+        return lineItems;
     }
 
     // delete purchase order line item

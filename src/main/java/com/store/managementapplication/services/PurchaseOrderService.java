@@ -66,29 +66,25 @@ public class PurchaseOrderService {
     }
 
     // Add an item to a purchase order, with a specified quantity
-    public PurchaseOrder addItemToPurchaseOrder(Long purchaseOrderId, Long itemId, int quantity) throws ResourceNotFoundException {
+    public PurchaseOrderLineItem addItemToPurchaseOrder(Long purchaseOrderId, Long itemId, int quantity) throws ResourceNotFoundException {
         var purchaseOrder = purchaseOrderRepository.findById(purchaseOrderId)
                 .orElseThrow(() -> new ResourceNotFoundException("Purchase Order not found"));
         var item = itemRepository.findById(itemId)
                 .orElseThrow(() -> new ResourceNotFoundException("Item not found"));
 
-
-        PurchaseOrderLineItem lineItem = new PurchaseOrderLineItem();
-        lineItem.setItem(item);
-        lineItem.setQuantity(quantity);
-        purchaseOrder.addPurchaseOrderLineItem(lineItem);
+        PurchaseOrderLineItem lineItem = new PurchaseOrderLineItem(item, quantity, purchaseOrder);
         puchaseOrderLineItemRepository.save(lineItem);
         purchaseOrderRepository.save(purchaseOrder);
 
-        //save purchase order line item
-        return purchaseOrder;
+        return lineItem;
     }
 
     // Get all purchase order line items by purchase order id
     public Set<PurchaseOrderLineItem> getPurchaseOrderLineItems(Long purchaseOrderId) throws ResourceNotFoundException {
-        var purchaseOrder = purchaseOrderRepository.findById(purchaseOrderId)
+        PurchaseOrder purchaseOrder = purchaseOrderRepository.findById(purchaseOrderId)
                 .orElseThrow(() -> new ResourceNotFoundException("Purchase Order not found"));
-        return purchaseOrder.getPurchaseOrderLineItems();
+        var lineItems = puchaseOrderLineItemRepository.findAllByPurchaseOrderId(purchaseOrderId);
+        return lineItems;
     }
 
     // Get all purchase orders line items

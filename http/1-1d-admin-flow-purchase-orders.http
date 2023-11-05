@@ -144,7 +144,7 @@ Authorization: Bearer {{admin-token}}
 
 > {%
     client.assert(response.status == 200);
-    client.global.set("lineitem1-id", response.body.purchaseOrderLineItems[0].id);
+    client.global.set("lineitem1-id", response.body.id);
 %}
 
 ### Add Item 2 to Order 1
@@ -154,7 +154,7 @@ Authorization: Bearer {{admin-token}}
 
 > {%
     client.assert(response.status == 200);
-    client.global.set("lineitem2-id", response.body.purchaseOrderLineItems[0].id);
+    client.global.set("lineitem2-id", response.body.id);
 %}
 
 ### Get Items in Order 1
@@ -179,14 +179,6 @@ Authorization: Bearer {{admin-token}}
 
 
 
-### Delete Order 1
-DELETE http://localhost:8080/api/v1/orders/delete/{{order1-id}}
-Content-Type: application/json
-Authorization: Bearer {{admin-token}}
-
-> {%
-    client.assert(response.status == 200);
-%}
 
 
 ### Delete Category 1
@@ -215,6 +207,16 @@ Authorization: Bearer {{admin-token}}
 > {%
     client.assert(response.status == 200);
 %}
+
+### Delete Order 1
+DELETE http://localhost:8080/api/v1/orders/delete/{{order1-id}}
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.status == 200);
+%}
+
 
 ### Delete Item 1
 DELETE http://localhost:8080/api/v1/items/delete/{{item1-id}}

@@ -40,5 +40,8 @@ public class Store implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "store", cascade = CascadeType.ALL)
     private List<StoreInventory> storeInventories = new ArrayList<>();
-    
+
+    public Store(Long id) {
+        this.id = id;
+    }
 }

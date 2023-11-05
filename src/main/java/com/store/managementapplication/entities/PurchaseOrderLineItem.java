@@ -1,7 +1,7 @@
 package com.store.managementapplication.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.io.Serializable;
@@ -24,17 +24,24 @@ public class PurchaseOrderLineItem implements Serializable {
     private Long id;
 
     @NonNull
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "itemId", referencedColumnName = "id")
-    @JsonIgnore
     private Item item;
 
     @NonNull
+    @NotNull
     private Integer quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "purchase_order_id", referencedColumnName = "id")
-    @JsonIgnore
+    @NonNull
+    @NotNull
     private PurchaseOrder purchaseOrder;
 
+    public PurchaseOrderLineItem(Item item, int quantity, PurchaseOrder purchaseOrder) {
+        this.item = item;
+        this.quantity = quantity;
+        this.purchaseOrder = purchaseOrder;
+    }
 }
