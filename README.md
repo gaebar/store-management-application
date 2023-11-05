@@ -89,5 +89,5 @@ To be added once the application is ready for deployment.
 Your contributions are welcome! If you're interested in improving the Retail Inventory Management System, please feel free to fork the repository and submit a pull request. For substantial changes, please open an issue first to discuss what you propose. Check out the [Contribution Guidelines](CONTRIBUTING.md) for more details on how to contribute effectively.
 
 ## License
-The Retail Inventory Management System is made available as open source under the [MIT License](LICENSE), which provides a broad permission to use, modify, and distribute the software.
+The Retail Inventory Management System is made available as open source under the [MIT License](LICENSE.txt), which provides a broad permission to use, modify, and distribute the software.
 
