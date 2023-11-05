@@ -14,10 +14,10 @@ from manual processes.
 - **Object-Relational Mapping (ORM):** [Hibernate](https://hibernate.org/)
   with [JPA](https://jakarta.ee/specifications/persistence/) - for efficient database operations and easy data manipulation.
 - **Data Validation:** Enforced by the [Jakarta Persistence API](https://jakarta.ee/specifications/persistence/) - for robust data integrity.
-- **Build and Dependency Management:** Managed with [Maven](https://maven.apache.org/)- simplifies project builds and manages dependencies.
+- **Build and Dependency Management:** Managed with [Maven](https://maven.apache.org/) - simplifies project builds and manages dependencies.
 - **Code Simplification:** [Lombok](https://projectlombok.org/)- minimizes boilerplate code for cleaner and more readable codebase.
-- **API Design:** RESTful APIs
-- **API Documentation:** [Swagger (OpenAPI)](https://swagger.io/)
+- **API Design:** RESTful APIs - for scalable and maintainable service architecture.
+- **API Documentation:** [Swagger (OpenAPI)](https://swagger.io/) - provides interactive documentation, allowing users to understand and consume services easily.
 
 ## Features
 
@@ -34,7 +34,7 @@ from manual processes.
 
 ## Project Requirements
 
-For detailed project requirements, see [Project Requirements](ProjectRequirements.md).
+For detailed specifications and features, please refer to [Project Requirements](ProjectRequirements.md).
 
 ## API Documentation
 
