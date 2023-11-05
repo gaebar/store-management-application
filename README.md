@@ -8,16 +8,23 @@ from manual processes.
 
 ## Technology Stack
 
-- **Backend:** [Java](https://www.java.com/) with [Spring Boot](https://spring.io/projects/spring-boot) - for creating RESTful services.
-- **Security:** [Spring Security](https://spring.io/projects/spring-security) with JWT for authentication - ensures secure access control.
+- **Backend:** [Java](https://www.java.com/) with [Spring Boot](https://spring.io/projects/spring-boot) - for creating
+  RESTful services.
+- **Security:** [Spring Security](https://spring.io/projects/spring-security) with JWT for authentication - ensures
+  secure access control.
 - **Database:** [H2 Database](https://www.h2database.com/) - in-memory database for rapid development and testing.
 - **Object-Relational Mapping (ORM):** [Hibernate](https://hibernate.org/)
-  with [JPA](https://jakarta.ee/specifications/persistence/) - for efficient database operations and easy data manipulation.
-- **Data Validation:** Enforced by the [Jakarta Persistence API](https://jakarta.ee/specifications/persistence/) - for robust data integrity.
-- **Build and Dependency Management:** Managed with [Maven](https://maven.apache.org/) - simplifies project builds and manages dependencies.
-- **Code Simplification:** [Lombok](https://projectlombok.org/)- minimizes boilerplate code for cleaner and more readable codebase.
+  with [JPA](https://jakarta.ee/specifications/persistence/) - for efficient database operations and easy data
+  manipulation.
+- **Data Validation:** Enforced by the [Jakarta Persistence API](https://jakarta.ee/specifications/persistence/) - for
+  robust data integrity.
+- **Build and Dependency Management:** Managed with [Maven](https://maven.apache.org/) - simplifies project builds and
+  manages dependencies.
+- **Code Simplification:** [Lombok](https://projectlombok.org/)- minimizes boilerplate code for cleaner and more
+  readable codebase.
 - **API Design:** RESTful APIs - for scalable and maintainable service architecture.
-- **API Documentation:** [Swagger (OpenAPI)](https://swagger.io/) - provides interactive documentation, allowing users to understand and consume services easily.
+- **API Documentation:** [Swagger (OpenAPI)](https://swagger.io/) - provides interactive documentation, allowing users
+  to understand and consume services easily.
 
 ## Features
 
@@ -72,20 +79,37 @@ interaction with the API's endpoints.
 - Once authorized, you will be able to send requests to protected endpoints directly from the Swagger UI.
 
 ## Installation Steps
+
 To get started with the Store Management Application, follow these steps:
 
 ### 1. **Clone the Repository:**
+
 ```bash
 git clone https://github.com/gaebar/store-management-application.git
 ```
 
 ### 2. Navigate to the Project Directory:
+
 ```bash
 cd store-management-application
 ```
+
 ### 3. Ensure Prerequisites are Installed:
-Ensure Java, Maven and MySQL are installed and properly configured on your system before starting. 
+
+Ensure Java, Maven and MySQL are installed and properly configured on your system before starting.
 The application is tested with Java 17 and Maven 3.9.4.
+
+### 4. Start the application:
+
+```bash
+mvn spring-boot:run -Dspring-boot.run.profiles=dev
+```
+
+### 5. Test the application endpoints:
+
+- Run the HTTP requests in IntelliJ IDEA's REST Client or Postman to test the application's endpoints.
+- The sample requests are provided in the [http](http) folder.
+- Alternatively, use the Swagger UI to test the application's endpoints.
 
 ## Future Enhancements
 
@@ -94,8 +118,13 @@ The application is tested with Java 17 and Maven 3.9.4.
 - Analytics dashboard for business insights.
 
 ## Contributing
-Your contributions are welcome! If you're interested in improving the Store Management Application, please feel free to fork the repository and submit a pull request. For substantial changes, please open an issue first to discuss what you propose. Check out the [Contribution Guidelines](CONTRIBUTING.md) for more details on how to contribute effectively.
+
+Your contributions are welcome! If you're interested in improving the Store Management Application, please feel free to
+fork the repository and submit a pull request. For substantial changes, please open an issue first to discuss what you
+propose. Check out the [Contribution Guidelines](CONTRIBUTING.md) for more details on how to contribute effectively.
 
 ## License
-The Store Management Application is made available as open source under the [MIT License](LICENSE.txt), which provides a broad permission to use, modify, and distribute the software.
+
+The Store Management Application is made available as open source under the [MIT License](LICENSE.txt), which provides a
+broad permission to use, modify, and distribute the software.
 
