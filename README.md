@@ -1,6 +1,4 @@
-# WIP Store Management Application
-
-Status: Work in Progress
+# Store Management Application
 
 ## Overview
 
@@ -10,16 +8,16 @@ from manual processes.
 
 ## Technology Stack
 
-- **Backend:** [Java](https://www.java.com/) with [Spring Boot](https://spring.io/projects/spring-boot)
-- **Security:** [Spring Security](https://spring.io/projects/spring-security) with JWT for authentication
-- **Database:** [H2 Database](https://www.h2database.com/)
+- **Backend:** [Java](https://www.java.com/) with [Spring Boot](https://spring.io/projects/spring-boot) - for creating RESTful services.
+- **Security:** [Spring Security](https://spring.io/projects/spring-security) with JWT for authentication - ensures secure access control.
+- **Database:** [H2 Database](https://www.h2database.com/) - in-memory database for rapid development and testing.
 - **Object-Relational Mapping (ORM):** [Hibernate](https://hibernate.org/)
-  with [JPA](https://jakarta.ee/specifications/persistence/)
-- **Data Validation:** [Jakarta Persistence API](https://jakarta.ee/specifications/persistence/)
-- **Build and Dependency Management:** [Maven](https://maven.apache.org/)
-- **Code Simplification:** [Lombok](https://projectlombok.org/)
-- **API Design:** RESTful APIs
-- **API Documentation:** [Swagger (OpenAPI)](https://swagger.io/)
+  with [JPA](https://jakarta.ee/specifications/persistence/) - for efficient database operations and easy data manipulation.
+- **Data Validation:** Enforced by the [Jakarta Persistence API](https://jakarta.ee/specifications/persistence/) - for robust data integrity.
+- **Build and Dependency Management:** Managed with [Maven](https://maven.apache.org/) - simplifies project builds and manages dependencies.
+- **Code Simplification:** [Lombok](https://projectlombok.org/)- minimizes boilerplate code for cleaner and more readable codebase.
+- **API Design:** RESTful APIs - for scalable and maintainable service architecture.
+- **API Documentation:** [Swagger (OpenAPI)](https://swagger.io/) - provides interactive documentation, allowing users to understand and consume services easily.
 
 ## Features
 
@@ -36,7 +34,7 @@ from manual processes.
 
 ## Project Requirements
 
-For detailed project requirements, see [Project Requirements](ProjectRequirements.md).
+For detailed specifications and features, please refer to [Project Requirements](ProjectRequirements.md).
 
 ## API Documentation
 
@@ -73,13 +71,21 @@ interaction with the API's endpoints.
 - Click the "Authorize" button at the top of the Swagger UI page, and input your JWT token value.
 - Once authorized, you will be able to send requests to protected endpoints directly from the Swagger UI.
 
-## Installation and Setup
+## Installation Steps
+To get started with the Store Management Application, follow these steps:
 
-To be added once the application is ready for deployment.
+### 1. **Clone the Repository:**
+```bash
+git clone https://github.com/gaebar/store-management-application.git
+```
 
-## Usage
-
-## Screenshots
+### 2. Navigate to the Project Directory:
+```bash
+cd store-management-application
+```
+### 3. Ensure Prerequisites are Installed:
+Ensure Java, Maven and MySQL are installed and properly configured on your system before starting. 
+The application is tested with Java 17 and Maven 3.9.4.
 
 ## Future Enhancements
 
@@ -88,9 +94,8 @@ To be added once the application is ready for deployment.
 - Analytics dashboard for business insights.
 
 ## Contributing
+Your contributions are welcome! If you're interested in improving the Store Management Application, please feel free to fork the repository and submit a pull request. For substantial changes, please open an issue first to discuss what you propose. Check out the [Contribution Guidelines](CONTRIBUTING.md) for more details on how to contribute effectively.
 
-For major changes, please open an issue first to discuss what you would like to change. Pull requests are welcome.
-Ensure to update tests as appropriate.
+## License
+The Store Management Application is made available as open source under the [MIT License](LICENSE.txt), which provides a broad permission to use, modify, and distribute the software.
 
-License
-[MIT](LICENSE.txt)
