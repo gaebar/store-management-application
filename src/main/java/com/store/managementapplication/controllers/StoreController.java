@@ -1,5 +1,6 @@
 package com.store.managementapplication.controllers;
 
+import com.store.managementapplication.entities.Item;
 import com.store.managementapplication.entities.Store;
 import com.store.managementapplication.entities.StoreInventory;
 import com.store.managementapplication.services.StoreService;
@@ -64,7 +65,15 @@ public class StoreController {
     // Get store inventory by store ID
     @GetMapping("/getStoreInventory/{id}")
     public List<StoreInventory> getStoreInventory(@PathVariable Long id) {
-        return storeService.getStoreInventory(id);
+        List<StoreInventory> storeInventories = storeService.getStoreInventory(id);
+        storeInventories.forEach(storeInventory -> {
+            storeInventory.setStore(null);
+            var item = storeInventory.getItem();
+            storeInventory.setItem(
+                    new Item(item.getId(), item.getName(), item.getDescription(), item.getPrice(), item.getCategory(), item.getInitialQuantity(), item.getQuantity()));
+        });
+
+        return storeInventories;
     }
 
     // Search for stores based on type
