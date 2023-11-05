@@ -1,6 +1,6 @@
-# Contributing to Retail Inventory Management System
+# Contributing to Store Management Application
 
-Thank you for considering contributions to the Retail Inventory Management System. Your support helps to enhance and maintain the project as a robust tool for inventory management.
+Thank you for considering contributions to the Store Management Application. Your support helps to enhance and maintain the project as a robust tool for inventory management.
 
 ## Submitting Issues
 - Before submitting an issue, check that it has not already been reported.
@@ -23,6 +23,6 @@ Thank you for considering contributions to the Retail Inventory Management Syste
 Ensure to run any existing tests to confirm that your changes have not introduced new issues. Instructions for running tests should be in the project's README.
 
 ## Review Process
-I will review all contributions. The goal is to check new pull requests within a week. If the pull request is acceptable and all tests pass, I will merge it.
+I will review all contributions. The goal is to check new pull requests within a week. If the pull request is acceptable and all tests pass, I will merge it into the main codebase.
 
-Your contribution is important, and I look forward to collaborating with you to improve the Retail Inventory Management System!
+Your contribution is important, and I look forward to collaborating with you to improve the Store Management Application!
