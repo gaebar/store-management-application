@@ -1,5 +1,7 @@
 package com.store.managementapplication.controllers;
 
+import com.store.managementapplication.entities.Item;
+import com.store.managementapplication.entities.Store;
 import com.store.managementapplication.entities.StoreInventory;
 import com.store.managementapplication.entities.User;
 import com.store.managementapplication.services.StoreInventoryService;
@@ -59,7 +61,10 @@ public class StoreInventoryController {
             user.getManagedStores().stream().
                     filter(s -> s.getId().equals(storeId)).
                     findFirst().orElseThrow(() -> new RuntimeException("User is not authorized to perform this action"));
-            return ResponseEntity.ok(storeInventoryService.addItemToStoreInventory(storeId, itemId, count, "PENDING"));
+            StoreInventory storeInventory = storeInventoryService.addItemToStoreInventory(storeId, itemId, count, "PENDING");
+            storeInventory.setStore(new Store(storeId));
+            storeInventory.setItem(new Item(itemId));
+            return ResponseEntity.ok(storeInventory);
         } else {
             throw new RuntimeException("User with role " + roles + " is not authorized to perform this action");
         }

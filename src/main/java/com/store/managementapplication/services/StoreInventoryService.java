@@ -45,7 +45,7 @@ public class StoreInventoryService {
 
     @Transactional
     public StoreInventory addItemToStoreInventory(Long storeId, Long itemId, int count, String status) {
-        StoreInventory inventory = getInventoryByItemIdAndStoreId(itemId, storeId);
+        Optional<StoreInventory> inventory = getInventoryByItemIdAndStoreId(itemId, storeId);
         Store store = storeRepository.findById(storeId).orElseThrow();
         Hibernate.initialize(store.getStoreInventories());
         Item item = itemRepository.findById(itemId).orElseThrow();
@@ -53,26 +53,22 @@ public class StoreInventoryService {
 
         StoreInventory savedInventory = null;
 
-        if (inventory == null) {
-            inventory = new StoreInventory(store, item, count, status);
-            savedInventory = storeInventoryRepository.save(inventory);
+        if (inventory.isEmpty()) {
+            savedInventory = new StoreInventory(store, item, count, status);
         } else {
-            inventory.addItems(count);
-            savedInventory = storeInventoryRepository.save(inventory);
+            inventory.get().addItems(count);
+            savedInventory = inventory.get();
         }
 
-        savedInventory = storeInventoryRepository.save(inventory);
 
-        // set each store to null, in each store inventory to avoid infinite recursion
-        //savedInventory.setStore(savedInventory.getStore().getStoreInventories());
-
-        return savedInventory;
+        return storeInventoryRepository.save(savedInventory);
     }
 
-    public StoreInventory getInventoryByItemIdAndStoreId(Long itemId, Long storeId) {
-        // if exists, return the inventory
-        // else, create a new inventory and return it
-        return storeInventoryRepository.findByItemIdAndStoreId(itemId, storeId);
+    public Optional<StoreInventory> getInventoryByItemIdAndStoreId(Long itemId, Long storeId) {
+        List<StoreInventory> allInventories = storeInventoryRepository.findAllByItemId(itemId);
+        List<StoreInventory> filteredInventories = allInventories.stream().filter(inventory -> inventory.getStore().getId().equals(storeId)).toList();
+        filteredInventories.forEach(inventory -> inventory.setStore(new Store(storeId)));
+        return filteredInventories.stream().findFirst();
     }
 
     public boolean isInventoryBelowThreshold(Long id, int threshold) {

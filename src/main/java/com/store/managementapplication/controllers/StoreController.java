@@ -52,7 +52,13 @@ public class StoreController {
     // Get a store by its ID
     @GetMapping("/getStore/{id}")
     public Store getStore(@PathVariable Long id) {
-        return storeService.getStoreById(id);
+        var store = storeService.getStoreById(id);
+        store.getStoreInventories().forEach(storeInventory -> {
+            storeInventory.setStore(null);
+            storeInventory.setItem(null);
+        });
+
+        return store;
     }
 
     // Get store inventory by store ID

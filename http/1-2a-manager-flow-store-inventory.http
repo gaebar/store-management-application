@@ -180,7 +180,7 @@ Authorization: Bearer {{manager-token}}
 
 > {%
     client.assert(response.body.id == client.global.get("store-id"), "Store ID is not matching");
-    client.assert(response.body.inventory.length == 2, "Inventory is not retrieved");
+    client.assert(response.body.storeInventories.length == 2, "Inventory is not retrieved");
 %}
 
 
