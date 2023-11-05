@@ -4,9 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Represents a store in the store management application.
@@ -38,10 +38,7 @@ public class Store implements Serializable {
     @NonNull
     private Date openingDate;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "store")
-    private Set<StoreInventory> storeInventories = new HashSet<>();
-
-    public Store(Long id) {
-        this.id = id;
-    }
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "store", cascade = CascadeType.ALL)
+    private List<StoreInventory> storeInventories = new ArrayList<>();
+    
 }

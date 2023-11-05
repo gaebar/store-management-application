@@ -5,13 +5,14 @@ Content-Type: application/json
 {
   "firstname": "Gae",
   "lastname": "Bar",
-  "email": "gae@mail.com",
+  "email": "gae1@mail.com",
   "password": "password",
-  "role": "ADMIN"
+  "role": "MANAGER"
 }
 
 > {%
     client.global.set("auth-token", response.body.token);
+    client.assert(response.status === 200, "Status is not 200");
 %}
 
 ### Query the Authenticate endpoint
@@ -22,3 +23,8 @@ Content-Type: application/json
   "email": "gae@mail.com",
   "password": "password"
 }
+
+> {%
+    client.global.set("auth-token", response.body.token);
+    client.assert(response.status === 200, "Status is not 200");
+%}

@@ -62,9 +62,17 @@ public class UserService {
     }
 
     // get user by email
+    @Transactional
     public User getUserByEmail(String email) throws ResourceNotFoundException {
-        return userRepository.findByEmail(email)
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        Hibernate.initialize(user.getManagedStores());
+        var stores = user.getManagedStores();
+
+        for (Store store : stores) {
+            Hibernate.initialize(store.getStoreInventories());
+        }
+        return user;
     }
 
     public List<User> getAllUsers() {
@@ -90,19 +98,23 @@ public class UserService {
                 .map(User::getManagedStores)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
-    
+
     // add a store to the stores managed by a user, by user id and store id
     @Transactional
     public User addManagedStore(Long userId, Long storeId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
+        Hibernate.initialize(user.getManagedStores());
+
+
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new ResourceNotFoundException("Store not found"));
 
-        Hibernate.initialize(user.getManagedStores());
+        Hibernate.initialize(store.getStoreInventories());
 
         user.addManagedStore(store);
+
         return userRepository.save(user);
     }
 

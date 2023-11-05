@@ -5,7 +5,9 @@ import com.store.managementapplication.entities.StoreInventory;
 import com.store.managementapplication.exceptions.ResourceNotFoundException;
 import com.store.managementapplication.repositories.StoreInventoryRepository;
 import com.store.managementapplication.repositories.StoreRepository;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -52,9 +54,18 @@ public class StoreService {
     }
 
     // Get a Store by its ID
+    @Transactional
     public Store getStoreById(Long id) throws ResourceNotFoundException {
-        return storeRepository.findById(id)
+        Store store = storeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Store not found"));
+
+        List<StoreInventory> inventory = storeInventoryRepository.findAllByStoreId(store.getId());
+
+        Hibernate.initialize(inventory);
+
+        store.setStoreInventories(inventory);
+
+        return store;
     }
 
     // Get store inventory by store ID

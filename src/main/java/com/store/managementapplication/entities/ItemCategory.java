@@ -24,7 +24,7 @@ public class ItemCategory implements Serializable {
     @NonNull
     private String supplier;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private Set<Item> items = new HashSet<>();
 
     public void addItem(Item item) {

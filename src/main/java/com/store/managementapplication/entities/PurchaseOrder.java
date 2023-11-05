@@ -26,10 +26,10 @@ public class PurchaseOrder {
     @NonNull
     private String status;
 
-    @OneToMany(mappedBy = "purchaseOrder", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "purchaseOrder", fetch = FetchType.LAZY)
     private Set<PurchaseOrderLineItem> purchaseOrderLineItems = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "storeId", referencedColumnName = "id")
     private Store store;
 

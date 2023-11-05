@@ -51,15 +51,15 @@ public class StoreInventoryController {
         var roles = auth.getAuthorities();
 
         // User is admin
-        if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
-            var response = storeInventoryService.addItemToStoreInventory(storeId, itemId, count);
+        if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            var response = storeInventoryService.addItemToStoreInventory(storeId, itemId, count, "APPROVED");
             return ResponseEntity.ok(response);
-        } else if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_MANAGER"))) {
+        } else if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_MANAGER"))) {
             User user = userService.getUserByEmail(auth.getName());
             user.getManagedStores().stream().
                     filter(s -> s.getId().equals(storeId)).
                     findFirst().orElseThrow(() -> new RuntimeException("User is not authorized to perform this action"));
-            return ResponseEntity.ok(storeInventoryService.addItemToStoreInventory(storeId, itemId, count));
+            return ResponseEntity.ok(storeInventoryService.addItemToStoreInventory(storeId, itemId, count, "PENDING"));
         } else {
             throw new RuntimeException("User with role " + roles + " is not authorized to perform this action");
         }

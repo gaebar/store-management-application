@@ -23,22 +23,25 @@ public class StoreInventory implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "storeId", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "storeId", referencedColumnName = "id", nullable = false)
     private Store store;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "itemId", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "itemId", referencedColumnName = "id", nullable = false)
     private Item item;
 
     @Column(nullable = false)
     private Integer quantity;
+
+    @Column(nullable = false)
     private String status;
 
-    public StoreInventory(Long storeId, Long itemId, int count) {
-        this.store = new Store(storeId);
-        this.quantity = count;
-        this.item = new Item(itemId);
+    public StoreInventory(Store store, Item item, int quantity, String status) {
+        this.store = store;
+        this.quantity = quantity;
+        this.item = item;
+        this.status = status;
     }
 
     public void addItems(int count) {

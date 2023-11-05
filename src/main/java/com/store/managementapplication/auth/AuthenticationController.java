@@ -1,7 +1,10 @@
 package com.store.managementapplication.auth;
 
+import com.store.managementapplication.entities.User;
+import com.store.managementapplication.services.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,10 +19,15 @@ public class AuthenticationController {
 
     private final AuthenticationService service;
 
+    @Autowired
+    private UserService userService;
+
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(
+    public ResponseEntity<User> register(
             @RequestBody RegisterRequest request) {
-        return ResponseEntity.ok(service.register(request));
+        service.register(request);
+        User userNew = userService.getUserByEmail(request.getEmail());
+        return ResponseEntity.ok(userNew);
     }
 
     @PostMapping("/authenticate")
