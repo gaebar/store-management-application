@@ -74,6 +74,7 @@ Authorization: Bearer {{admin-token}}
 {
   "name": "Lipstick",
   "description": "Matte finish, long-lasting",
+  "category":  {{category1-id}},
   "price": 20.0,
   "quantity": 50,
   "initialQuantity": 50
@@ -113,6 +114,7 @@ Authorization: Bearer {{admin-token}}
 {
   "name": "Eyeliner",
   "description": "Waterproof, long-lasting",
+  "category":  {{category1-id}},
   "price": 15.0,
   "quantity": 50,
   "initialQuantity": 50
@@ -121,6 +123,17 @@ Authorization: Bearer {{admin-token}}
 > {%
     client.global.set("item2-id", response.body.id);
     client.assert(response.body.name, "Item 2 is not created")
+%}
+
+### Add item 2 to category 1
+PUT http://localhost:8080/api/v1/items/addToCategory/{{item1-id}}/{{category1-id}}
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.status == 200);
+    client.assert(response.body.category.id, client.global.get("category1-id"));
+    client.assert(response.body.category.name, "Beauty")
 %}
 
 ### Get Item 2 by Id
@@ -184,7 +197,8 @@ Authorization: Bearer {{admin-token}}
 > {%
     //client.assert(response.body.id, "Order is not found");
     client.assert(response.body[0].quantity == 3);
-    client.assert(response.body[0].item.supplier.name == "Baci Cosmetics");
+    client.assert(response.body[0].item.category.name == "Beauty");
+    client.assert(response.body[0].item.category.supplier == "Baci Cosmetics");
 %}
 
 ### Delete line item 1

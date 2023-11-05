@@ -67,6 +67,12 @@ public class ItemService {
         return itemRepository.save(item);
     }
 
+    // Get category by item ID
+    public ItemCategory getCategoryByItemId(Long itemId) throws ResourceNotFoundException {
+        Item item = itemRepository.findById(itemId).orElseThrow(() -> new ResourceNotFoundException("Item not found"));
+        return item.getCategory();
+    }
+
 //    // Logic for Store Staff to view inventory by store
 //    public List<Item> viewInventoryByStore(Long storeId) {
 //        return itemRepository.findAllByStoreId(storeId);

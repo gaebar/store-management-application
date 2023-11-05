@@ -5,6 +5,8 @@ import com.store.managementapplication.exceptions.ResourceNotFoundException;
 import com.store.managementapplication.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryService {
 
@@ -42,5 +44,10 @@ public class CategoryService {
     public ItemCategory getCategoryById(Long categoryId) throws ResourceNotFoundException {
         return categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("ItemCategory not found for this id :: " + categoryId));
+    }
+
+    // get all categories
+    public List<ItemCategory> getAllCategories() {
+        return categoryRepository.findAll();
     }
 }

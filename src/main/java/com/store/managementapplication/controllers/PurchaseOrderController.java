@@ -1,9 +1,8 @@
 package com.store.managementapplication.controllers;
 
-import com.store.managementapplication.entities.Item;
-import com.store.managementapplication.entities.PurchaseOrder;
-import com.store.managementapplication.entities.PurchaseOrderLineItem;
-import com.store.managementapplication.entities.Store;
+import com.store.managementapplication.entities.*;
+import com.store.managementapplication.services.CategoryService;
+import com.store.managementapplication.services.ItemService;
 import com.store.managementapplication.services.PurchaseOrderService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,9 +19,13 @@ import java.util.Set;
 public class PurchaseOrderController {
 
     private final PurchaseOrderService purchaseOrderService;
+    private final ItemService itemService;
+    private final CategoryService categoryService;
 
-    public PurchaseOrderController(PurchaseOrderService purchaseOrderService) {
+    public PurchaseOrderController(PurchaseOrderService purchaseOrderService, ItemService itemService, CategoryService categoryService) {
         this.purchaseOrderService = purchaseOrderService;
+        this.itemService = itemService;
+        this.categoryService = categoryService;
     }
 
     // Only admins and store managers can create a new purchase order;
@@ -87,12 +90,14 @@ public class PurchaseOrderController {
     @PreAuthorize("hasAnyRole('ADMIN', 'STORE_MANAGER')")
     @GetMapping("/getItems/{purchaseOrderId}")
     public Set<PurchaseOrderLineItem> getPurchaseOrderLineItems(@PathVariable Long purchaseOrderId) throws Exception {
-        var lineItems = purchaseOrderService.getPurchaseOrderLineItems(purchaseOrderId);
-        lineItems.forEach(item -> {
-            // ItemCategory category = item.getItem().getCategory();
-            // item.getItem().setCategory(new ItemCategory(category.getId(), category.getName(), category.getSupplier()));
-            item.setItem(new Item(item.getItem().getId(), item.getItem().getName(), item.getItem().getDescription(), item.getItem().getPrice(), item.getItem().getInitialQuantity(), item.getItem().getQuantity()));
-            item.setPurchaseOrder(new PurchaseOrder(item.getPurchaseOrder().getId(), item.getPurchaseOrder().getStatus()));
+        Set<PurchaseOrderLineItem> lineItems = purchaseOrderService.getPurchaseOrderLineItems(purchaseOrderId);
+
+        lineItems.forEach(orderLineItem -> {
+            Item item = orderLineItem.getItem();
+            ItemCategory category = item.getCategory();
+            ItemCategory newCategory = new ItemCategory(category.getId(), category.getName(), category.getSupplier());
+            orderLineItem.setItem(new Item(item.getId(), item.getName(), item.getDescription(), item.getPrice(), item.getInitialQuantity(), item.getQuantity(), newCategory));
+            orderLineItem.setPurchaseOrder(new PurchaseOrder(orderLineItem.getPurchaseOrder().getId(), orderLineItem.getPurchaseOrder().getStatus()));
         });
         return lineItems;
     }

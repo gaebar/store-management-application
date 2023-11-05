@@ -69,8 +69,9 @@ public class StoreController {
         storeInventories.forEach(storeInventory -> {
             storeInventory.setStore(null);
             var item = storeInventory.getItem();
+            var category = item.getCategory();
             storeInventory.setItem(
-                    new Item(item.getId(), item.getName(), item.getDescription(), item.getPrice(), item.getInitialQuantity(), item.getQuantity()));
+                    new Item(item.getId(), item.getName(), item.getDescription(), item.getPrice(), item.getInitialQuantity(), item.getQuantity(), category));
         });
 
         return storeInventories;

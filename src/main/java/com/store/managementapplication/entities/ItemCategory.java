@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -24,8 +24,8 @@ public class ItemCategory implements Serializable {
     @NonNull
     private String supplier;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-    private Set<Item> items = new HashSet<>();
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Item> items = new ArrayList<>();
 
     public ItemCategory(Long id) {
         this.id = id;
@@ -40,5 +40,14 @@ public class ItemCategory implements Serializable {
     public void addItem(Item item) {
         items.add(item);
         item.setCategory(this);
+    }
+
+    @Override
+    public String toString() {
+        return "ItemCategory{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", supplier='" + supplier + '\'' +
+                '}';
     }
 }

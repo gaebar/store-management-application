@@ -92,6 +92,11 @@ public class PurchaseOrderService {
         return puchaseOrderLineItemRepository.findAll();
     }
 
+    public PurchaseOrderLineItem getPurchaseOrderLineItemById(Long lineItemId) throws ResourceNotFoundException {
+        return puchaseOrderLineItemRepository.findById(lineItemId)
+                .orElseThrow(() -> new ResourceNotFoundException("Purchase Order Line Item not found"));
+    }
+
     // Delete a purchase order line item by its id
     public void deletePurchaseOrderLineItem(Long lineItemId) throws ResourceNotFoundException {
         if (puchaseOrderLineItemRepository.existsById(lineItemId)) {
