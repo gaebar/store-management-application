@@ -74,7 +74,7 @@ Authorization: Bearer {{admin-token}}
 
 ### Check the Manager's Access to Store
 
-GET http://localhost:8080/api/v1/users/get/{{manager-id}}
+GET http://localhost:8080/api/v1/users/{{manager-id}}
 Content-Type: application/json
 Authorization: Bearer {{admin-token}}
 

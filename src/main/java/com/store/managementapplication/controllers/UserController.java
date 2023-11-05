@@ -34,7 +34,7 @@ public class UserController {
 
     // Get user by id (Admin role)
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }

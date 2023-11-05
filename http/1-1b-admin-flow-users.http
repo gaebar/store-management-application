@@ -80,7 +80,7 @@ Authorization: Bearer {{auth-token}}
 %}
 
 ### Get User, and check if Store 1 (Kirkland Megastore) is added to User
-GET http://localhost:8080/api/v1/users/get/{{user-id}}
+GET http://localhost:8080/api/v1/users/{{user-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
@@ -130,7 +130,7 @@ Authorization: Bearer {{auth-token}}
 
 
 ### Get User
-GET http://localhost:8080/api/v1/users/get/{{user-id}}
+GET http://localhost:8080/api/v1/users/{{user-id}}
 Content-Type: application/json
 Authorization: Bearer {{auth-token}}
 
