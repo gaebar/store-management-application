@@ -35,6 +35,7 @@ public class User implements UserDetails, Serializable {
     @Column(unique = true)
     @NonNull
     private String email;
+
     @NonNull
     private String password;
 
@@ -80,7 +81,7 @@ public class User implements UserDetails, Serializable {
 
     // Other UserDetails methods
     @Override
-    public @NotNull String getPassword() {
+    public String getPassword() {
         return password;
     }
 

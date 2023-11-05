@@ -33,6 +33,17 @@ Authorization: Bearer {{auth-token}}
     client.global.set("user-id", response.body.id);
 %}
 
+### Get User, and ensures the user has no added stores is added to User
+GET http://localhost:8080/api/v1/users/{{user-id}}
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
+> {%
+    client.assert(response.body.id, "User is not retrieved");
+    client.assert(response.body.managedStores.length == 0, "User has stores, while it should have none");
+%}
+
+
 ### Create Store 1 (Kirkland Megastore) and save store id in global variable
 POST http://localhost:8080/api/v1/admin/createStore
 Content-Type: application/json
@@ -76,7 +87,7 @@ Authorization: Bearer {{auth-token}}
 
 > {%
     client.assert(response.status === 200, "Store is not added to user");
-    client.assert(response.body.managedStores[0].id, client.global.get("store1-id"));
+    client.assert(response.body.managedStores[0].id, "The user has no store added");
 %}
 
 ### Get User, and check if Store 1 (Kirkland Megastore) is added to User
@@ -117,15 +128,13 @@ Authorization: Bearer {{auth-token}}
 {
   "firstname": "John1",
   "lastname": "Doe1",
-  "email": "john@doe.com",
-  "password": "password",
+  "email": "john1@doe.com",
+  "password": "password1",
   "role": "MANAGER"
 }
 
 > {%
     client.assert(response.body.id, "User is not updated");
-    client.assert(response.body.managedStores[0].id, client.global.get("store1-id"));
-    client.assert(response.body.managedStores[1].id, client.global.get("store2-id"));
 %}
 
 

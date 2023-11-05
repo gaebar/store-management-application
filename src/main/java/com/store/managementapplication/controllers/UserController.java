@@ -36,7 +36,9 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id) {
-        return userService.getUserById(id);
+        User user = userService.getUserById(id);
+        user.setPassword("");
+        return user;
     }
 
     // Delete a user (Admin role)
