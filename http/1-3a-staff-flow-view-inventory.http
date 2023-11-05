@@ -1,17 +1,69 @@
-### Authenticate as Store Staff and save token
+ # Super Admin login flow
+
+### Super Admin login and token generation
+
 POST http://localhost:8080/api/v1/auth/authenticate
 Content-Type: application/json
 
 {
-  "email": "staff@example.com",
-  "password": "staffPassword"
+  "email": "admin@example.com",
+  "password": "adminPassword"
 }
 
 > {%
     client.assert(response.body.token, "Token is not generated");
-    client.global.set("staff-token", response.body.token);
+    client.global.set("admin-token", response.body.token);
 %}
 
-### View Inventory as Authenticated Store Staff
-GET http://localhost:8080/api/v1/inventory/view
-Authorization: Bearer {{staff-token}}
+### Create Store Staff user
+POST http://localhost:8080/api/v1/auth/register
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+{
+  "firstname": "Store",
+  "lastname": "Staff",
+  "email": "staff@megastore.com",
+  "password": "staffPassword",
+  "role": "STAFF"
+}
+
+> {%
+    client.assert(response.body.id, "User is not generated");
+    client.global.set("staff-user-id", response.body.id);
+%}
+
+### Get User, and ensures the user has no added stores is added to User
+GET http://localhost:8080/api/v1/users/{{staff-user-id}}
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.body.id, "User is not retrieved");
+    client.assert(response.body.managedStores.length == 0, "User has stores, while it should have none");
+%}
+
+### Store Manager login and token generation
+
+POST http://localhost:8080/api/v1/auth/authenticate
+Content-Type: application/json
+
+{
+  "email": "staff@megastore.com",
+  "password": "staffPassword"
+}
+
+> {%
+    client.assert(response.body.token, "Manager Token is not generated");
+    client.global.set("manager-token", response.body.token);
+%}
+
+
+### Delete User
+DELETE http://localhost:8080/api/v1/users/delete/{{staff-user-id}}
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.status === 200, "User is not deleted");
+%}

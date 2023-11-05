@@ -122,6 +122,21 @@ Authorization: Bearer {{admin-token}}
     client.assert(response.body.managedStores[0].id, client.global.get("store1-id"));
 %}
 
+### Create Category 1
+POST http://localhost:8080/api/v1/categories/create
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+{
+  "name": "Beauty",
+  "supplier": "Baci and Abbracci"
+}
+
+> {%
+    client.global.set("category1-id", response.body.id);
+%}
+
+
 ### Create Item 1 (Lipstick)
 POST http://localhost:8080/api/v1/items/create
 Content-Type: application/json
@@ -130,7 +145,7 @@ Authorization: Bearer {{admin-token}}
 {
   "name": "Lipstick",
   "description": "Matte finish, long-lasting",
-  "itemCategory": "{{category1-id}}",
+  "category": "{{category1-id}}",
   "price": 20.0,
   "quantity": 50,
   "initialQuantity": 50
@@ -154,7 +169,7 @@ Authorization: Bearer {{admin-token}}
 {
   "name": "Foundation",
   "description": "Autumn shade, matte finish",
-  "itemCategory": "{{category1-id}}",
+  "category": {{category1-id}},
   "price": 11.0,
   "quantity": 20,
   "initialQuantity": 20

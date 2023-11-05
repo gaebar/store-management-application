@@ -1,6 +1,7 @@
 package com.store.managementapplication.controllers;
 
 import com.store.managementapplication.entities.Item;
+import com.store.managementapplication.entities.ItemCategory;
 import com.store.managementapplication.entities.Store;
 import com.store.managementapplication.entities.StoreInventory;
 import com.store.managementapplication.services.StoreService;
@@ -71,7 +72,8 @@ public class StoreController {
             var item = storeInventory.getItem();
             var category = item.getCategory();
             storeInventory.setItem(
-                    new Item(item.getId(), item.getName(), item.getDescription(), item.getPrice(), item.getInitialQuantity(), item.getQuantity(), category));
+                    new Item(item.getId(), item.getName(), item.getDescription(), item.getPrice(), item.getInitialQuantity(),
+                            item.getQuantity(), new ItemCategory(category.getId(), category.getName(), category.getSupplier())));
         });
 
         return storeInventories;

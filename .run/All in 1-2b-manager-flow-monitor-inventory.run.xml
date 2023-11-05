@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="All in 1-2b-manager-flow-monitor-inventory" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" path="$PROJECT_DIR$/http/1-2b-manager-flow-monitor-inventory.http">
+    <method v="2" />
+  </configuration>
+</component>

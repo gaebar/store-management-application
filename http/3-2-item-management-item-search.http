@@ -103,7 +103,7 @@ Authorization: Bearer {{admin-token}}
 ### Create Category 1
 POST http://localhost:8080/api/v1/categories/create
 Content-Type: application/json
-Authorization: Bearer {{auth-token}}
+Authorization: Bearer {{admin-token}}
 
 {
   "name": "Beauty",
