@@ -109,7 +109,7 @@ mvn spring-boot:run -Dspring-boot.run.profiles=dev
 
 - Run the HTTP requests in IntelliJ IDEA's REST Client or Postman to test the application's endpoints.
 - The sample requests are provided in the [http](http) folder.
-- Alternatively, use the Swagger UI to test the application's endpoints.
+- Alternatively, use the Swagger UI at to test the application's endpoints from the included web interface.
 
 ## Future Enhancements
 
