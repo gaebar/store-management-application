@@ -71,9 +71,21 @@ interaction with the API's endpoints.
 - Click the "Authorize" button at the top of the Swagger UI page, and input your JWT token value.
 - Once authorized, you will be able to send requests to protected endpoints directly from the Swagger UI.
 
-## Installation and Setup
+## Installation Steps
+To get started with the Store Management Application, follow these steps:
 
-To be added once the application is ready for deployment.
+### 1. **Clone the Repository:**
+```bash
+git clone https://github.com/gaebar/store-management-application.git
+```
+
+### 2. Navigate to the Project Directory:
+```bash
+cd store-management-application
+```
+### 3. Ensure Prerequisites are Installed:
+Ensure Java, Maven and MySQL are installed and properly configured on your system before 
+   starting. The application is tested with Java 17 and Maven 3.9.4.
 
 ## Usage
 
@@ -86,8 +98,8 @@ To be added once the application is ready for deployment.
 - Analytics dashboard for business insights.
 
 ## Contributing
-Your contributions are welcome! If you're interested in improving the Retail Inventory Management System, please feel free to fork the repository and submit a pull request. For substantial changes, please open an issue first to discuss what you propose. Check out the [Contribution Guidelines](CONTRIBUTING.md) for more details on how to contribute effectively.
+Your contributions are welcome! If you're interested in improving the Store Management Application, please feel free to fork the repository and submit a pull request. For substantial changes, please open an issue first to discuss what you propose. Check out the [Contribution Guidelines](CONTRIBUTING.md) for more details on how to contribute effectively.
 
 ## License
-The Retail Inventory Management System is made available as open source under the [MIT License](LICENSE.txt), which provides a broad permission to use, modify, and distribute the software.
+The Store Management Application is made available as open source under the [MIT License](LICENSE.txt), which provides a broad permission to use, modify, and distribute the software.
 
