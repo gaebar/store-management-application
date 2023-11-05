@@ -2,6 +2,7 @@ package com.store.managementapplication.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -43,14 +44,14 @@ public class User implements UserDetails, Serializable {
 
     // Getter and Setter for managedStores
     @Getter
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_managed_stores",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "store_id"))
     @Builder.Default
     private Set<Store> managedStores = new HashSet<>();  // Initialize to avoid null
 
-    public User(String firstname, String lastname, String email, String password, Role.RoleType role) {
+    public User(String firstname, String lastname, @NotNull String email, String password, Role.@NotNull RoleType role) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
@@ -79,7 +80,7 @@ public class User implements UserDetails, Serializable {
 
     // Other UserDetails methods
     @Override
-    public String getPassword() {
+    public @NotNull String getPassword() {
         return password;
     }
 

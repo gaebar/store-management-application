@@ -5,6 +5,10 @@ import com.store.managementapplication.entities.User;
 import com.store.managementapplication.exceptions.ResourceNotFoundException;
 import com.store.managementapplication.repositories.StoreRepository;
 import com.store.managementapplication.repositories.UserRepository;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +20,13 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final StoreRepository storeRepository;
+    private final SessionFactory sessionFactory;
 
-    public UserService(UserRepository userRepository, StoreRepository storeRepository) {
+
+    public UserService(UserRepository userRepository, StoreRepository storeRepository, SessionFactory sessionFactory) {
         this.userRepository = userRepository;
         this.storeRepository = storeRepository;
+        this.sessionFactory = sessionFactory;
     }
 
     public User createUser(User user) {
@@ -107,13 +114,42 @@ public class UserService {
 
     // add a store to the stores managed by a user, by user id and store id
     public User addManagedStore(Long userId, Long storeId) {
-        return userRepository.findById(userId)
-                .map(user -> {
-                    user.addManagedStore(storeRepository.findById(storeId)
-                            .orElseThrow(() -> new ResourceNotFoundException("Store not found")));
-                    return userRepository.save(user);
-                })
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        User user = null;
+        Store store = null;
+        try {
+            tx = session.beginTransaction();
+            user = userRepository.findById(userId)
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+            store = storeRepository.findById(storeId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Store not found"));
+
+            user = session.get(User.class, userId);
+            user.addManagedStore(session.get(Store.class, storeId));
+
+
+            // user.addManagedStore(store);
+
+            //user = session.get(User.class, userId);
+            // user.addManagedStore(session.get(Store.class, storeId));
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null)
+                tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return user;
+
+        // add managed store to user
+
+        //return userRepository.save(user);
+
     }
 
     // remove a store from the stores managed by a user, by user id and store id

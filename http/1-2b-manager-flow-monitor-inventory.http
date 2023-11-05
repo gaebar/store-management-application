@@ -66,13 +66,43 @@ Authorization: Bearer {{admin-token}}
 
 > {%
     client.assert(response.body.id, "Store ID is not generated");
-    client.global.set("store-id", response.body.id);
+    client.global.set("store1-id", response.body.id);
+%}
+
+### Create Store 2 and save store id in global variable
+
+POST http://localhost:8080/api/v1/admin/createStore
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+{
+  "name": "Redmond Megastore 2",
+  "location": "123 Red Street, Redmond, WA 98074 2",
+  "contactInformation": "Telephone Number: 1234567890 2",
+  "storeType": "retail",
+  "openingDate": "2019-01-01"
+}
+
+> {%
+    client.assert(response.body.id, "Store ID is not generated");
+    client.global.set("store2-id", response.body.id);
 %}
 
 
-### Assign the store to the manager
 
-POST http://localhost:8080/api/v1/users/addManagedStore/{{manager-id}}/{{store-id}}
+### Assign the store 1 to the manager
+
+POST http://localhost:8080/api/v1/users/addManagedStore/{{manager-id}}/{{store1-id}}
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.status === 200, "Failed to assign store to manager");
+%}
+
+### Assign the store 2 to the manager
+
+POST http://localhost:8080/api/v1/users/addManagedStore/{{manager-id}}/{{store2-id}}
 Content-Type: application/json
 Authorization: Bearer {{admin-token}}
 
@@ -88,18 +118,18 @@ Authorization: Bearer {{admin-token}}
 
 > {%
     client.assert(response.body[0].id, "Store is not found");
-    client.global.set("store-id", response.body[0].id);
+    client.global.set("store1-id", response.body[0].id);
 %}
 
 ### Check the Manager's Access to Store
 
 GET http://localhost:8080/api/v1/users/get/{{manager-id}}
 Content-Type: application/json
-Authorization: Bearer {{admin-token}}
+Authorization: Bearer {{auth-token}}
 
 > {%
     client.assert(response.body.id, "Manager is not retrieved");
-    client.assert(response.body.managedStores[0].id, client.global.get("store-id"));
+    client.assert(response.body.managedStores[0].id, client.global.get("store1-id"));
 %}
 
 ### Create Item 1 (Lipstick)
@@ -176,19 +206,7 @@ Authorization: Bearer {{manager-token}}
 
 ### Add item 1 to store inventory
 
-PUT http://localhost:8080/api/v1/inventories/{{store-id}}/{{item1-id}}/3
-Authorization: Bearer {{manager-token}}
-Content-Type: application/json
-
-> {%
-    client.global.set("inventory1-id", response.body.id);
-    client.assert(response.status === 200, "Inventory is not added");
-    client.assert(response.body.quantity === 3, "Inventory is not added");
-%}
-
-### Add item 1 to store inventory
-
-PUT http://localhost:8080/api/v1/inventories/{{store-id}}/{{item1-id}}/3
+PUT http://localhost:8080/api/v1/inventories/{{store1-id}}/{{item1-id}}/3
 Authorization: Bearer {{manager-token}}
 Content-Type: application/json
 
@@ -201,7 +219,7 @@ Content-Type: application/json
 
 ### Add item 2 to a store inventory
 
-PUT http://localhost:8080/api/v1/inventories/{{store-id}}/{{item2-id}}/5
+PUT http://localhost:8080/api/v1/inventories/{{store1-id}}/{{item2-id}}/5
 Authorization: Bearer {{manager-token}}
 Content-Type: application/json
 
@@ -212,7 +230,7 @@ Content-Type: application/json
 %}
 
 ### Get the inventory of a store
-GET http://localhost:8080/api/v1/stores/getStoreInventory/{{store-id}}
+GET http://localhost:8080/api/v1/stores/getStoreInventory/{{store1-id}}
 Content-Type: application/json
 Authorization: Bearer {{manager-token}}
 
@@ -260,7 +278,7 @@ Authorization: Bearer {{admin-token}}
 %}
 
 ### Delete Managed Store (cleanup after tests)
-DELETE http://localhost:8080/api/v1/users/removeManagedStore/{{manager-id}}/{{store-id}}
+DELETE http://localhost:8080/api/v1/users/removeManagedStore/{{manager-id}}/{{store1-id}}
 Content-Type: application/json
 Authorization: Bearer {{admin-token}}
 
@@ -268,15 +286,26 @@ Authorization: Bearer {{admin-token}}
     client.assert(response.status === 200, "Store is not deleted");
 %}
 
-### Delete Store (cleanup after tests)
+### Delete Store 1 (cleanup after tests)
 
-DELETE http://localhost:8080/api/v1/admin/deleteStore/{{store-id}}
+DELETE http://localhost:8080/api/v1/admin/deleteStore/{{store1-id}}
 Content-Type: application/json
 Authorization: Bearer {{admin-token}}
 
 > {%
     client.assert(response.status === 200, "Store is not deleted");
 %}
+
+### Delete Store 2 (cleanup after tests)
+
+DELETE http://localhost:8080/api/v1/admin/deleteStore/{{store2-id}}
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.status === 200, "Store is not deleted");
+%}
+
 
 
 ### Delete Store Manager (cleanup after tests)

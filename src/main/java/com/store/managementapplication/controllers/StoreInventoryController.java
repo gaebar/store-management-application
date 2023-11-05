@@ -51,7 +51,7 @@ public class StoreInventoryController {
         var roles = auth.getAuthorities();
 
         // User is admin
-        if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+        if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
             var response = storeInventoryService.addItemToStoreInventory(storeId, itemId, count);
             return ResponseEntity.ok(response);
         } else if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_MANAGER"))) {
