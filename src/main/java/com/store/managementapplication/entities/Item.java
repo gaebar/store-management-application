@@ -72,14 +72,13 @@ public class Item implements Serializable {
         this.name = name;
     }
 
-    public Item(Long id, String name, String description, Double price, ItemCategory category, Integer initialQuantity, Integer quantity) {
+    public Item(Long id, String name, String description, Double price, Integer initialQuantity, Integer quantity) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.initialQuantity = initialQuantity;
         this.quantity = quantity;
-        this.category = category;
     }
 
     public void setStoreInventory(StoreInventory storeInventory) {

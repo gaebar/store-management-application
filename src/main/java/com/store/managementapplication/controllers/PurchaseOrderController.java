@@ -89,7 +89,9 @@ public class PurchaseOrderController {
     public Set<PurchaseOrderLineItem> getPurchaseOrderLineItems(@PathVariable Long purchaseOrderId) throws Exception {
         var lineItems = purchaseOrderService.getPurchaseOrderLineItems(purchaseOrderId);
         lineItems.forEach(item -> {
-            item.setItem(new Item(item.getItem().getId()));
+            // ItemCategory category = item.getItem().getCategory();
+            // item.getItem().setCategory(new ItemCategory(category.getId(), category.getName(), category.getSupplier()));
+            item.setItem(new Item(item.getItem().getId(), item.getItem().getName(), item.getItem().getDescription(), item.getItem().getPrice(), item.getItem().getInitialQuantity(), item.getItem().getQuantity()));
             item.setPurchaseOrder(new PurchaseOrder(item.getPurchaseOrder().getId(), item.getPurchaseOrder().getStatus()));
         });
         return lineItems;

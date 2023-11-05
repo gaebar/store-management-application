@@ -70,7 +70,7 @@ public class StoreController {
             storeInventory.setStore(null);
             var item = storeInventory.getItem();
             storeInventory.setItem(
-                    new Item(item.getId(), item.getName(), item.getDescription(), item.getPrice(), item.getCategory(), item.getInitialQuantity(), item.getQuantity()));
+                    new Item(item.getId(), item.getName(), item.getDescription(), item.getPrice(), item.getInitialQuantity(), item.getQuantity()));
         });
 
         return storeInventories;

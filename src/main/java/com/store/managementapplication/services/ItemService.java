@@ -30,6 +30,15 @@ public class ItemService {
         return itemRepository.save(item);
     }
 
+    // add category to item
+    public Item addCategoryToItem(Long itemId, Long categoryId) throws ResourceNotFoundException {
+        Item item = itemRepository.findById(itemId).orElseThrow(() -> new ResourceNotFoundException("Item not found"));
+        ItemCategory category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not found"));
+        category.addItem(item);
+        categoryRepository.save(category);
+        return itemRepository.save(item);
+    }
+
     // Update an existing item
     public Item updateItem(Long id, Item item) throws ResourceNotFoundException {
         if (itemRepository.existsById(id)) {

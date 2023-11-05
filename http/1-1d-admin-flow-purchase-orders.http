@@ -57,6 +57,15 @@ Authorization: Bearer {{admin-token}}
     client.assert(response.body.name, "Beauty");
 %}
 
+### Get Category by Id
+GET http://localhost:8080/api/v1/categories/{{category1-id}}
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.body.id, "Category is not found");
+%}
+
 ### Create Item 1 (Lipstick)
 POST http://localhost:8080/api/v1/items/create
 Content-Type: application/json
@@ -65,7 +74,6 @@ Authorization: Bearer {{admin-token}}
 {
   "name": "Lipstick",
   "description": "Matte finish, long-lasting",
-  "itemCategory": "{{category1-id}}",
   "price": 20.0,
   "quantity": 50,
   "initialQuantity": 50
@@ -74,6 +82,18 @@ Authorization: Bearer {{admin-token}}
 > {%
     client.global.set("item1-id", response.body.id);
     client.assert(response.body.name, "Item 1 is not created")
+
+%}
+
+### Add item 1 to category 1
+PUT http://localhost:8080/api/v1/items/addToCategory/{{item1-id}}/{{category1-id}}
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.status == 200);
+    client.assert(response.body.category.id, client.global.get("category1-id"));
+    client.assert(response.body.category.name, "Beauty")
 %}
 
 ### Get Item by Id
@@ -91,12 +111,11 @@ Content-Type: application/json
 Authorization: Bearer {{admin-token}}
 
 {
-    "name": "Eyeliner",
-    "description": "Waterproof, long-lasting",
-    "itemCategory": "{{category1-id}}",
-    "price": 15.0,
-    "quantity": 50,
-    "initialQuantity": 50
+  "name": "Eyeliner",
+  "description": "Waterproof, long-lasting",
+  "price": 15.0,
+  "quantity": 50,
+  "initialQuantity": 50
 }
 
 > {%
@@ -165,29 +184,7 @@ Authorization: Bearer {{admin-token}}
 > {%
     //client.assert(response.body.id, "Order is not found");
     client.assert(response.body[0].quantity == 3);
-%}
-
-
-### Get Order by Id
-GET http://localhost:8080/api/v1/orders/{{order1-id}}
-Content-Type: application/json
-Authorization: Bearer {{admin-token}}
-
-> {%
-    client.assert(response.body.id, "Order is not found");
-%}
-
-
-
-
-
-### Delete Category 1
-DELETE http://localhost:8080/api/v1/categories/delete/{{category1-id}}
-Content-Type: application/json
-Authorization: Bearer {{admin-token}}
-
-> {%
-    client.assert(response.status == 200);
+    client.assert(response.body[0].item.supplier.name == "Baci Cosmetics");
 %}
 
 ### Delete line item 1
@@ -208,6 +205,18 @@ Authorization: Bearer {{admin-token}}
     client.assert(response.status == 200);
 %}
 
+
+### Get Order by Id
+GET http://localhost:8080/api/v1/orders/{{order1-id}}
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.body.id, "Order is not found");
+%}
+
+
+
 ### Delete Order 1
 DELETE http://localhost:8080/api/v1/orders/delete/{{order1-id}}
 Content-Type: application/json
@@ -216,6 +225,9 @@ Authorization: Bearer {{admin-token}}
 > {%
     client.assert(response.status == 200);
 %}
+
+
+
 
 
 ### Delete Item 1
@@ -235,6 +247,17 @@ Authorization: Bearer {{admin-token}}
 > {%
     client.assert(response.status == 200);
 %}
+
+
+### Delete Category 1
+DELETE http://localhost:8080/api/v1/categories/delete/{{category1-id}}
+Content-Type: application/json
+Authorization: Bearer {{admin-token}}
+
+> {%
+    client.assert(response.status == 200);
+%}
+
 
 ### Delete Store 1
 DELETE http://localhost:8080/api/v1/admin/deleteStore/{{store1-id}}

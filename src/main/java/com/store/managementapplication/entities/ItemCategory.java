@@ -27,6 +27,16 @@ public class ItemCategory implements Serializable {
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private Set<Item> items = new HashSet<>();
 
+    public ItemCategory(Long id) {
+        this.id = id;
+    }
+
+    public ItemCategory(Long id, String name, String supplier) {
+        this.id = id;
+        this.name = name;
+        this.supplier = supplier;
+    }
+
     public void addItem(Item item) {
         items.add(item);
         item.setCategory(this);
