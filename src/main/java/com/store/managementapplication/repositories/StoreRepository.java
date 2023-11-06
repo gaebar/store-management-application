@@ -3,6 +3,7 @@ package com.store.managementapplication.repositories;
 import com.store.managementapplication.entities.Store;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -10,11 +11,11 @@ import java.util.List;
  * "Store" is the entity type and "Long" is the ID type.
  */
 public interface StoreRepository extends JpaRepository<Store, Long> {
-    List<Store> findByStoreTypeContaining(String storeType);
+    List<Store> findByStoreTypeContainingIgnoreCase(String storeType);
 
     List<Store> findByLocationContainingIgnoreCase(String location);
 
-    List<Store> findByOpeningDateContaining(String date);
+    List<Store> findByNameContainingIgnoreCase(String name);
 
-
+    List<Store> findByOpeningDateAfter(Date openingDate);
 }

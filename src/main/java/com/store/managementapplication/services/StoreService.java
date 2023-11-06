@@ -9,6 +9,7 @@ import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -87,11 +88,20 @@ public class StoreService {
         return storeRepository.findByLocationContainingIgnoreCase(location);
     }
 
-    public List<Store> searchByType(String storeType) {
-        return storeRepository.findByStoreTypeContaining(storeType);
+    public List<Store> searchByName(String name) {
+        return storeRepository.findByNameContainingIgnoreCase(name);
     }
 
-    public List<Store> searchByOpeningDate(String date) {
-        return storeRepository.findByOpeningDateContaining(date);
+    public List<Store> searchByType(String storeType) {
+        return storeRepository.findByStoreTypeContainingIgnoreCase(storeType);
+    }
+
+
+    // search for store after opening date
+    public List<Store> searchByOpeningDateAfter(Date date) {
+        // convert from local date to date
+
+
+        return storeRepository.findByOpeningDateAfter(date);
     }
 }

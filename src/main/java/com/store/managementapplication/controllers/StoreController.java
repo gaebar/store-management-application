@@ -79,15 +79,5 @@ public class StoreController {
         return storeInventories;
     }
 
-    // Search for stores based on type
-    @GetMapping("/search/type/{type}") // Maps to HTTP GET and fetches stores by type
-    public List<Store> searchByType(@PathVariable String type) {
-        return storeService.searchByType(type);
-    }
 
-    // Search for stores based on opening date
-    @GetMapping("/search/openingDate/{date}") // Maps to HTTP GET and fetches stores by opening date
-    public List<Store> searchByOpeningDate(@PathVariable String date) {
-        return storeService.searchByOpeningDate(date);
-    }
 }
