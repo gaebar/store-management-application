@@ -84,7 +84,7 @@ public class StoreService {
 
     // Additional functionalities
     public List<Store> searchByLocation(String location) {
-        return storeRepository.findByLocationContaining(location);
+        return storeRepository.findByLocationContainingIgnoreCase(location);
     }
 
     public List<Store> searchByType(String storeType) {

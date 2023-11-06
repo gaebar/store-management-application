@@ -23,6 +23,7 @@ public class SecurityConfiguration {
 
     private static final String[] AUTH_ALLOW_LIST = {
             "/api/v1/auth/**",
+            "/api/v1/search/**",
             "/v2/api-docs",
             "/v3/api-docs/",
             "/v3/api-docs/**",

@@ -73,24 +73,6 @@ public class ItemService {
         return item.getCategory();
     }
 
-//    // Logic for Store Staff to view inventory by store
-//    public List<Item> viewInventoryByStore(Long storeId) {
-//        return itemRepository.findAllByStoreId(storeId);
-//    }
-
-
-//    // Logic for Store Staff to update item status
-//    public Item updateItemStatus(Long itemId, String newStatus) throws ResourceNotFoundException {
-//        Optional<Item> optionalItem = itemRepository.findById(itemId);
-//        if (optionalItem.isPresent()) {
-//            Item item = optionalItem.get();
-//            item.setStatus(newStatus);
-//            return itemRepository.save(item);
-//        } else {
-//            throw new ResourceNotFoundException("Item not found");
-//        }
-//    }
-
     // Get all items
     public List<Item> getAllItems() {
         return itemRepository.findAll();
@@ -98,7 +80,7 @@ public class ItemService {
 
     // Additional functionalities like search can go here
     public List<Item> searchByName(String name) {
-        return itemRepository.findByNameContaining(name);
+        return itemRepository.findByNameContainingIgnoreCase(name);
     }
 
     public List<Item> searchByCategory(String category) {
@@ -107,5 +89,14 @@ public class ItemService {
 
     public List<Item> searchByPriceRange(double minPrice, double maxPrice) {
         return itemRepository.findByPriceBetween(minPrice, maxPrice);
+    }
+
+    public List<Item> searchByNameAndCategory(String name, String category) {
+        return itemRepository.findByNameContainingAndCategoryContaining(name, category);
+    }
+
+    // search by name containing and category name containing
+    public List<Item> searchByNameContainingAndCategoryNameContaining(String name, String category) {
+        return itemRepository.findByNameContainingIgnoreCaseAndCategoryNameContainingIgnoreCase(name, category);
     }
 }

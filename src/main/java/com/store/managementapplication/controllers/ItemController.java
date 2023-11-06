@@ -8,8 +8,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/v1/items")
 @Tag(name = "Item", description = "Item API")
@@ -75,7 +73,7 @@ public class ItemController {
         if (item.getCategory() == null) {
             return item;
         }
-        
+
         item.setCategory(
                 new ItemCategory(
                         item.getCategory().getId(),
@@ -86,47 +84,4 @@ public class ItemController {
         return item;
     }
 
-
-    /*
-
-    // Store Staff can view store inventory
-    @PreAuthorize("hasRole('STORE_STAFF')")
-    @GetMapping("/viewInventory/{storeId}")
-    public List<Item> viewInventoryByStore(@PathVariable Long storeId) {
-        return itemService.viewInventoryByStore(storeId);
-    }
-
-    // Store Staff can request item additions
-    @PreAuthorize("hasRole('STORE_STAFF')")
-    @PostMapping("/requestAddition")
-    public Item requestItemAddition(@RequestBody Item item) {
-        return itemService.requestItemAddition(item);
-    }
-
-    // Store Staff can update item statuses
-    @PreAuthorize("hasPermission('item:status_update')")
-    @PutMapping("/updateStatus/{itemId}/{newStatus}")
-    public Item updateItemStatus(@PathVariable Long itemId, @PathVariable String newStatus) {
-        return new Item(); //itemService.updateItemStatus(itemId, newStatus);
-    }
-
-    */
-
-    // Any authenticated user can search for items by name
-    @GetMapping("/search/name/{name}")
-    public List<Item> searchByName(@PathVariable String name) {
-        return itemService.searchByName(name);
-    }
-
-    // Any authenticated user can search for items by category
-    @GetMapping("/search/category/{category}")
-    public List<Item> searchByCategory(@PathVariable String category) {
-        return itemService.searchByCategory(category);
-    }
-
-    // Any authenticated user can search for items by price range
-    @GetMapping("/search/price/{minPrice}/{maxPrice}")
-    public List<Item> searchByPriceRange(@PathVariable double minPrice, @PathVariable double maxPrice) {
-        return itemService.searchByPriceRange(minPrice, maxPrice);
-    }
 }

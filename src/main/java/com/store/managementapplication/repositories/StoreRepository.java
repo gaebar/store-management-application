@@ -12,7 +12,7 @@ import java.util.List;
 public interface StoreRepository extends JpaRepository<Store, Long> {
     List<Store> findByStoreTypeContaining(String storeType);
 
-    List<Store> findByLocationContaining(String location);
+    List<Store> findByLocationContainingIgnoreCase(String location);
 
     List<Store> findByOpeningDateContaining(String date);
 

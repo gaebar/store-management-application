@@ -219,32 +219,15 @@ Authorization: Bearer {{manager-token}}
     client.global.set("maxPrice", 10);
 %}
 
-### Search by price range
 
-GET http://localhost:8080/api/v1/search/price/{{minPrice}}/{{maxPrice}}
+### Search by store location
+GET http://localhost:8080/api/v1/search/store-location/seattle
 Content-Type: application/json
 
 > {%
-    client.assert(response.body.length == 1, "Search by price range is not working");
+    client.assert(response.body.length == 1, "Search by location is not working");
 %}
 
-### Search by name
-
-GET http://localhost:8080/api/v1/search/item-name/lipstick
-Content-Type: application/json
-
-> {%
-    client.assert(response.body.length == 1, "Search by name is not working");
-%}
-
-### Search by name
-
-GET http://localhost:8080/api/v1/search/item-name/lipstick/category-name/beauty
-Content-Type: application/json
-
-> {%
-    client.assert(response.body.length == 1, "Search by name is not working");
-%}
 
 ### Delete Inventory from the store (cleanup after tests)
 
@@ -302,3 +285,5 @@ Authorization: Bearer {{admin-token}}
 > {%
     client.assert(response.status === 200, "Store is not deleted");
 %}
+
+
